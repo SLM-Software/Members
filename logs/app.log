@@ -1,0 +1,308 @@
+[2017-08-04 10:06:23] slim-app.INFO: Slim-Skeleton '/' route [] {"uid":"17947f7"}
+[2017-08-04 10:30:18] slim-app.INFO: Slim-Skeleton '/' route [] {"uid":"86b8c66"}
+[2017-08-04 10:30:44] slim-app.INFO: Slim-Skeleton '/' route [] {"uid":"80b2fc5"}
+[2017-08-04 10:44:33] slim-app.INFO: Slim-Skeleton '/' route [] {"uid":"3d15c32"}
+[2017-08-04 10:51:39] slim-app.INFO: catch-all '/' route [] {"uid":"efa661f"}
+[2017-08-04 10:51:46] slim-app.INFO: version '/' route [] {"uid":"6dbddf7"}
+[2017-08-04 11:01:32] slim-app.INFO: version '/' route [] {"uid":"8a48817"}
+[2017-08-04 11:02:06] slim-app.INFO: version '/' route [] {"uid":"9767db7"}
+[2017-08-04 11:02:08] slim-app.INFO: version '/' route [] {"uid":"14fcfa2"}
+[2017-08-04 11:02:19] slim-app.INFO: version '/' route [] {"uid":"65f8911"}
+[2017-08-04 11:04:06] slim-app.INFO: version '/' route [] {"uid":"fda33fe"}
+[2017-08-04 11:06:31] slim-app.INFO: version '/' route [] {"uid":"ed43255"}
+[2017-08-04 11:21:27] slim-app.INFO: version '/' route [] {"uid":"63cf462"}
+[2017-08-04 11:26:18] slim-app.INFO: version '/' route [] {"uid":"a55c7fe"}
+[2017-08-04 11:28:38] slim-app.INFO: version '/' route [] {"uid":"6c0d360"}
+[2017-08-04 11:29:38] slim-app.INFO: version '/' route [] {"uid":"a0a67d4"}
+[2017-08-04 11:30:18] slim-app.INFO: version '/' route [] {"uid":"c761eb9"}
+[2017-08-04 11:34:57] slim-app.INFO: version '/' route [] {"uid":"c9adc5a"}
+[2017-08-04 11:36:18] slim-app.INFO: version '/' route [] {"uid":"309acca"}
+[2017-08-04 11:37:48] slim-app.INFO: version '/' route [] {"uid":"fdae6f6"}
+[2017-08-04 11:38:48] slim-app.INFO: catch-all '/' route [] {"uid":"b073e6d"}
+[2017-08-04 11:39:11] slim-app.INFO: version '/' route [] {"uid":"603ef74"}
+[2017-08-04 11:40:45] members.INFO: version '/' route [] {"uid":"db6dcb6"}
+[2017-08-04 11:42:47] members.INFO: version '/' route [] {"uid":"9baf31c"}
+[2017-08-04 11:47:45] members.INFO: version '/' route [] {"uid":"e85aa35"}
+[2017-08-04 11:48:01] members.INFO: version '/' route [] {"uid":"eefb0b5"}
+[2017-08-04 11:59:15] members.INFO: version '/' route [] {"uid":"b1c526e"}
+[2017-08-04 11:59:46] members.INFO: catch-all '/' route [] {"uid":"698ef51"}
+[2017-08-04 12:00:01] members.INFO: catch-all '/' route [] {"uid":"b3db8fe"}
+[2017-08-04 12:00:34] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"4882e83"}
+[2017-08-04 12:02:25] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"ba12972"}
+[2017-08-04 12:02:27] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"2e7adf9"}
+[2017-08-04 12:03:24] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"b999a21"}
+[2017-08-04 12:03:29] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"12e691e"}
+[2017-08-04 12:04:16] members.INFO: version '/' route [] {"uid":"b3bc1fc"}
+[2017-08-04 12:04:22] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"c05eea2"}
+[2017-08-04 12:05:34] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"ca315b8"}
+[2017-08-04 12:06:29] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"76f29fa"}
+[2017-08-04 12:06:32] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"3e7aa1f"}
+[2017-08-04 12:06:32] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"c1fa17b"}
+[2017-08-04 12:06:32] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"270b142"}
+[2017-08-04 12:06:32] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"1336dd9"}
+[2017-08-04 12:06:33] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"99add79"}
+[2017-08-04 12:06:33] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"5c7ecc3"}
+[2017-08-04 12:06:33] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"e914ab5"}
+[2017-08-04 12:06:33] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"fedbf28"}
+[2017-08-04 12:07:37] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"eb102ae"}
+[2017-08-04 12:07:59] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"dab6417"}
+[2017-08-04 12:08:02] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"442f754"}
+[2017-08-04 12:08:02] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"c891e68"}
+[2017-08-04 12:08:02] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"61e14fd"}
+[2017-08-04 12:08:03] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"4b4f75c"}
+[2017-08-04 12:08:03] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"1b72247"}
+[2017-08-04 12:08:03] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"9411e3a"}
+[2017-08-04 12:08:12] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"bcd1f45"}
+[2017-08-04 12:08:12] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"bb83919"}
+[2017-08-04 12:08:13] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"72fda78"}
+[2017-08-04 12:08:52] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"3d0c834"}
+[2017-08-04 12:08:56] members.INFO: /read/{primaryEmail} '/' route [] {"uid":"4ef08a5"}
+[2017-08-04 12:11:48] members.INFO: /create/member '/' route [] {"uid":"a42f6ab"}
+[2017-08-04 12:14:11] members.INFO: /create/member '/' route [] {"uid":"6a61c72"}
+[2017-08-04 12:14:42] members.INFO: /create/member '/' route [] {"uid":"fab3ed5"}
+[2017-08-04 12:15:55] members.INFO: /create/member '/' route [] {"uid":"502a9a6"}
+[2017-08-04 12:15:58] members.INFO: /create/member '/' route [] {"uid":"38c2eff"}
+[2017-08-04 12:15:59] members.INFO: /create/member '/' route [] {"uid":"a655915"}
+[2017-08-04 12:15:59] members.INFO: /create/member '/' route [] {"uid":"fe4ba51"}
+[2017-08-04 12:15:59] members.INFO: /create/member '/' route [] {"uid":"bccef46"}
+[2017-08-04 12:15:59] members.INFO: /create/member '/' route [] {"uid":"a99ca10"}
+[2017-08-04 12:15:59] members.INFO: /create/member '/' route [] {"uid":"ac1840e"}
+[2017-08-04 12:15:59] members.INFO: /create/member '/' route [] {"uid":"da5254b"}
+[2017-08-04 12:17:11] members.INFO: /readall '/' route [] {"uid":"238940f"}
+[2017-08-04 12:17:17] members.INFO: version '/' route [] {"uid":"3f75b5a"}
+[2017-08-04 12:19:25] members.INFO: version '/' route [] {"uid":"3df843a"}
+[2017-08-04 12:19:32] members.INFO: /readall '/' route [] {"uid":"976e034"}
+[2017-08-04 12:21:20] members.INFO: /readall '/' route [] {"uid":"cce71fd"}
+[2017-08-04 12:22:05] members.INFO: /readall '/' route [] {"uid":"0df0e8c"}
+[2017-08-04 12:28:51] members.INFO: version '/' route [] {"uid":"11c03ad"}
+[2017-08-04 12:28:51] members.INFO: version '/' route [] {"uid":"a386ac9"}
+[2017-08-04 12:41:11] members.INFO: /readall '/' route [] {"uid":"e50245a"}
+[2017-08-04 12:42:02] members.INFO: /readall '/' route [] {"uid":"9f04b2a"}
+[2017-08-04 12:42:06] members.INFO: /readall '/' route [] {"uid":"8aa5879"}
+[2017-08-04 12:42:06] members.INFO: /readall '/' route [] {"uid":"8f46851"}
+[2017-08-04 12:42:07] members.INFO: /readall '/' route [] {"uid":"db9dd2f"}
+[2017-08-04 12:42:07] members.INFO: /readall '/' route [] {"uid":"ee467ff"}
+[2017-08-04 12:42:07] members.INFO: /readall '/' route [] {"uid":"4f55f63"}
+[2017-08-04 12:44:56] members.INFO: /readall '/' route [] {"uid":"4e200e2"}
+[2017-08-04 12:44:56] members.INFO: Array [] {"uid":"4e200e2"}
+[2017-08-04 12:45:28] members.INFO: /readall '/' route [] {"uid":"00a0e4d"}
+[2017-08-04 12:45:28] members.INFO: Array [] {"uid":"00a0e4d"}
+[2017-08-04 12:45:30] members.INFO: /readall '/' route [] {"uid":"c4740e2"}
+[2017-08-04 12:45:30] members.INFO: Array [] {"uid":"c4740e2"}
+[2017-08-04 12:45:30] members.INFO: /readall '/' route [] {"uid":"31640a9"}
+[2017-08-04 12:45:30] members.INFO: Array [] {"uid":"31640a9"}
+[2017-08-04 12:45:31] members.INFO: /readall '/' route [] {"uid":"1fde36f"}
+[2017-08-04 12:45:31] members.INFO: Array [] {"uid":"1fde36f"}
+[2017-08-04 12:45:31] members.INFO: /readall '/' route [] {"uid":"a19ea2e"}
+[2017-08-04 12:45:31] members.INFO: Array [] {"uid":"a19ea2e"}
+[2017-08-04 12:45:31] members.INFO: /readall '/' route [] {"uid":"aa0e536"}
+[2017-08-04 12:45:31] members.INFO: Array [] {"uid":"aa0e536"}
+[2017-08-04 12:45:31] members.INFO: /readall '/' route [] {"uid":"9481362"}
+[2017-08-04 12:45:31] members.INFO: Array [] {"uid":"9481362"}
+[2017-08-04 12:45:32] members.INFO: /readall '/' route [] {"uid":"b9e1974"}
+[2017-08-04 12:45:32] members.INFO: Array [] {"uid":"b9e1974"}
+[2017-08-04 12:45:32] members.INFO: /readall '/' route [] {"uid":"99a27bc"}
+[2017-08-04 12:45:32] members.INFO: Array [] {"uid":"99a27bc"}
+[2017-08-04 12:47:43] members.INFO: /readall '/' route [] {"uid":"884f9dd"}
+[2017-08-04 12:47:43] members.INFO: 1 [] {"uid":"884f9dd"}
+[2017-08-04 12:47:43] members.INFO: Array [] {"uid":"884f9dd"}
+[2017-08-04 12:48:36] members.INFO: /readall '/' route [] {"uid":"26759a2"}
+[2017-08-04 12:48:36] members.INFO: 1 [] {"uid":"26759a2"}
+[2017-08-04 12:48:36] members.INFO: Array [] {"uid":"26759a2"}
+[2017-08-04 12:48:38] members.INFO: /readall '/' route [] {"uid":"fb5e71e"}
+[2017-08-04 12:48:38] members.INFO: 1 [] {"uid":"fb5e71e"}
+[2017-08-04 12:48:38] members.INFO: Array [] {"uid":"fb5e71e"}
+[2017-08-04 12:48:38] members.INFO: /readall '/' route [] {"uid":"dcc9b56"}
+[2017-08-04 12:48:38] members.INFO: 1 [] {"uid":"dcc9b56"}
+[2017-08-04 12:48:38] members.INFO: Array [] {"uid":"dcc9b56"}
+[2017-08-04 12:48:38] members.INFO: /readall '/' route [] {"uid":"4817412"}
+[2017-08-04 12:48:38] members.INFO: 1 [] {"uid":"4817412"}
+[2017-08-04 12:48:38] members.INFO: Array [] {"uid":"4817412"}
+[2017-08-04 12:48:38] members.INFO: /readall '/' route [] {"uid":"7a38663"}
+[2017-08-04 12:48:38] members.INFO: 1 [] {"uid":"7a38663"}
+[2017-08-04 12:48:38] members.INFO: Array [] {"uid":"7a38663"}
+[2017-08-04 12:48:39] members.INFO: /readall '/' route [] {"uid":"2d563a8"}
+[2017-08-04 12:48:39] members.INFO: 1 [] {"uid":"2d563a8"}
+[2017-08-04 12:48:39] members.INFO: Array [] {"uid":"2d563a8"}
+[2017-08-04 12:48:39] members.INFO: /readall '/' route [] {"uid":"ff39874"}
+[2017-08-04 12:48:39] members.INFO: 1 [] {"uid":"ff39874"}
+[2017-08-04 12:48:39] members.INFO: Array [] {"uid":"ff39874"}
+[2017-08-04 12:48:39] members.INFO: /readall '/' route [] {"uid":"30de35a"}
+[2017-08-04 12:48:39] members.INFO: 1 [] {"uid":"30de35a"}
+[2017-08-04 12:48:39] members.INFO: Array [] {"uid":"30de35a"}
+[2017-08-04 13:08:16] members.INFO: /readall '/' route [] {"uid":"c127b75"}
+[2017-08-04 13:14:41] members.INFO: /readall '/' route [] {"uid":"91bf348"}
+[2017-08-04 13:14:44] members.INFO: /readall '/' route [] {"uid":"e15b368"}
+[2017-08-04 13:14:44] members.INFO: /readall '/' route [] {"uid":"e3eb91e"}
+[2017-08-04 13:14:44] members.INFO: /readall '/' route [] {"uid":"8c37887"}
+[2017-08-04 13:14:45] members.INFO: /readall '/' route [] {"uid":"69307a1"}
+[2017-08-04 13:14:45] members.INFO: /readall '/' route [] {"uid":"d6f8469"}
+[2017-08-04 13:14:45] members.INFO: /readall '/' route [] {"uid":"35ed50b"}
+[2017-08-04 13:14:45] members.INFO: /readall '/' route [] {"uid":"3f913af"}
+[2017-08-04 13:18:13] members.INFO: /readall '/' route [] {"uid":"2927ae6"}
+[2017-08-04 13:21:51] members.INFO: /readall '/' route [] {"uid":"b0868c0"}
+[2017-08-04 13:22:41] members.INFO: /readall '/' route [] {"uid":"5ce723a"}
+[2017-08-04 13:23:02] members.INFO: /readall '/' route [] {"uid":"80d8a4e"}
+[2017-08-04 13:23:02] members.INFO: a:1:{i:0;O:8:"stdClass":13:{s:2:"id";i:3;s:8:"deviceid";s:23:"TE:ST:TE:ST:TE:ST:TE:ST";s:12:"primaryemail";s:25:"test@test.yackofamily.com";s:12:"primaryphone";i:6504830648;s:9:"firstname";s:5:"Scott";s:8:"lastname";s:5:"Yacko";s:8:"password";s:4:"test";s:9:"confirmed";b:0;s:8:"updateby";N;s:20:"primarypaymentmethod";N;s:14:"suppliedgender";N;s:15:"predictedgender";N;s:9:"birthdate";N;}} [] {"uid":"80d8a4e"}
+[2017-08-04 13:23:02] members.INFO: /readall '/' route [] {"uid":"8bb3709"}
+[2017-08-04 13:23:02] members.INFO: a:1:{i:0;O:8:"stdClass":13:{s:2:"id";i:3;s:8:"deviceid";s:23:"TE:ST:TE:ST:TE:ST:TE:ST";s:12:"primaryemail";s:25:"test@test.yackofamily.com";s:12:"primaryphone";i:6504830648;s:9:"firstname";s:5:"Scott";s:8:"lastname";s:5:"Yacko";s:8:"password";s:4:"test";s:9:"confirmed";b:0;s:8:"updateby";N;s:20:"primarypaymentmethod";N;s:14:"suppliedgender";N;s:15:"predictedgender";N;s:9:"birthdate";N;}} [] {"uid":"8bb3709"}
+[2017-08-04 13:23:02] members.INFO: /readall '/' route [] {"uid":"25b69bd"}
+[2017-08-04 13:23:02] members.INFO: a:1:{i:0;O:8:"stdClass":13:{s:2:"id";i:3;s:8:"deviceid";s:23:"TE:ST:TE:ST:TE:ST:TE:ST";s:12:"primaryemail";s:25:"test@test.yackofamily.com";s:12:"primaryphone";i:6504830648;s:9:"firstname";s:5:"Scott";s:8:"lastname";s:5:"Yacko";s:8:"password";s:4:"test";s:9:"confirmed";b:0;s:8:"updateby";N;s:20:"primarypaymentmethod";N;s:14:"suppliedgender";N;s:15:"predictedgender";N;s:9:"birthdate";N;}} [] {"uid":"25b69bd"}
+[2017-08-04 13:23:03] members.INFO: /readall '/' route [] {"uid":"607e42b"}
+[2017-08-04 13:23:03] members.INFO: a:1:{i:0;O:8:"stdClass":13:{s:2:"id";i:3;s:8:"deviceid";s:23:"TE:ST:TE:ST:TE:ST:TE:ST";s:12:"primaryemail";s:25:"test@test.yackofamily.com";s:12:"primaryphone";i:6504830648;s:9:"firstname";s:5:"Scott";s:8:"lastname";s:5:"Yacko";s:8:"password";s:4:"test";s:9:"confirmed";b:0;s:8:"updateby";N;s:20:"primarypaymentmethod";N;s:14:"suppliedgender";N;s:15:"predictedgender";N;s:9:"birthdate";N;}} [] {"uid":"607e42b"}
+[2017-08-04 13:23:03] members.INFO: /readall '/' route [] {"uid":"37911b6"}
+[2017-08-04 13:23:03] members.INFO: a:1:{i:0;O:8:"stdClass":13:{s:2:"id";i:3;s:8:"deviceid";s:23:"TE:ST:TE:ST:TE:ST:TE:ST";s:12:"primaryemail";s:25:"test@test.yackofamily.com";s:12:"primaryphone";i:6504830648;s:9:"firstname";s:5:"Scott";s:8:"lastname";s:5:"Yacko";s:8:"password";s:4:"test";s:9:"confirmed";b:0;s:8:"updateby";N;s:20:"primarypaymentmethod";N;s:14:"suppliedgender";N;s:15:"predictedgender";N;s:9:"birthdate";N;}} [] {"uid":"37911b6"}
+[2017-08-04 13:23:03] members.INFO: /readall '/' route [] {"uid":"179d001"}
+[2017-08-04 13:23:03] members.INFO: a:1:{i:0;O:8:"stdClass":13:{s:2:"id";i:3;s:8:"deviceid";s:23:"TE:ST:TE:ST:TE:ST:TE:ST";s:12:"primaryemail";s:25:"test@test.yackofamily.com";s:12:"primaryphone";i:6504830648;s:9:"firstname";s:5:"Scott";s:8:"lastname";s:5:"Yacko";s:8:"password";s:4:"test";s:9:"confirmed";b:0;s:8:"updateby";N;s:20:"primarypaymentmethod";N;s:14:"suppliedgender";N;s:15:"predictedgender";N;s:9:"birthdate";N;}} [] {"uid":"179d001"}
+[2017-08-04 13:23:03] members.INFO: /readall '/' route [] {"uid":"6cd47db"}
+[2017-08-04 13:23:03] members.INFO: a:1:{i:0;O:8:"stdClass":13:{s:2:"id";i:3;s:8:"deviceid";s:23:"TE:ST:TE:ST:TE:ST:TE:ST";s:12:"primaryemail";s:25:"test@test.yackofamily.com";s:12:"primaryphone";i:6504830648;s:9:"firstname";s:5:"Scott";s:8:"lastname";s:5:"Yacko";s:8:"password";s:4:"test";s:9:"confirmed";b:0;s:8:"updateby";N;s:20:"primarypaymentmethod";N;s:14:"suppliedgender";N;s:15:"predictedgender";N;s:9:"birthdate";N;}} [] {"uid":"6cd47db"}
+[2017-08-04 13:23:04] members.INFO: /readall '/' route [] {"uid":"25682ef"}
+[2017-08-04 13:23:04] members.INFO: a:1:{i:0;O:8:"stdClass":13:{s:2:"id";i:3;s:8:"deviceid";s:23:"TE:ST:TE:ST:TE:ST:TE:ST";s:12:"primaryemail";s:25:"test@test.yackofamily.com";s:12:"primaryphone";i:6504830648;s:9:"firstname";s:5:"Scott";s:8:"lastname";s:5:"Yacko";s:8:"password";s:4:"test";s:9:"confirmed";b:0;s:8:"updateby";N;s:20:"primarypaymentmethod";N;s:14:"suppliedgender";N;s:15:"predictedgender";N;s:9:"birthdate";N;}} [] {"uid":"25682ef"}
+[2017-08-04 13:23:04] members.INFO: /readall '/' route [] {"uid":"04d1459"}
+[2017-08-04 13:23:04] members.INFO: a:1:{i:0;O:8:"stdClass":13:{s:2:"id";i:3;s:8:"deviceid";s:23:"TE:ST:TE:ST:TE:ST:TE:ST";s:12:"primaryemail";s:25:"test@test.yackofamily.com";s:12:"primaryphone";i:6504830648;s:9:"firstname";s:5:"Scott";s:8:"lastname";s:5:"Yacko";s:8:"password";s:4:"test";s:9:"confirmed";b:0;s:8:"updateby";N;s:20:"primarypaymentmethod";N;s:14:"suppliedgender";N;s:15:"predictedgender";N;s:9:"birthdate";N;}} [] {"uid":"04d1459"}
+[2017-08-04 13:23:04] members.INFO: /readall '/' route [] {"uid":"ca2ae41"}
+[2017-08-04 13:23:04] members.INFO: a:1:{i:0;O:8:"stdClass":13:{s:2:"id";i:3;s:8:"deviceid";s:23:"TE:ST:TE:ST:TE:ST:TE:ST";s:12:"primaryemail";s:25:"test@test.yackofamily.com";s:12:"primaryphone";i:6504830648;s:9:"firstname";s:5:"Scott";s:8:"lastname";s:5:"Yacko";s:8:"password";s:4:"test";s:9:"confirmed";b:0;s:8:"updateby";N;s:20:"primarypaymentmethod";N;s:14:"suppliedgender";N;s:15:"predictedgender";N;s:9:"birthdate";N;}} [] {"uid":"ca2ae41"}
+[2017-08-04 13:23:04] members.INFO: /readall '/' route [] {"uid":"cd8c304"}
+[2017-08-04 13:23:04] members.INFO: a:1:{i:0;O:8:"stdClass":13:{s:2:"id";i:3;s:8:"deviceid";s:23:"TE:ST:TE:ST:TE:ST:TE:ST";s:12:"primaryemail";s:25:"test@test.yackofamily.com";s:12:"primaryphone";i:6504830648;s:9:"firstname";s:5:"Scott";s:8:"lastname";s:5:"Yacko";s:8:"password";s:4:"test";s:9:"confirmed";b:0;s:8:"updateby";N;s:20:"primarypaymentmethod";N;s:14:"suppliedgender";N;s:15:"predictedgender";N;s:9:"birthdate";N;}} [] {"uid":"cd8c304"}
+[2017-08-04 13:25:22] members.INFO: /readall '/' route [] {"uid":"68caccd"}
+[2017-08-04 13:25:22] members.INFO: a:1:{i:0;O:8:"stdClass":13:{s:2:"id";i:3;s:8:"deviceid";s:23:"TE:ST:TE:ST:TE:ST:TE:ST";s:12:"primaryemail";s:25:"test@test.yackofamily.com";s:12:"primaryphone";i:6504830648;s:9:"firstname";s:5:"Scott";s:8:"lastname";s:5:"Yacko";s:8:"password";s:4:"test";s:9:"confirmed";b:0;s:8:"updateby";N;s:20:"primarypaymentmethod";N;s:14:"suppliedgender";N;s:15:"predictedgender";N;s:9:"birthdate";N;}} [] {"uid":"68caccd"}
+[2017-08-04 13:25:26] members.INFO: /readall '/' route [] {"uid":"39a48ce"}
+[2017-08-04 13:25:26] members.INFO: a:1:{i:0;O:8:"stdClass":13:{s:2:"id";i:3;s:8:"deviceid";s:23:"TE:ST:TE:ST:TE:ST:TE:ST";s:12:"primaryemail";s:25:"test@test.yackofamily.com";s:12:"primaryphone";i:6504830648;s:9:"firstname";s:5:"Scott";s:8:"lastname";s:5:"Yacko";s:8:"password";s:4:"test";s:9:"confirmed";b:0;s:8:"updateby";N;s:20:"primarypaymentmethod";N;s:14:"suppliedgender";N;s:15:"predictedgender";N;s:9:"birthdate";N;}} [] {"uid":"39a48ce"}
+[2017-08-04 13:25:27] members.INFO: /readall '/' route [] {"uid":"4e39f24"}
+[2017-08-04 13:25:27] members.INFO: a:1:{i:0;O:8:"stdClass":13:{s:2:"id";i:3;s:8:"deviceid";s:23:"TE:ST:TE:ST:TE:ST:TE:ST";s:12:"primaryemail";s:25:"test@test.yackofamily.com";s:12:"primaryphone";i:6504830648;s:9:"firstname";s:5:"Scott";s:8:"lastname";s:5:"Yacko";s:8:"password";s:4:"test";s:9:"confirmed";b:0;s:8:"updateby";N;s:20:"primarypaymentmethod";N;s:14:"suppliedgender";N;s:15:"predictedgender";N;s:9:"birthdate";N;}} [] {"uid":"4e39f24"}
+[2017-08-04 13:26:33] members.INFO: /readall '/' route [] {"uid":"af2fc10"}
+[2017-08-04 13:26:33] members.INFO: a:1:{i:0;O:8:"stdClass":13:{s:2:"id";i:3;s:8:"deviceid";s:23:"TE:ST:TE:ST:TE:ST:TE:ST";s:12:"primaryemail";s:25:"test@test.yackofamily.com";s:12:"primaryphone";i:6504830648;s:9:"firstname";s:5:"Scott";s:8:"lastname";s:5:"Yacko";s:8:"password";s:4:"test";s:9:"confirmed";b:0;s:8:"updateby";N;s:20:"primarypaymentmethod";N;s:14:"suppliedgender";N;s:15:"predictedgender";N;s:9:"birthdate";N;}} [] {"uid":"af2fc10"}
+[2017-08-04 13:26:41] members.INFO: /createmember '/' route [] {"uid":"4e389eb"}
+[2017-08-04 13:26:41] members.INFO: http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember [] {"uid":"4e389eb"}
+[2017-08-04 13:26:41] members.INFO:  [] {"uid":"4e389eb"}
+[2017-08-04 13:27:05] members.INFO: /createmember '/' route [] {"uid":"0f7ae11"}
+[2017-08-04 13:27:05] members.INFO: http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"0f7ae11"}
+[2017-08-04 13:27:05] members.INFO:  [] {"uid":"0f7ae11"}
+[2017-08-04 13:28:00] members.INFO: /createmember '/' route [] {"uid":"9e5535b"}
+[2017-08-04 13:28:00] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"9e5535b"}
+[2017-08-04 13:28:00] members.INFO: getBody /  [] {"uid":"9e5535b"}
+[2017-08-04 13:31:32] members.INFO: /createmember '/' route [] {"uid":"29109cf"}
+[2017-08-04 13:31:32] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"29109cf"}
+[2017-08-04 13:31:32] members.INFO: getUri / Array [] {"uid":"29109cf"}
+[2017-08-04 13:31:35] members.INFO: /createmember '/' route [] {"uid":"f63f71c"}
+[2017-08-04 13:31:35] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"f63f71c"}
+[2017-08-04 13:31:35] members.INFO: getUri / Array [] {"uid":"f63f71c"}
+[2017-08-04 13:32:35] members.INFO: /createmember '/' route [] {"uid":"3391629"}
+[2017-08-04 13:32:35] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"3391629"}
+[2017-08-04 13:32:35] members.INFO: getQueryParams /  [] {"uid":"3391629"}
+[2017-08-04 13:35:29] members.INFO: /createmember '/' route [] {"uid":"3204b93"}
+[2017-08-04 13:35:29] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"3204b93"}
+[2017-08-04 13:35:29] members.INFO: getQueryParams / scott [] {"uid":"3204b93"}
+[2017-08-04 13:59:13] members.INFO: /createmember '/' route [] {"uid":"867f273"}
+[2017-08-04 13:59:13] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"867f273"}
+[2017-08-04 13:59:13] members.INFO: getQueryParams / scott [] {"uid":"867f273"}
+[2017-08-04 14:06:33] members.INFO: /createmember '/' route [] {"uid":"8115830"}
+[2017-08-04 14:06:33] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"8115830"}
+[2017-08-04 14:06:33] members.INFO: getQueryParams / scott [] {"uid":"8115830"}
+[2017-08-04 14:06:37] members.INFO: /createmember '/' route [] {"uid":"c25d43d"}
+[2017-08-04 14:06:37] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"c25d43d"}
+[2017-08-04 14:06:37] members.INFO: getQueryParams / scott [] {"uid":"c25d43d"}
+[2017-08-04 14:06:37] members.INFO: /createmember '/' route [] {"uid":"a60643b"}
+[2017-08-04 14:06:37] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"a60643b"}
+[2017-08-04 14:06:37] members.INFO: getQueryParams / scott [] {"uid":"a60643b"}
+[2017-08-04 14:06:37] members.INFO: /createmember '/' route [] {"uid":"c03a7e2"}
+[2017-08-04 14:06:37] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"c03a7e2"}
+[2017-08-04 14:06:37] members.INFO: getQueryParams / scott [] {"uid":"c03a7e2"}
+[2017-08-04 14:06:37] members.INFO: /createmember '/' route [] {"uid":"c14a4a8"}
+[2017-08-04 14:06:37] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"c14a4a8"}
+[2017-08-04 14:06:37] members.INFO: getQueryParams / scott [] {"uid":"c14a4a8"}
+[2017-08-04 14:06:37] members.INFO: /createmember '/' route [] {"uid":"6fdeadc"}
+[2017-08-04 14:06:37] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"6fdeadc"}
+[2017-08-04 14:06:37] members.INFO: getQueryParams / scott [] {"uid":"6fdeadc"}
+[2017-08-04 14:06:38] members.INFO: /createmember '/' route [] {"uid":"50e863d"}
+[2017-08-04 14:06:38] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"50e863d"}
+[2017-08-04 14:06:38] members.INFO: getQueryParams / scott [] {"uid":"50e863d"}
+[2017-08-04 14:06:38] members.INFO: /createmember '/' route [] {"uid":"0410e11"}
+[2017-08-04 14:06:38] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"0410e11"}
+[2017-08-04 14:06:38] members.INFO: getQueryParams / scott [] {"uid":"0410e11"}
+[2017-08-04 14:06:38] members.INFO: /createmember '/' route [] {"uid":"d576e5a"}
+[2017-08-04 14:06:38] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"d576e5a"}
+[2017-08-04 14:06:38] members.INFO: getQueryParams / scott [] {"uid":"d576e5a"}
+[2017-08-04 14:06:38] members.INFO: /createmember '/' route [] {"uid":"52799ad"}
+[2017-08-04 14:06:38] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"52799ad"}
+[2017-08-04 14:06:38] members.INFO: getQueryParams / scott [] {"uid":"52799ad"}
+[2017-08-04 14:06:53] members.INFO: /createmember '/' route [] {"uid":"c8dc7f9"}
+[2017-08-04 14:06:53] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"c8dc7f9"}
+[2017-08-04 14:06:53] members.INFO: getQueryParams / scott [] {"uid":"c8dc7f9"}
+[2017-08-04 14:06:53] members.INFO: /createmember '/' route [] {"uid":"f9f5247"}
+[2017-08-04 14:06:53] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"f9f5247"}
+[2017-08-04 14:06:53] members.INFO: getQueryParams / scott [] {"uid":"f9f5247"}
+[2017-08-04 14:06:53] members.INFO: /createmember '/' route [] {"uid":"36a2454"}
+[2017-08-04 14:06:53] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"36a2454"}
+[2017-08-04 14:06:53] members.INFO: getQueryParams / scott [] {"uid":"36a2454"}
+[2017-08-04 14:06:53] members.INFO: /createmember '/' route [] {"uid":"3037250"}
+[2017-08-04 14:06:53] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"3037250"}
+[2017-08-04 14:06:53] members.INFO: getQueryParams / scott [] {"uid":"3037250"}
+[2017-08-04 14:06:53] members.INFO: /createmember '/' route [] {"uid":"c4b7876"}
+[2017-08-04 14:06:53] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"c4b7876"}
+[2017-08-04 14:06:53] members.INFO: getQueryParams / scott [] {"uid":"c4b7876"}
+[2017-08-04 14:07:45] members.INFO: /createmember '/' route [] {"uid":"a992079"}
+[2017-08-04 14:07:45] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"a992079"}
+[2017-08-04 14:07:45] members.INFO: getQueryParams / scott [] {"uid":"a992079"}
+[2017-08-04 14:07:47] members.INFO: /createmember '/' route [] {"uid":"2cbf240"}
+[2017-08-04 14:07:47] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"2cbf240"}
+[2017-08-04 14:07:47] members.INFO: getQueryParams / scott [] {"uid":"2cbf240"}
+[2017-08-04 14:07:47] members.INFO: /createmember '/' route [] {"uid":"67d4fa3"}
+[2017-08-04 14:07:47] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"67d4fa3"}
+[2017-08-04 14:07:47] members.INFO: getQueryParams / scott [] {"uid":"67d4fa3"}
+[2017-08-04 14:07:47] members.INFO: /createmember '/' route [] {"uid":"8cd1eb2"}
+[2017-08-04 14:07:47] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"8cd1eb2"}
+[2017-08-04 14:07:47] members.INFO: getQueryParams / scott [] {"uid":"8cd1eb2"}
+[2017-08-04 14:18:56] members.INFO: /createmember '/' route [] {"uid":"28812b1"}
+[2017-08-04 14:18:56] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"28812b1"}
+[2017-08-04 14:18:56] members.INFO: getQueryParams / scott [] {"uid":"28812b1"}
+[2017-08-04 14:18:59] members.INFO: /createmember '/' route [] {"uid":"3564f98"}
+[2017-08-04 14:18:59] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"3564f98"}
+[2017-08-04 14:18:59] members.INFO: getQueryParams / scott [] {"uid":"3564f98"}
+[2017-08-04 14:19:18] members.INFO: /createmember '/' route [] {"uid":"3b27707"}
+[2017-08-04 14:19:18] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"3b27707"}
+[2017-08-04 14:19:18] members.INFO: getQueryParams / scott [] {"uid":"3b27707"}
+[2017-08-04 14:19:20] members.INFO: /createmember '/' route [] {"uid":"3bcf6d2"}
+[2017-08-04 14:19:20] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"3bcf6d2"}
+[2017-08-04 14:19:20] members.INFO: getQueryParams / scott [] {"uid":"3bcf6d2"}
+[2017-08-04 14:19:20] members.INFO: /createmember '/' route [] {"uid":"21881a7"}
+[2017-08-04 14:19:20] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"21881a7"}
+[2017-08-04 14:19:20] members.INFO: getQueryParams / scott [] {"uid":"21881a7"}
+[2017-08-04 14:19:21] members.INFO: /createmember '/' route [] {"uid":"6462cf8"}
+[2017-08-04 14:19:21] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"6462cf8"}
+[2017-08-04 14:19:21] members.INFO: getQueryParams / scott [] {"uid":"6462cf8"}
+[2017-08-04 14:19:21] members.INFO: /createmember '/' route [] {"uid":"b6a97fa"}
+[2017-08-04 14:19:21] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"b6a97fa"}
+[2017-08-04 14:19:21] members.INFO: getQueryParams / scott [] {"uid":"b6a97fa"}
+[2017-08-04 14:19:21] members.INFO: /createmember '/' route [] {"uid":"99d4c6e"}
+[2017-08-04 14:19:21] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"99d4c6e"}
+[2017-08-04 14:19:21] members.INFO: getQueryParams / scott [] {"uid":"99d4c6e"}
+[2017-08-04 14:19:21] members.INFO: /createmember '/' route [] {"uid":"3776db5"}
+[2017-08-04 14:19:21] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"3776db5"}
+[2017-08-04 14:19:21] members.INFO: getQueryParams / scott [] {"uid":"3776db5"}
+[2017-08-04 14:19:21] members.INFO: /createmember '/' route [] {"uid":"0e7be82"}
+[2017-08-04 14:19:21] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"0e7be82"}
+[2017-08-04 14:19:21] members.INFO: getQueryParams / scott [] {"uid":"0e7be82"}
+[2017-08-04 14:19:22] members.INFO: /createmember '/' route [] {"uid":"b666855"}
+[2017-08-04 14:19:22] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"b666855"}
+[2017-08-04 14:19:22] members.INFO: getQueryParams / scott [] {"uid":"b666855"}
+[2017-08-04 14:19:22] members.INFO: /createmember '/' route [] {"uid":"350ec92"}
+[2017-08-04 14:19:22] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"350ec92"}
+[2017-08-04 14:19:22] members.INFO: getQueryParams / scott [] {"uid":"350ec92"}
+[2017-08-04 14:19:22] members.INFO: /createmember '/' route [] {"uid":"2ae4fe5"}
+[2017-08-04 14:19:22] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"2ae4fe5"}
+[2017-08-04 14:19:22] members.INFO: getQueryParams / scott [] {"uid":"2ae4fe5"}
+[2017-08-04 14:19:22] members.INFO: /createmember '/' route [] {"uid":"f2bb879"}
+[2017-08-04 14:19:22] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"f2bb879"}
+[2017-08-04 14:19:22] members.INFO: getQueryParams / scott [] {"uid":"f2bb879"}
+[2017-08-04 14:19:24] members.INFO: /createmember '/' route [] {"uid":"fd9b2cf"}
+[2017-08-04 14:19:24] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"fd9b2cf"}
+[2017-08-04 14:19:24] members.INFO: getQueryParams / scott [] {"uid":"fd9b2cf"}
+[2017-08-04 14:19:27] members.INFO: /createmember '/' route [] {"uid":"7df0baf"}
+[2017-08-04 14:19:27] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"7df0baf"}
+[2017-08-04 14:19:27] members.INFO: getQueryParams / scott [] {"uid":"7df0baf"}
+[2017-08-04 14:20:04] members.INFO: /createmember '/' route [] {"uid":"3be2c38"}
+[2017-08-04 14:20:04] members.INFO: getUri / http://slm-dev-syacko-01.yackofamily.com/slm_api/members.slm/createmember?fname=scott& [] {"uid":"3be2c38"}
+[2017-08-04 14:20:04] members.INFO: getQueryParams / scott [] {"uid":"3be2c38"}
+[2017-08-05 10:07:22] members.INFO: version '/' route [] {"uid":"89d96be"}
+[2017-08-05 18:16:48] members.INFO: version '/' route [] {"uid":"153d181"}
