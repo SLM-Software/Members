@@ -17,29 +17,29 @@ use PHPUnit\Framework\TestCase;
  */
 class WizardTest extends TestCase
 {
-    /**
-     * @var Wizard
-     */
-    private $wizard;
+	/**
+	 * @var Wizard
+	 */
+	private $wizard;
 
-    protected function setUp()
-    {
-        $this->wizard = new Wizard;
-    }
+	protected function setUp()
+	{
+		$this->wizard = new Wizard;
+	}
 
-    public function testMethodCanBeLookedUp()
-    {
-        $this->assertEquals(
-            __METHOD__,
-            $this->wizard->lookup(__FILE__, __LINE__)
-        );
-    }
+	public function testMethodCanBeLookedUp()
+	{
+		$this->assertEquals(
+			__METHOD__,
+			$this->wizard->lookup(__FILE__, __LINE__)
+		);
+	}
 
-    public function testReturnsFilenameAndLineNumberAsStringWhenNotInCodeUnit()
-    {
-        $this->assertEquals(
-            'file.php:1',
-            $this->wizard->lookup('file.php', 1)
-        );
-    }
+	public function testReturnsFilenameAndLineNumberAsStringWhenNotInCodeUnit()
+	{
+		$this->assertEquals(
+			'file.php:1',
+			$this->wizard->lookup('file.php', 1)
+		);
+	}
 }

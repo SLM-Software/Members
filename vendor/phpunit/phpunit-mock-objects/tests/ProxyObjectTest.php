@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the PHPUnit_MockObject package.
  *
@@ -10,30 +11,30 @@
 
 class Framework_ProxyObjectTest extends PHPUnit_Framework_TestCase
 {
-    public function testMockedMethodIsProxiedToOriginalMethod()
-    {
-        $proxy = $this->getMockBuilder(Bar::class)
-                      ->enableProxyingToOriginalMethods()
-                      ->getMock();
+	public function testMockedMethodIsProxiedToOriginalMethod()
+	{
+		$proxy = $this->getMockBuilder(Bar::class)
+			->enableProxyingToOriginalMethods()
+			->getMock();
 
-        $proxy->expects($this->once())
-              ->method('doSomethingElse');
+		$proxy->expects($this->once())
+			->method('doSomethingElse');
 
-        $foo = new Foo;
+		$foo = new Foo;
 
-        $this->assertEquals('result', $foo->doSomething($proxy));
-    }
+		$this->assertEquals('result', $foo->doSomething($proxy));
+	}
 
-    public function testMockedMethodWithReferenceIsProxiedToOriginalMethod()
-    {
-        $proxy = $this->getMockBuilder(MethodCallbackByReference::class)
-                      ->enableProxyingToOriginalMethods()
-                      ->getMock();
+	public function testMockedMethodWithReferenceIsProxiedToOriginalMethod()
+	{
+		$proxy = $this->getMockBuilder(MethodCallbackByReference::class)
+			->enableProxyingToOriginalMethods()
+			->getMock();
 
-        $a = $b = $c = 0;
+		$a = $b = $c = 0;
 
-        $proxy->callback($a, $b, $c);
+		$proxy->callback($a, $b, $c);
 
-        $this->assertEquals(1, $b);
-    }
+		$this->assertEquals(1, $b);
+	}
 }

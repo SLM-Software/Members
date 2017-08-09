@@ -16,10 +16,10 @@ namespace phpDocumentor\Reflection;
  */
 interface Project
 {
-    /**
-     * Returns the name of the project.
-     *
-     * @return string
-     */
-    public function getName();
+	/**
+	 * Returns the name of the project.
+	 *
+	 * @return string
+	 */
+	public function getName();
 }

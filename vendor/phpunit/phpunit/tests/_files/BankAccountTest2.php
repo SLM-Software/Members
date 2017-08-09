@@ -12,45 +12,49 @@ use PHPUnit\Framework\TestCase;
 
 class BankAccountTest extends TestCase
 {
-    private $ba;
+	private $ba;
 
-    protected function setUp()
-    {
-        $this->ba = new BankAccount;
-    }
+	protected function setUp()
+	{
+		$this->ba = new BankAccount;
+	}
 
-    public function testBalanceIsInitiallyZero()
-    {
-        $ba = new BankAccount;
+	public function testBalanceIsInitiallyZero()
+	{
+		$ba = new BankAccount;
 
-        $balance = $ba->getBalance();
+		$balance = $ba->getBalance();
 
-        $this->assertEquals(0, $balance);
-    }
+		$this->assertEquals(0, $balance);
+	}
 
-    public function testBalanceCannotBecomeNegative()
-    {
-        try {
-            $this->ba->withdrawMoney(1);
-        } catch (BankAccountException $e) {
-            $this->assertEquals(0, $this->ba->getBalance());
+	public function testBalanceCannotBecomeNegative()
+	{
+		try
+		{
+			$this->ba->withdrawMoney(1);
+		} catch (BankAccountException $e)
+		{
+			$this->assertEquals(0, $this->ba->getBalance());
 
-            return;
-        }
+			return;
+		}
 
-        $this->fail();
-    }
+		$this->fail();
+	}
 
-    public function testBalanceCannotBecomeNegative2()
-    {
-        try {
-            $this->ba->depositMoney(-1);
-        } catch (BankAccountException $e) {
-            $this->assertEquals(0, $this->ba->getBalance());
+	public function testBalanceCannotBecomeNegative2()
+	{
+		try
+		{
+			$this->ba->depositMoney(-1);
+		} catch (BankAccountException $e)
+		{
+			$this->assertEquals(0, $this->ba->getBalance());
 
-            return;
-        }
+			return;
+		}
 
-        $this->fail();
-    }
+		$this->fail();
+	}
 }

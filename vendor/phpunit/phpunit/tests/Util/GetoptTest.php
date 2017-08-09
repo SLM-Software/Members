@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of PHPUnit.
  *
@@ -10,51 +11,51 @@
 
 class Util_GetoptTest extends PHPUnit_Framework_TestCase
 {
-    public function testItIncludeTheLongOptionsAfterTheArgument()
-    {
-        $args = [
-            'command',
-            'myArgument',
-            '--colors',
-        ];
-        $actual = PHPUnit_Util_Getopt::getopt($args, '', ['colors==']);
+	public function testItIncludeTheLongOptionsAfterTheArgument()
+	{
+		$args = [
+			'command',
+			'myArgument',
+			'--colors',
+		];
+		$actual = PHPUnit_Util_Getopt::getopt($args, '', ['colors==']);
 
-        $expected = [
-            [
-                [
-                    '--colors',
-                    null,
-                ],
-            ],
-            [
-                'myArgument',
-            ],
-        ];
+		$expected = [
+			[
+				[
+					'--colors',
+					NULL,
+				],
+			],
+			[
+				'myArgument',
+			],
+		];
 
-        $this->assertEquals($expected, $actual);
-    }
+		$this->assertEquals($expected, $actual);
+	}
 
-    public function testItIncludeTheShortOptionsAfterTheArgument()
-    {
-        $args = [
-            'command',
-            'myArgument',
-            '-v',
-        ];
-        $actual = PHPUnit_Util_Getopt::getopt($args, 'v');
+	public function testItIncludeTheShortOptionsAfterTheArgument()
+	{
+		$args = [
+			'command',
+			'myArgument',
+			'-v',
+		];
+		$actual = PHPUnit_Util_Getopt::getopt($args, 'v');
 
-        $expected = [
-            [
-                [
-                    'v',
-                    null,
-                ],
-            ],
-            [
-                'myArgument',
-            ],
-        ];
+		$expected = [
+			[
+				[
+					'v',
+					NULL,
+				],
+			],
+			[
+				'myArgument',
+			],
+		];
 
-        $this->assertEquals($expected, $actual);
-    }
+		$this->assertEquals($expected, $actual);
+	}
 }

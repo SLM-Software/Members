@@ -16,62 +16,66 @@ use phpDocumentor\Reflection\Types\Context;
 
 class FqsenResolver
 {
-    /** @var string Definition of the NAMESPACE operator in PHP */
-    const OPERATOR_NAMESPACE = '\\';
+	/** @var string Definition of the NAMESPACE operator in PHP */
+	const OPERATOR_NAMESPACE = '\\';
 
-    public function resolve($fqsen, Context $context = null)
-    {
-        if ($context === null) {
-            $context = new Context('');
-        }
+	public function resolve($fqsen, Context $context = NULL)
+	{
+		if ($context === NULL)
+		{
+			$context = new Context('');
+		}
 
-        if ($this->isFqsen($fqsen)) {
-            return new Fqsen($fqsen);
-        }
+		if ($this->isFqsen($fqsen))
+		{
+			return new Fqsen($fqsen);
+		}
 
-        return $this->resolvePartialStructuralElementName($fqsen, $context);
-    }
+		return $this->resolvePartialStructuralElementName($fqsen, $context);
+	}
 
-    /**
-     * Tests whether the given type is a Fully Qualified Structural Element Name.
-     *
-     * @param string $type
-     *
-     * @return bool
-     */
-    private function isFqsen($type)
-    {
-        return strpos($type, self::OPERATOR_NAMESPACE) === 0;
-    }
+	/**
+	 * Tests whether the given type is a Fully Qualified Structural Element Name.
+	 *
+	 * @param string $type
+	 *
+	 * @return bool
+	 */
+	private function isFqsen($type)
+	{
+		return strpos($type, self::OPERATOR_NAMESPACE) === 0;
+	}
 
-    /**
-     * Resolves a partial Structural Element Name (i.e. `Reflection\DocBlock`) to its FQSEN representation
-     * (i.e. `\phpDocumentor\Reflection\DocBlock`) based on the Namespace and aliases mentioned in the Context.
-     *
-     * @param string $type
-     * @param Context $context
-     *
-     * @return Fqsen
-     * @throws \InvalidArgumentException when type is not a valid FQSEN.
-     */
-    private function resolvePartialStructuralElementName($type, Context $context)
-    {
-        $typeParts = explode(self::OPERATOR_NAMESPACE, $type, 2);
+	/**
+	 * Resolves a partial Structural Element Name (i.e. `Reflection\DocBlock`) to its FQSEN representation
+	 * (i.e. `\phpDocumentor\Reflection\DocBlock`) based on the Namespace and aliases mentioned in the Context.
+	 *
+	 * @param string  $type
+	 * @param Context $context
+	 *
+	 * @return Fqsen
+	 * @throws \InvalidArgumentException when type is not a valid FQSEN.
+	 */
+	private function resolvePartialStructuralElementName($type, Context $context)
+	{
+		$typeParts = explode(self::OPERATOR_NAMESPACE, $type, 2);
 
-        $namespaceAliases = $context->getNamespaceAliases();
+		$namespaceAliases = $context->getNamespaceAliases();
 
-        // if the first segment is not an alias; prepend namespace name and return
-        if (!isset($namespaceAliases[$typeParts[0]])) {
-            $namespace = $context->getNamespace();
-            if ('' !== $namespace) {
-                $namespace .= self::OPERATOR_NAMESPACE;
-            }
+		// if the first segment is not an alias; prepend namespace name and return
+		if (!isset($namespaceAliases[$typeParts[0]]))
+		{
+			$namespace = $context->getNamespace();
+			if ('' !== $namespace)
+			{
+				$namespace .= self::OPERATOR_NAMESPACE;
+			}
 
-            return new Fqsen(self::OPERATOR_NAMESPACE . $namespace . $type);
-        }
+			return new Fqsen(self::OPERATOR_NAMESPACE . $namespace . $type);
+		}
 
-        $typeParts[0] = $namespaceAliases[$typeParts[0]];
+		$typeParts[0] = $namespaceAliases[$typeParts[0]];
 
-        return new Fqsen(self::OPERATOR_NAMESPACE . implode(self::OPERATOR_NAMESPACE, $typeParts));
-    }
+		return new Fqsen(self::OPERATOR_NAMESPACE . implode(self::OPERATOR_NAMESPACE, $typeParts));
+	}
 }

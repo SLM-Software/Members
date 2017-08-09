@@ -15,97 +15,109 @@ namespace SebastianBergmann\CodeUnitReverseLookup;
  */
 class Wizard
 {
-    /**
-     * @var array
-     */
-    private $lookupTable = [];
+	/**
+	 * @var array
+	 */
+	private $lookupTable = [];
 
-    /**
-     * @var array
-     */
-    private $processedClasses = [];
+	/**
+	 * @var array
+	 */
+	private $processedClasses = [];
 
-    /**
-     * @var array
-     */
-    private $processedFunctions = [];
+	/**
+	 * @var array
+	 */
+	private $processedFunctions = [];
 
-    /**
-     * @param string $filename
-     * @param int    $lineNumber
-     *
-     * @return string
-     */
-    public function lookup($filename, $lineNumber)
-    {
-        if (!isset($this->lookupTable[$filename][$lineNumber])) {
-            $this->updateLookupTable();
-        }
+	/**
+	 * @param string $filename
+	 * @param int    $lineNumber
+	 *
+	 * @return string
+	 */
+	public function lookup($filename, $lineNumber)
+	{
+		if (!isset($this->lookupTable[$filename][$lineNumber]))
+		{
+			$this->updateLookupTable();
+		}
 
-        if (isset($this->lookupTable[$filename][$lineNumber])) {
-            return $this->lookupTable[$filename][$lineNumber];
-        } else {
-            return $filename . ':' . $lineNumber;
-        }
-    }
+		if (isset($this->lookupTable[$filename][$lineNumber]))
+		{
+			return $this->lookupTable[$filename][$lineNumber];
+		} else
+		{
+			return $filename . ':' . $lineNumber;
+		}
+	}
 
-    private function updateLookupTable()
-    {
-        $this->processClassesAndTraits();
-        $this->processFunctions();
-    }
+	private function updateLookupTable()
+	{
+		$this->processClassesAndTraits();
+		$this->processFunctions();
+	}
 
-    private function processClassesAndTraits()
-    {
-        foreach (array_merge(get_declared_classes(), get_declared_traits()) as $classOrTrait) {
-            if (isset($this->processedClasses[$classOrTrait])) {
-                continue;
-            }
+	private function processClassesAndTraits()
+	{
+		foreach (array_merge(get_declared_classes(), get_declared_traits()) as $classOrTrait)
+		{
+			if (isset($this->processedClasses[$classOrTrait]))
+			{
+				continue;
+			}
 
-            $reflector = new \ReflectionClass($classOrTrait);
+			$reflector = new \ReflectionClass($classOrTrait);
 
-            foreach ($reflector->getMethods() as $method) {
-                $this->processFunctionOrMethod($method);
-            }
+			foreach ($reflector->getMethods() as $method)
+			{
+				$this->processFunctionOrMethod($method);
+			}
 
-            $this->processedClasses[$classOrTrait] = true;
-        }
-    }
+			$this->processedClasses[$classOrTrait] = TRUE;
+		}
+	}
 
-    private function processFunctions()
-    {
-        foreach (get_defined_functions()['user'] as $function) {
-            if (isset($this->processedFunctions[$function])) {
-                continue;
-            }
+	private function processFunctions()
+	{
+		foreach (get_defined_functions()['user'] as $function)
+		{
+			if (isset($this->processedFunctions[$function]))
+			{
+				continue;
+			}
 
-            $this->processFunctionOrMethod(new \ReflectionFunction($function));
+			$this->processFunctionOrMethod(new \ReflectionFunction($function));
 
-            $this->processedFunctions[$function] = true;
-        }
-    }
+			$this->processedFunctions[$function] = TRUE;
+		}
+	}
 
-    /**
-     * @param \ReflectionFunctionAbstract $functionOrMethod
-     */
-    private function processFunctionOrMethod(\ReflectionFunctionAbstract $functionOrMethod)
-    {
-        if ($functionOrMethod->isInternal()) {
-            return;
-        }
+	/**
+	 * @param \ReflectionFunctionAbstract $functionOrMethod
+	 */
+	private function processFunctionOrMethod(\ReflectionFunctionAbstract $functionOrMethod)
+	{
+		if ($functionOrMethod->isInternal())
+		{
+			return;
+		}
 
-        $name = $functionOrMethod->getName();
+		$name = $functionOrMethod->getName();
 
-        if ($functionOrMethod instanceof \ReflectionMethod) {
-            $name = $functionOrMethod->getDeclaringClass()->getName() . '::' . $name;
-        }
+		if ($functionOrMethod instanceof \ReflectionMethod)
+		{
+			$name = $functionOrMethod->getDeclaringClass()->getName() . '::' . $name;
+		}
 
-        if (!isset($this->lookupTable[$functionOrMethod->getFileName()])) {
-            $this->lookupTable[$functionOrMethod->getFileName()] = [];
-        }
+		if (!isset($this->lookupTable[$functionOrMethod->getFileName()]))
+		{
+			$this->lookupTable[$functionOrMethod->getFileName()] = [];
+		}
 
-        foreach (range($functionOrMethod->getStartLine(), $functionOrMethod->getEndLine()) as $line) {
-            $this->lookupTable[$functionOrMethod->getFileName()][$line] = $name;
-        }
-    }
+		foreach (range($functionOrMethod->getStartLine(), $functionOrMethod->getEndLine()) as $line)
+		{
+			$this->lookupTable[$functionOrMethod->getFileName()][$line] = $name;
+		}
+	}
 }

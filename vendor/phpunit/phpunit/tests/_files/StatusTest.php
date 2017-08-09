@@ -1,37 +1,38 @@
 <?php
+
 class StatusTest extends \PHPUnit\Framework\TestCase
 {
-    public function testSuccess()
-    {
-        $this->assertTrue(true);
-    }
+	public function testSuccess()
+	{
+		$this->assertTrue(TRUE);
+	}
 
-    public function testFailure()
-    {
-        $this->assertTrue(false);
-    }
+	public function testFailure()
+	{
+		$this->assertTrue(FALSE);
+	}
 
-    public function testError()
-    {
-        throw new \Exception;
-    }
+	public function testError()
+	{
+		throw new \Exception;
+	}
 
-    public function testIncomplete()
-    {
-        $this->markTestIncomplete();
-    }
+	public function testIncomplete()
+	{
+		$this->markTestIncomplete();
+	}
 
-    public function testSkipped()
-    {
-        $this->markTestSkipped();
-    }
+	public function testSkipped()
+	{
+		$this->markTestSkipped();
+	}
 
-    public function testRisky()
-    {
-    }
+	public function testRisky()
+	{
+	}
 
-    public function testWarning()
-    {
-        throw new PHPUnit_Framework_Warning;
-    }
+	public function testWarning()
+	{
+		throw new PHPUnit_Framework_Warning;
+	}
 }

@@ -15,59 +15,64 @@ use SebastianBergmann\Version;
  */
 class PHPUnit_Runner_Version
 {
-    private static $pharVersion;
-    private static $version;
+	private static $pharVersion;
+	private static $version;
 
-    /**
-     * Returns the current version of PHPUnit.
-     *
-     * @return string
-     */
-    public static function id()
-    {
-        if (self::$pharVersion !== null) {
-            return self::$pharVersion;
-        }
+	/**
+	 * Returns the current version of PHPUnit.
+	 *
+	 * @return string
+	 */
+	public static function id()
+	{
+		if (self::$pharVersion !== NULL)
+		{
+			return self::$pharVersion;
+		}
 
-        if (self::$version === null) {
-            $version       = new Version('5.7.21', dirname(dirname(__DIR__)));
-            self::$version = $version->getVersion();
-        }
+		if (self::$version === NULL)
+		{
+			$version = new Version('5.7.21', dirname(dirname(__DIR__)));
+			self::$version = $version->getVersion();
+		}
 
-        return self::$version;
-    }
+		return self::$version;
+	}
 
-    /**
-     * @return string
-     */
-    public static function series()
-    {
-        if (strpos(self::id(), '-')) {
-            $version = explode('-', self::id())[0];
-        } else {
-            $version = self::id();
-        }
+	/**
+	 * @return string
+	 */
+	public static function series()
+	{
+		if (strpos(self::id(), '-'))
+		{
+			$version = explode('-', self::id())[0];
+		} else
+		{
+			$version = self::id();
+		}
 
-        return implode('.', array_slice(explode('.', $version), 0, 2));
-    }
+		return implode('.', array_slice(explode('.', $version), 0, 2));
+	}
 
-    /**
-     * @return string
-     */
-    public static function getVersionString()
-    {
-        return 'PHPUnit ' . self::id() . ' by Sebastian Bergmann and contributors.';
-    }
+	/**
+	 * @return string
+	 */
+	public static function getVersionString()
+	{
+		return 'PHPUnit ' . self::id() . ' by Sebastian Bergmann and contributors.';
+	}
 
-    /**
-     * @return string
-     */
-    public static function getReleaseChannel()
-    {
-        if (strpos(self::$pharVersion, '-') !== false) {
-            return '-nightly';
-        }
+	/**
+	 * @return string
+	 */
+	public static function getReleaseChannel()
+	{
+		if (strpos(self::$pharVersion, '-') !== FALSE)
+		{
+			return '-nightly';
+		}
 
-        return '';
-    }
+		return '';
+	}
 }

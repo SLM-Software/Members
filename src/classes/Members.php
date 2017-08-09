@@ -1,17 +1,45 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: syacko
- * Date: 8/4/17
- * Time: 1:48 PM
+ * This is the class file that is the parent of all member based API's.
+ *
+ * API's for members, people who use SLM facilities, are contained here or in sub-class of Member
+ * if the size and complexity of the API warrants it's own class.
+ *
  */
 
-namespace API;
-
-
+/**
+ * This is the Members parent class which contains non-complex methods.
+ *
+ *  Each API is either a method (function) in this class or a sub-call of Members.
+ * There are no rules to determine if the API should be a method in this class or a sub-class
+ * of members. If you feel that the method is to complex and should be refactored to a sub-class,
+ * please do so!
+ *
+ * @param "Slim\Http\RequestMonolog\Logger" $logger The instance of the Logger created at startup.
+ *
+ */
 class Members
 {
-    public static function imHere() {
-        return "I'm Here";
-    }
+	/**
+	 * @var "Slim\Http\RequestMonolog\Logger" $logger The instance of the Logger created at startup.
+	 */
+	protected $myLogger;
+
+	/**
+	 * @var PDO $db The instance of the Postgresql PDO connect created at startup.
+	 */
+	protected $myDB;
+
+	/**
+	 * Members constructor.
+	 *
+	 * @param $logger
+	 */
+	public function __construct($logger, $db)
+	{
+		$this->myLogger = $logger;
+		$this->myLogger->debug(__METHOD__);
+
+		$this->myDB = $db;
+	}
 }

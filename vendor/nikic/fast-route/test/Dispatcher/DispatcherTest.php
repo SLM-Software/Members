@@ -4,558 +4,603 @@ namespace FastRoute\Dispatcher;
 
 use FastRoute\RouteCollector;
 
-abstract class DispatcherTest extends \PHPUnit_Framework_TestCase {
-
-    /**
-     * Delegate dispatcher selection to child test classes
-     */
-    abstract protected function getDispatcherClass();
-
-    /**
-     * Delegate dataGenerator selection to child test classes
-     */
-    abstract protected function getDataGeneratorClass();
-
-    /**
-     * Set appropriate options for the specific Dispatcher class we're testing
-     */
-    private function generateDispatcherOptions() {
-        return [
-            'dataGenerator' => $this->getDataGeneratorClass(),
-            'dispatcher' => $this->getDispatcherClass()
-        ];
-    }
-
-    /**
-     * @dataProvider provideFoundDispatchCases
-     */
-    public function testFoundDispatches($method, $uri, $callback, $handler, $argDict) {
-        $dispatcher = \FastRoute\simpleDispatcher($callback, $this->generateDispatcherOptions());
-        $info = $dispatcher->dispatch($method, $uri);
-        $this->assertSame($dispatcher::FOUND, $info[0]);
-        $this->assertSame($handler, $info[1]);
-        $this->assertSame($argDict, $info[2]);
-    }
-
-    /**
-     * @dataProvider provideNotFoundDispatchCases
-     */
-    public function testNotFoundDispatches($method, $uri, $callback) {
-        $dispatcher = \FastRoute\simpleDispatcher($callback, $this->generateDispatcherOptions());
-        $routeInfo = $dispatcher->dispatch($method, $uri);
-        $this->assertFalse(isset($routeInfo[1]),
-            "NOT_FOUND result must only contain a single element in the returned info array"
-        );
-        $this->assertSame($dispatcher::NOT_FOUND, $routeInfo[0]);
-    }
-
-    /**
-     * @dataProvider provideMethodNotAllowedDispatchCases
-     */
-    public function testMethodNotAllowedDispatches($method, $uri, $callback, $availableMethods) {
-        $dispatcher = \FastRoute\simpleDispatcher($callback, $this->generateDispatcherOptions());
-        $routeInfo = $dispatcher->dispatch($method, $uri);
-        $this->assertTrue(isset($routeInfo[1]),
-            "METHOD_NOT_ALLOWED result must return an array of allowed methods at index 1"
-        );
-
-        list($routedStatus, $methodArray) = $dispatcher->dispatch($method, $uri);
-        $this->assertSame($dispatcher::METHOD_NOT_ALLOWED, $routedStatus);
-        $this->assertSame($availableMethods, $methodArray);
-    }
-
-    /**
-     * @expectedException \FastRoute\BadRouteException
-     * @expectedExceptionMessage Cannot use the same placeholder "test" twice
-     */
-    public function testDuplicateVariableNameError() {
-        \FastRoute\simpleDispatcher(function(RouteCollector $r) {
-            $r->addRoute('GET', '/foo/{test}/{test:\d+}', 'handler0');
-        }, $this->generateDispatcherOptions());
-    }
-
-    /**
-     * @expectedException \FastRoute\BadRouteException
-     * @expectedExceptionMessage Cannot register two routes matching "/user/([^/]+)" for method "GET"
-     */
-    public function testDuplicateVariableRoute() {
-        \FastRoute\simpleDispatcher(function(RouteCollector $r) {
-            $r->addRoute('GET', '/user/{id}', 'handler0'); // oops, forgot \d+ restriction ;)
-            $r->addRoute('GET', '/user/{name}', 'handler1');
-        }, $this->generateDispatcherOptions());
-    }
-
-    /**
-     * @expectedException \FastRoute\BadRouteException
-     * @expectedExceptionMessage Cannot register two routes matching "/user" for method "GET"
-     */
-    public function testDuplicateStaticRoute() {
-        \FastRoute\simpleDispatcher(function(RouteCollector $r) {
-            $r->addRoute('GET', '/user', 'handler0');
-            $r->addRoute('GET', '/user', 'handler1');
-        }, $this->generateDispatcherOptions());
-    }
-
-    /**
-     * @expectedException \FastRoute\BadRouteException
-     * @expectedExceptionMessage Static route "/user/nikic" is shadowed by previously defined variable route "/user/([^/]+)" for method "GET"
-     */
-    public function testShadowedStaticRoute() {
-        \FastRoute\simpleDispatcher(function(RouteCollector $r) {
-            $r->addRoute('GET', '/user/{name}', 'handler0');
-            $r->addRoute('GET', '/user/nikic', 'handler1');
-        }, $this->generateDispatcherOptions());
-    }
+abstract class DispatcherTest extends \PHPUnit_Framework_TestCase
+{
+
+	/**
+	 * Delegate dispatcher selection to child test classes
+	 */
+	abstract protected function getDispatcherClass();
+
+	/**
+	 * Delegate dataGenerator selection to child test classes
+	 */
+	abstract protected function getDataGeneratorClass();
+
+	/**
+	 * Set appropriate options for the specific Dispatcher class we're testing
+	 */
+	private function generateDispatcherOptions()
+	{
+		return [
+			'dataGenerator' => $this->getDataGeneratorClass(),
+			'dispatcher'    => $this->getDispatcherClass()
+		];
+	}
+
+	/**
+	 * @dataProvider provideFoundDispatchCases
+	 */
+	public function testFoundDispatches($method, $uri, $callback, $handler, $argDict)
+	{
+		$dispatcher = \FastRoute\simpleDispatcher($callback, $this->generateDispatcherOptions());
+		$info = $dispatcher->dispatch($method, $uri);
+		$this->assertSame($dispatcher::FOUND, $info[0]);
+		$this->assertSame($handler, $info[1]);
+		$this->assertSame($argDict, $info[2]);
+	}
+
+	/**
+	 * @dataProvider provideNotFoundDispatchCases
+	 */
+	public function testNotFoundDispatches($method, $uri, $callback)
+	{
+		$dispatcher = \FastRoute\simpleDispatcher($callback, $this->generateDispatcherOptions());
+		$routeInfo = $dispatcher->dispatch($method, $uri);
+		$this->assertFalse(isset($routeInfo[1]),
+			"NOT_FOUND result must only contain a single element in the returned info array"
+		);
+		$this->assertSame($dispatcher::NOT_FOUND, $routeInfo[0]);
+	}
+
+	/**
+	 * @dataProvider provideMethodNotAllowedDispatchCases
+	 */
+	public function testMethodNotAllowedDispatches($method, $uri, $callback, $availableMethods)
+	{
+		$dispatcher = \FastRoute\simpleDispatcher($callback, $this->generateDispatcherOptions());
+		$routeInfo = $dispatcher->dispatch($method, $uri);
+		$this->assertTrue(isset($routeInfo[1]),
+			"METHOD_NOT_ALLOWED result must return an array of allowed methods at index 1"
+		);
+
+		list($routedStatus, $methodArray) = $dispatcher->dispatch($method, $uri);
+		$this->assertSame($dispatcher::METHOD_NOT_ALLOWED, $routedStatus);
+		$this->assertSame($availableMethods, $methodArray);
+	}
+
+	/**
+	 * @expectedException \FastRoute\BadRouteException
+	 * @expectedExceptionMessage Cannot use the same placeholder "test" twice
+	 */
+	public function testDuplicateVariableNameError()
+	{
+		\FastRoute\simpleDispatcher(function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/foo/{test}/{test:\d+}', 'handler0');
+		}, $this->generateDispatcherOptions());
+	}
+
+	/**
+	 * @expectedException \FastRoute\BadRouteException
+	 * @expectedExceptionMessage Cannot register two routes matching "/user/([^/]+)" for method "GET"
+	 */
+	public function testDuplicateVariableRoute()
+	{
+		\FastRoute\simpleDispatcher(function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/user/{id}', 'handler0'); // oops, forgot \d+ restriction ;)
+			$r->addRoute('GET', '/user/{name}', 'handler1');
+		}, $this->generateDispatcherOptions());
+	}
+
+	/**
+	 * @expectedException \FastRoute\BadRouteException
+	 * @expectedExceptionMessage Cannot register two routes matching "/user" for method "GET"
+	 */
+	public function testDuplicateStaticRoute()
+	{
+		\FastRoute\simpleDispatcher(function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/user', 'handler0');
+			$r->addRoute('GET', '/user', 'handler1');
+		}, $this->generateDispatcherOptions());
+	}
+
+	/**
+	 * @expectedException \FastRoute\BadRouteException
+	 * @expectedExceptionMessage Static route "/user/nikic" is shadowed by previously defined variable route
+	 *                           "/user/([^/]+)" for method "GET"
+	 */
+	public function testShadowedStaticRoute()
+	{
+		\FastRoute\simpleDispatcher(function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/user/{name}', 'handler0');
+			$r->addRoute('GET', '/user/nikic', 'handler1');
+		}, $this->generateDispatcherOptions());
+	}
 
-    /**
-     * @expectedException \FastRoute\BadRouteException
-     * @expectedExceptionMessage Regex "(en|de)" for parameter "lang" contains a capturing group
-     */
-    public function testCapturing() {
-        \FastRoute\simpleDispatcher(function(RouteCollector $r) {
-            $r->addRoute('GET', '/{lang:(en|de)}', 'handler0');
-        }, $this->generateDispatcherOptions());
-    }
+	/**
+	 * @expectedException \FastRoute\BadRouteException
+	 * @expectedExceptionMessage Regex "(en|de)" for parameter "lang" contains a capturing group
+	 */
+	public function testCapturing()
+	{
+		\FastRoute\simpleDispatcher(function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/{lang:(en|de)}', 'handler0');
+		}, $this->generateDispatcherOptions());
+	}
 
-    public function provideFoundDispatchCases() {
-        $cases = [];
+	public function provideFoundDispatchCases()
+	{
+		$cases = [];
 
-        // 0 -------------------------------------------------------------------------------------->
+		// 0 -------------------------------------------------------------------------------------->
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('GET', '/resource/123/456', 'handler0');
-        };
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/resource/123/456', 'handler0');
+		};
+
+		$method = 'GET';
+		$uri = '/resource/123/456';
+		$handler = 'handler0';
+		$argDict = [];
+
+		$cases[] = [$method, $uri, $callback, $handler, $argDict];
+
+		// 1 -------------------------------------------------------------------------------------->
 
-        $method = 'GET';
-        $uri = '/resource/123/456';
-        $handler = 'handler0';
-        $argDict = [];
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/handler0', 'handler0');
+			$r->addRoute('GET', '/handler1', 'handler1');
+			$r->addRoute('GET', '/handler2', 'handler2');
+		};
 
-        $cases[] = [$method, $uri, $callback, $handler, $argDict];
+		$method = 'GET';
+		$uri = '/handler2';
+		$handler = 'handler2';
+		$argDict = [];
 
-        // 1 -------------------------------------------------------------------------------------->
+		$cases[] = [$method, $uri, $callback, $handler, $argDict];
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('GET', '/handler0', 'handler0');
-            $r->addRoute('GET', '/handler1', 'handler1');
-            $r->addRoute('GET', '/handler2', 'handler2');
-        };
+		// 2 -------------------------------------------------------------------------------------->
 
-        $method = 'GET';
-        $uri = '/handler2';
-        $handler = 'handler2';
-        $argDict = [];
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/user/{name}/{id:[0-9]+}', 'handler0');
+			$r->addRoute('GET', '/user/{id:[0-9]+}', 'handler1');
+			$r->addRoute('GET', '/user/{name}', 'handler2');
+		};
 
-        $cases[] = [$method, $uri, $callback, $handler, $argDict];
+		$method = 'GET';
+		$uri = '/user/rdlowrey';
+		$handler = 'handler2';
+		$argDict = ['name' => 'rdlowrey'];
 
-        // 2 -------------------------------------------------------------------------------------->
+		$cases[] = [$method, $uri, $callback, $handler, $argDict];
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('GET', '/user/{name}/{id:[0-9]+}', 'handler0');
-            $r->addRoute('GET', '/user/{id:[0-9]+}', 'handler1');
-            $r->addRoute('GET', '/user/{name}', 'handler2');
-        };
+		// 3 -------------------------------------------------------------------------------------->
 
-        $method = 'GET';
-        $uri = '/user/rdlowrey';
-        $handler = 'handler2';
-        $argDict = ['name' => 'rdlowrey'];
+		// reuse $callback from #2
 
-        $cases[] = [$method, $uri, $callback, $handler, $argDict];
+		$method = 'GET';
+		$uri = '/user/12345';
+		$handler = 'handler1';
+		$argDict = ['id' => '12345'];
 
-        // 3 -------------------------------------------------------------------------------------->
+		$cases[] = [$method, $uri, $callback, $handler, $argDict];
 
-        // reuse $callback from #2
+		// 4 -------------------------------------------------------------------------------------->
 
-        $method = 'GET';
-        $uri = '/user/12345';
-        $handler = 'handler1';
-        $argDict = ['id' => '12345'];
+		// reuse $callback from #3
 
-        $cases[] = [$method, $uri, $callback, $handler, $argDict];
+		$method = 'GET';
+		$uri = '/user/NaN';
+		$handler = 'handler2';
+		$argDict = ['name' => 'NaN'];
 
-        // 4 -------------------------------------------------------------------------------------->
+		$cases[] = [$method, $uri, $callback, $handler, $argDict];
 
-        // reuse $callback from #3
+		// 5 -------------------------------------------------------------------------------------->
 
-        $method = 'GET';
-        $uri = '/user/NaN';
-        $handler = 'handler2';
-        $argDict = ['name' => 'NaN'];
+		// reuse $callback from #4
 
-        $cases[] = [$method, $uri, $callback, $handler, $argDict];
+		$method = 'GET';
+		$uri = '/user/rdlowrey/12345';
+		$handler = 'handler0';
+		$argDict = ['name' => 'rdlowrey', 'id' => '12345'];
 
-        // 5 -------------------------------------------------------------------------------------->
+		$cases[] = [$method, $uri, $callback, $handler, $argDict];
 
-        // reuse $callback from #4
+		// 6 -------------------------------------------------------------------------------------->
 
-        $method = 'GET';
-        $uri = '/user/rdlowrey/12345';
-        $handler = 'handler0';
-        $argDict = ['name' => 'rdlowrey', 'id' => '12345'];
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/user/{id:[0-9]+}', 'handler0');
+			$r->addRoute('GET', '/user/12345/extension', 'handler1');
+			$r->addRoute('GET', '/user/{id:[0-9]+}.{extension}', 'handler2');
 
-        $cases[] = [$method, $uri, $callback, $handler, $argDict];
+		};
 
-        // 6 -------------------------------------------------------------------------------------->
+		$method = 'GET';
+		$uri = '/user/12345.svg';
+		$handler = 'handler2';
+		$argDict = ['id' => '12345', 'extension' => 'svg'];
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('GET', '/user/{id:[0-9]+}', 'handler0');
-            $r->addRoute('GET', '/user/12345/extension', 'handler1');
-            $r->addRoute('GET', '/user/{id:[0-9]+}.{extension}', 'handler2');
+		$cases[] = [$method, $uri, $callback, $handler, $argDict];
 
-        };
+		// 7 ----- Test GET method fallback on HEAD route miss ------------------------------------>
 
-        $method = 'GET';
-        $uri = '/user/12345.svg';
-        $handler = 'handler2';
-        $argDict = ['id' => '12345', 'extension' => 'svg'];
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/user/{name}', 'handler0');
+			$r->addRoute('GET', '/user/{name}/{id:[0-9]+}', 'handler1');
+			$r->addRoute('GET', '/static0', 'handler2');
+			$r->addRoute('GET', '/static1', 'handler3');
+			$r->addRoute('HEAD', '/static1', 'handler4');
+		};
 
-        $cases[] = [$method, $uri, $callback, $handler, $argDict];
+		$method = 'HEAD';
+		$uri = '/user/rdlowrey';
+		$handler = 'handler0';
+		$argDict = ['name' => 'rdlowrey'];
 
-        // 7 ----- Test GET method fallback on HEAD route miss ------------------------------------>
+		$cases[] = [$method, $uri, $callback, $handler, $argDict];
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('GET', '/user/{name}', 'handler0');
-            $r->addRoute('GET', '/user/{name}/{id:[0-9]+}', 'handler1');
-            $r->addRoute('GET', '/static0', 'handler2');
-            $r->addRoute('GET', '/static1', 'handler3');
-            $r->addRoute('HEAD', '/static1', 'handler4');
-        };
+		// 8 ----- Test GET method fallback on HEAD route miss ------------------------------------>
 
-        $method = 'HEAD';
-        $uri = '/user/rdlowrey';
-        $handler = 'handler0';
-        $argDict = ['name' => 'rdlowrey'];
+		// reuse $callback from #7
 
-        $cases[] = [$method, $uri, $callback, $handler, $argDict];
+		$method = 'HEAD';
+		$uri = '/user/rdlowrey/1234';
+		$handler = 'handler1';
+		$argDict = ['name' => 'rdlowrey', 'id' => '1234'];
 
-        // 8 ----- Test GET method fallback on HEAD route miss ------------------------------------>
+		$cases[] = [$method, $uri, $callback, $handler, $argDict];
 
-        // reuse $callback from #7
+		// 9 ----- Test GET method fallback on HEAD route miss ------------------------------------>
 
-        $method = 'HEAD';
-        $uri = '/user/rdlowrey/1234';
-        $handler = 'handler1';
-        $argDict = ['name' => 'rdlowrey', 'id' => '1234'];
+		// reuse $callback from #8
 
-        $cases[] = [$method, $uri, $callback, $handler, $argDict];
+		$method = 'HEAD';
+		$uri = '/static0';
+		$handler = 'handler2';
+		$argDict = [];
 
-        // 9 ----- Test GET method fallback on HEAD route miss ------------------------------------>
+		$cases[] = [$method, $uri, $callback, $handler, $argDict];
 
-        // reuse $callback from #8
+		// 10 ---- Test existing HEAD route used if available (no fallback) ----------------------->
 
-        $method = 'HEAD';
-        $uri = '/static0';
-        $handler = 'handler2';
-        $argDict = [];
+		// reuse $callback from #9
 
-        $cases[] = [$method, $uri, $callback, $handler, $argDict];
+		$method = 'HEAD';
+		$uri = '/static1';
+		$handler = 'handler4';
+		$argDict = [];
 
-        // 10 ---- Test existing HEAD route used if available (no fallback) ----------------------->
+		$cases[] = [$method, $uri, $callback, $handler, $argDict];
 
-        // reuse $callback from #9
+		// 11 ---- More specified routes are not shadowed by less specific of another method ------>
 
-        $method = 'HEAD';
-        $uri = '/static1';
-        $handler = 'handler4';
-        $argDict = [];
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/user/{name}', 'handler0');
+			$r->addRoute('POST', '/user/{name:[a-z]+}', 'handler1');
+		};
 
-        $cases[] = [$method, $uri, $callback, $handler, $argDict];
+		$method = 'POST';
+		$uri = '/user/rdlowrey';
+		$handler = 'handler1';
+		$argDict = ['name' => 'rdlowrey'];
 
-        // 11 ---- More specified routes are not shadowed by less specific of another method ------>
+		$cases[] = [$method, $uri, $callback, $handler, $argDict];
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('GET', '/user/{name}', 'handler0');
-            $r->addRoute('POST', '/user/{name:[a-z]+}', 'handler1');
-        };
+		// 12 ---- Handler of more specific routes is used, if it occurs first -------------------->
 
-        $method = 'POST';
-        $uri = '/user/rdlowrey';
-        $handler = 'handler1';
-        $argDict = ['name' => 'rdlowrey'];
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/user/{name}', 'handler0');
+			$r->addRoute('POST', '/user/{name:[a-z]+}', 'handler1');
+			$r->addRoute('POST', '/user/{name}', 'handler2');
+		};
 
-        $cases[] = [$method, $uri, $callback, $handler, $argDict];
+		$method = 'POST';
+		$uri = '/user/rdlowrey';
+		$handler = 'handler1';
+		$argDict = ['name' => 'rdlowrey'];
 
-        // 12 ---- Handler of more specific routes is used, if it occurs first -------------------->
+		$cases[] = [$method, $uri, $callback, $handler, $argDict];
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('GET', '/user/{name}', 'handler0');
-            $r->addRoute('POST', '/user/{name:[a-z]+}', 'handler1');
-            $r->addRoute('POST', '/user/{name}', 'handler2');
-        };
+		// 13 ---- Route with constant suffix ----------------------------------------------------->
 
-        $method = 'POST';
-        $uri = '/user/rdlowrey';
-        $handler = 'handler1';
-        $argDict = ['name' => 'rdlowrey'];
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/user/{name}', 'handler0');
+			$r->addRoute('GET', '/user/{name}/edit', 'handler1');
+		};
 
-        $cases[] = [$method, $uri, $callback, $handler, $argDict];
+		$method = 'GET';
+		$uri = '/user/rdlowrey/edit';
+		$handler = 'handler1';
+		$argDict = ['name' => 'rdlowrey'];
 
-        // 13 ---- Route with constant suffix ----------------------------------------------------->
+		$cases[] = [$method, $uri, $callback, $handler, $argDict];
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('GET', '/user/{name}', 'handler0');
-            $r->addRoute('GET', '/user/{name}/edit', 'handler1');
-        };
+		// 14 ---- Handle multiple methods with the same handler ---------------------------------->
 
-        $method = 'GET';
-        $uri = '/user/rdlowrey/edit';
-        $handler = 'handler1';
-        $argDict = ['name' => 'rdlowrey'];
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute(['GET', 'POST'], '/user', 'handlerGetPost');
+			$r->addRoute(['DELETE'], '/user', 'handlerDelete');
+			$r->addRoute([], '/user', 'handlerNone');
+		};
 
-        $cases[] = [$method, $uri, $callback, $handler, $argDict];
+		$argDict = [];
+		$cases[] = ['GET', '/user', $callback, 'handlerGetPost', $argDict];
+		$cases[] = ['POST', '/user', $callback, 'handlerGetPost', $argDict];
+		$cases[] = ['DELETE', '/user', $callback, 'handlerDelete', $argDict];
 
-        // 14 ---- Handle multiple methods with the same handler ---------------------------------->
+		// 15 ----
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute(['GET', 'POST'], '/user', 'handlerGetPost');
-            $r->addRoute(['DELETE'], '/user', 'handlerDelete');
-            $r->addRoute([], '/user', 'handlerNone');
-        };
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('POST', '/user.json', 'handler0');
+			$r->addRoute('GET', '/{entity}.json', 'handler1');
+		};
 
-        $argDict = [];
-        $cases[] = ['GET', '/user', $callback, 'handlerGetPost', $argDict];
-        $cases[] = ['POST', '/user', $callback, 'handlerGetPost', $argDict];
-        $cases[] = ['DELETE', '/user', $callback, 'handlerDelete', $argDict];
+		$cases[] = ['GET', '/user.json', $callback, 'handler1', ['entity' => 'user']];
 
-        // 15 ----
+		// 16 ----
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('POST', '/user.json', 'handler0');
-            $r->addRoute('GET', '/{entity}.json', 'handler1');
-        };
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '', 'handler0');
+		};
 
-        $cases[] = ['GET', '/user.json', $callback, 'handler1', ['entity' => 'user']];
+		$cases[] = ['GET', '', $callback, 'handler0', []];
 
-        // 16 ----
+		// 17 ----
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('GET', '', 'handler0');
-        };
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('HEAD', '/a/{foo}', 'handler0');
+			$r->addRoute('GET', '/b/{foo}', 'handler1');
+		};
 
-        $cases[] = ['GET', '', $callback, 'handler0', []];
+		$cases[] = ['HEAD', '/b/bar', $callback, 'handler1', ['foo' => 'bar']];
 
-        // 17 ----
+		// 18 ----
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('HEAD', '/a/{foo}', 'handler0');
-            $r->addRoute('GET', '/b/{foo}', 'handler1');
-        };
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('HEAD', '/a', 'handler0');
+			$r->addRoute('GET', '/b', 'handler1');
+		};
 
-        $cases[] = ['HEAD', '/b/bar', $callback, 'handler1', ['foo' => 'bar']];
+		$cases[] = ['HEAD', '/b', $callback, 'handler1', []];
 
-        // 18 ----
+		// 19 ----
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('HEAD', '/a', 'handler0');
-            $r->addRoute('GET', '/b', 'handler1');
-        };
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/foo', 'handler0');
+			$r->addRoute('HEAD', '/{bar}', 'handler1');
+		};
 
-        $cases[] = ['HEAD', '/b', $callback, 'handler1', []];
+		$cases[] = ['HEAD', '/foo', $callback, 'handler1', ['bar' => 'foo']];
 
-        // 19 ----
+		// 20 ----
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('GET', '/foo', 'handler0');
-            $r->addRoute('HEAD', '/{bar}', 'handler1');
-        };
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('*', '/user', 'handler0');
+			$r->addRoute('*', '/{user}', 'handler1');
+			$r->addRoute('GET', '/user', 'handler2');
+		};
 
-        $cases[] = ['HEAD', '/foo', $callback, 'handler1', ['bar' => 'foo']];
+		$cases[] = ['GET', '/user', $callback, 'handler2', []];
 
-        // 20 ----
+		// 21 ----
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('*', '/user', 'handler0');
-            $r->addRoute('*', '/{user}', 'handler1');
-            $r->addRoute('GET', '/user', 'handler2');
-        };
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('*', '/user', 'handler0');
+			$r->addRoute('GET', '/user', 'handler1');
+		};
 
-        $cases[] = ['GET', '/user', $callback, 'handler2', []];
+		$cases[] = ['POST', '/user', $callback, 'handler0', []];
 
-        // 21 ----
+		// 22 ----
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('*', '/user', 'handler0');
-            $r->addRoute('GET', '/user', 'handler1');
-        };
+		$cases[] = ['HEAD', '/user', $callback, 'handler1', []];
 
-        $cases[] = ['POST', '/user', $callback, 'handler0', []];
+		// 23 ----
 
-        // 22 ----
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/{bar}', 'handler0');
+			$r->addRoute('*', '/foo', 'handler1');
+		};
 
-        $cases[] = ['HEAD', '/user', $callback, 'handler1', []];
+		$cases[] = ['GET', '/foo', $callback, 'handler0', ['bar' => 'foo']];
 
-        // 23 ----
+		// x -------------------------------------------------------------------------------------->
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('GET', '/{bar}', 'handler0');
-            $r->addRoute('*', '/foo', 'handler1');
-        };
+		return $cases;
+	}
 
-        $cases[] = ['GET', '/foo', $callback, 'handler0', ['bar' => 'foo']];
+	public function provideNotFoundDispatchCases()
+	{
+		$cases = [];
 
-        // x -------------------------------------------------------------------------------------->
+		// 0 -------------------------------------------------------------------------------------->
 
-        return $cases;
-    }
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/resource/123/456', 'handler0');
+		};
 
-    public function provideNotFoundDispatchCases() {
-        $cases = [];
+		$method = 'GET';
+		$uri = '/not-found';
 
-        // 0 -------------------------------------------------------------------------------------->
+		$cases[] = [$method, $uri, $callback];
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('GET', '/resource/123/456', 'handler0');
-        };
+		// 1 -------------------------------------------------------------------------------------->
 
-        $method = 'GET';
-        $uri = '/not-found';
+		// reuse callback from #0
+		$method = 'POST';
+		$uri = '/not-found';
 
-        $cases[] = [$method, $uri, $callback];
+		$cases[] = [$method, $uri, $callback];
 
-        // 1 -------------------------------------------------------------------------------------->
+		// 2 -------------------------------------------------------------------------------------->
 
-        // reuse callback from #0
-        $method = 'POST';
-        $uri = '/not-found';
+		// reuse callback from #1
+		$method = 'PUT';
+		$uri = '/not-found';
 
-        $cases[] = [$method, $uri, $callback];
+		$cases[] = [$method, $uri, $callback];
 
-        // 2 -------------------------------------------------------------------------------------->
+		// 3 -------------------------------------------------------------------------------------->
 
-        // reuse callback from #1
-        $method = 'PUT';
-        $uri = '/not-found';
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/handler0', 'handler0');
+			$r->addRoute('GET', '/handler1', 'handler1');
+			$r->addRoute('GET', '/handler2', 'handler2');
+		};
 
-        $cases[] = [$method, $uri, $callback];
+		$method = 'GET';
+		$uri = '/not-found';
 
-        // 3 -------------------------------------------------------------------------------------->
+		$cases[] = [$method, $uri, $callback];
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('GET', '/handler0', 'handler0');
-            $r->addRoute('GET', '/handler1', 'handler1');
-            $r->addRoute('GET', '/handler2', 'handler2');
-        };
+		// 4 -------------------------------------------------------------------------------------->
 
-        $method = 'GET';
-        $uri = '/not-found';
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/user/{name}/{id:[0-9]+}', 'handler0');
+			$r->addRoute('GET', '/user/{id:[0-9]+}', 'handler1');
+			$r->addRoute('GET', '/user/{name}', 'handler2');
+		};
 
-        $cases[] = [$method, $uri, $callback];
+		$method = 'GET';
+		$uri = '/not-found';
 
-        // 4 -------------------------------------------------------------------------------------->
+		$cases[] = [$method, $uri, $callback];
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('GET', '/user/{name}/{id:[0-9]+}', 'handler0');
-            $r->addRoute('GET', '/user/{id:[0-9]+}', 'handler1');
-            $r->addRoute('GET', '/user/{name}', 'handler2');
-        };
+		// 5 -------------------------------------------------------------------------------------->
 
-        $method = 'GET';
-        $uri = '/not-found';
+		// reuse callback from #4
+		$method = 'GET';
+		$uri = '/user/rdlowrey/12345/not-found';
 
-        $cases[] = [$method, $uri, $callback];
+		$cases[] = [$method, $uri, $callback];
 
-        // 5 -------------------------------------------------------------------------------------->
+		// 6 -------------------------------------------------------------------------------------->
 
-        // reuse callback from #4
-        $method = 'GET';
-        $uri = '/user/rdlowrey/12345/not-found';
+		// reuse callback from #5
+		$method = 'HEAD';
 
-        $cases[] = [$method, $uri, $callback];
+		$cases[] = array($method, $uri, $callback);
 
-        // 6 -------------------------------------------------------------------------------------->
+		// x -------------------------------------------------------------------------------------->
 
-        // reuse callback from #5
-        $method = 'HEAD';
+		return $cases;
+	}
 
-        $cases[] = array($method, $uri, $callback);
+	public function provideMethodNotAllowedDispatchCases()
+	{
+		$cases = [];
 
-        // x -------------------------------------------------------------------------------------->
+		// 0 -------------------------------------------------------------------------------------->
 
-        return $cases;
-    }
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/resource/123/456', 'handler0');
+		};
 
-    public function provideMethodNotAllowedDispatchCases() {
-        $cases = [];
+		$method = 'POST';
+		$uri = '/resource/123/456';
+		$allowedMethods = ['GET'];
 
-        // 0 -------------------------------------------------------------------------------------->
+		$cases[] = [$method, $uri, $callback, $allowedMethods];
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('GET', '/resource/123/456', 'handler0');
-        };
+		// 1 -------------------------------------------------------------------------------------->
 
-        $method = 'POST';
-        $uri = '/resource/123/456';
-        $allowedMethods = ['GET'];
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/resource/123/456', 'handler0');
+			$r->addRoute('POST', '/resource/123/456', 'handler1');
+			$r->addRoute('PUT', '/resource/123/456', 'handler2');
+			$r->addRoute('*', '/', 'handler3');
+		};
 
-        $cases[] = [$method, $uri, $callback, $allowedMethods];
+		$method = 'DELETE';
+		$uri = '/resource/123/456';
+		$allowedMethods = ['GET', 'POST', 'PUT'];
 
-        // 1 -------------------------------------------------------------------------------------->
+		$cases[] = [$method, $uri, $callback, $allowedMethods];
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('GET', '/resource/123/456', 'handler0');
-            $r->addRoute('POST', '/resource/123/456', 'handler1');
-            $r->addRoute('PUT', '/resource/123/456', 'handler2');
-            $r->addRoute('*', '/', 'handler3');
-        };
+		// 2 -------------------------------------------------------------------------------------->
 
-        $method = 'DELETE';
-        $uri = '/resource/123/456';
-        $allowedMethods = ['GET', 'POST', 'PUT'];
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('GET', '/user/{name}/{id:[0-9]+}', 'handler0');
+			$r->addRoute('POST', '/user/{name}/{id:[0-9]+}', 'handler1');
+			$r->addRoute('PUT', '/user/{name}/{id:[0-9]+}', 'handler2');
+			$r->addRoute('PATCH', '/user/{name}/{id:[0-9]+}', 'handler3');
+		};
 
-        $cases[] = [$method, $uri, $callback, $allowedMethods];
+		$method = 'DELETE';
+		$uri = '/user/rdlowrey/42';
+		$allowedMethods = ['GET', 'POST', 'PUT', 'PATCH'];
 
-        // 2 -------------------------------------------------------------------------------------->
+		$cases[] = [$method, $uri, $callback, $allowedMethods];
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('GET', '/user/{name}/{id:[0-9]+}', 'handler0');
-            $r->addRoute('POST', '/user/{name}/{id:[0-9]+}', 'handler1');
-            $r->addRoute('PUT', '/user/{name}/{id:[0-9]+}', 'handler2');
-            $r->addRoute('PATCH', '/user/{name}/{id:[0-9]+}', 'handler3');
-        };
+		// 3 -------------------------------------------------------------------------------------->
 
-        $method = 'DELETE';
-        $uri = '/user/rdlowrey/42';
-        $allowedMethods = ['GET', 'POST', 'PUT', 'PATCH'];
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('POST', '/user/{name}', 'handler1');
+			$r->addRoute('PUT', '/user/{name:[a-z]+}', 'handler2');
+			$r->addRoute('PATCH', '/user/{name:[a-z]+}', 'handler3');
+		};
 
-        $cases[] = [$method, $uri, $callback, $allowedMethods];
+		$method = 'GET';
+		$uri = '/user/rdlowrey';
+		$allowedMethods = ['POST', 'PUT', 'PATCH'];
 
-        // 3 -------------------------------------------------------------------------------------->
+		$cases[] = [$method, $uri, $callback, $allowedMethods];
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('POST', '/user/{name}', 'handler1');
-            $r->addRoute('PUT', '/user/{name:[a-z]+}', 'handler2');
-            $r->addRoute('PATCH', '/user/{name:[a-z]+}', 'handler3');
-        };
+		// 4 -------------------------------------------------------------------------------------->
 
-        $method = 'GET';
-        $uri = '/user/rdlowrey';
-        $allowedMethods = ['POST', 'PUT', 'PATCH'];
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute(['GET', 'POST'], '/user', 'handlerGetPost');
+			$r->addRoute(['DELETE'], '/user', 'handlerDelete');
+			$r->addRoute([], '/user', 'handlerNone');
+		};
 
-        $cases[] = [$method, $uri, $callback, $allowedMethods];
+		$cases[] = ['PUT', '/user', $callback, ['GET', 'POST', 'DELETE']];
 
-        // 4 -------------------------------------------------------------------------------------->
+		// 5
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute(['GET', 'POST'], '/user', 'handlerGetPost');
-            $r->addRoute(['DELETE'], '/user', 'handlerDelete');
-            $r->addRoute([], '/user', 'handlerNone');
-        };
+		$callback = function (RouteCollector $r)
+		{
+			$r->addRoute('POST', '/user.json', 'handler0');
+			$r->addRoute('GET', '/{entity}.json', 'handler1');
+		};
 
-        $cases[] = ['PUT', '/user', $callback, ['GET', 'POST', 'DELETE']];
+		$cases[] = ['PUT', '/user.json', $callback, ['POST', 'GET']];
 
-        // 5
+		// x -------------------------------------------------------------------------------------->
 
-        $callback = function(RouteCollector $r) {
-            $r->addRoute('POST', '/user.json', 'handler0');
-            $r->addRoute('GET', '/{entity}.json', 'handler1');
-        };
-
-        $cases[] = ['PUT', '/user.json', $callback, ['POST', 'GET']];
-
-        // x -------------------------------------------------------------------------------------->
-
-        return $cases;
-    }
+		return $cases;
+	}
 
 }

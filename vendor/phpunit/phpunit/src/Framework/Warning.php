@@ -13,13 +13,13 @@
  */
 class PHPUnit_Framework_Warning extends PHPUnit_Framework_Exception implements PHPUnit_Framework_SelfDescribing
 {
-    /**
-     * Wrapper for getMessage() which is declared as final.
-     *
-     * @return string
-     */
-    public function toString()
-    {
-        return $this->getMessage();
-    }
+	/**
+	 * Wrapper for getMessage() which is declared as final.
+	 *
+	 * @return string
+	 */
+	public function toString()
+	{
+		return $this->getMessage();
+	}
 }

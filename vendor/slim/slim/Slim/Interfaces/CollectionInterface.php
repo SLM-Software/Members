@@ -6,6 +6,7 @@
  * @copyright Copyright (c) 2011-2017 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/3.x/LICENSE.md (MIT License)
  */
+
 namespace Slim\Interfaces;
 
 /**
@@ -16,17 +17,17 @@ namespace Slim\Interfaces;
  */
 interface CollectionInterface extends \ArrayAccess, \Countable, \IteratorAggregate
 {
-    public function set($key, $value);
+	public function set($key, $value);
 
-    public function get($key, $default = null);
+	public function get($key, $default = NULL);
 
-    public function replace(array $items);
+	public function replace(array $items);
 
-    public function all();
+	public function all();
 
-    public function has($key);
+	public function has($key);
 
-    public function remove($key);
+	public function remove($key);
 
-    public function clear();
+	public function clear();
 }

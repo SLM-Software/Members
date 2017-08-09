@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of PHPUnit.
  *
@@ -10,10 +11,10 @@
 
 class PHPUnit_Util_ConfigurationGenerator
 {
-    /**
-     * @var string
-     */
-    private $defaultTemplate = <<<EOT
+	/**
+	 * @var string
+	 */
+	private $defaultTemplate = <<<EOT
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/{phpunit_version}/phpunit.xsd"
@@ -37,30 +38,30 @@ class PHPUnit_Util_ConfigurationGenerator
 
 EOT;
 
-    /**
-     * @param string $phpunitVersion
-     * @param string $bootstrapScript
-     * @param string $testsDirectory
-     * @param string $srcDirectory
-     *
-     * @return string
-     */
-    public function generateDefaultConfiguration($phpunitVersion, $bootstrapScript, $testsDirectory, $srcDirectory)
-    {
-        return str_replace(
-            [
-                '{phpunit_version}',
-                '{bootstrap_script}',
-                '{tests_directory}',
-                '{src_directory}'
-            ],
-            [
-                $phpunitVersion,
-                $bootstrapScript,
-                $testsDirectory,
-                $srcDirectory
-            ],
-            $this->defaultTemplate
-        );
-    }
+	/**
+	 * @param string $phpunitVersion
+	 * @param string $bootstrapScript
+	 * @param string $testsDirectory
+	 * @param string $srcDirectory
+	 *
+	 * @return string
+	 */
+	public function generateDefaultConfiguration($phpunitVersion, $bootstrapScript, $testsDirectory, $srcDirectory)
+	{
+		return str_replace(
+			[
+				'{phpunit_version}',
+				'{bootstrap_script}',
+				'{tests_directory}',
+				'{src_directory}'
+			],
+			[
+				$phpunitVersion,
+				$bootstrapScript,
+				$testsDirectory,
+				$srcDirectory
+			],
+			$this->defaultTemplate
+		);
+	}
 }

@@ -4,5 +4,5 @@ namespace Fixtures\Prophecy;
 
 interface Named
 {
-    public function getName();
+	public function getName();
 }

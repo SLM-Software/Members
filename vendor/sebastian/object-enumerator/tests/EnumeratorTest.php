@@ -17,122 +17,122 @@ use SebastianBergmann\ObjectEnumerator\Fixtures\ExceptionThrower;
  */
 class EnumeratorTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var Enumerator
-     */
-    private $enumerator;
+	/**
+	 * @var Enumerator
+	 */
+	private $enumerator;
 
-    protected function setUp()
-    {
-        $this->enumerator = new Enumerator;
-    }
+	protected function setUp()
+	{
+		$this->enumerator = new Enumerator;
+	}
 
-    public function testEnumeratesSingleObject()
-    {
-        $a = new \stdClass;
+	public function testEnumeratesSingleObject()
+	{
+		$a = new \stdClass;
 
-        $objects = $this->enumerator->enumerate($a);
+		$objects = $this->enumerator->enumerate($a);
 
-        $this->assertCount(1, $objects);
-        $this->assertSame($a, $objects[0]);
-    }
+		$this->assertCount(1, $objects);
+		$this->assertSame($a, $objects[0]);
+	}
 
-    public function testEnumeratesArrayWithSingleObject()
-    {
-        $a = new \stdClass;
+	public function testEnumeratesArrayWithSingleObject()
+	{
+		$a = new \stdClass;
 
-        $objects = $this->enumerator->enumerate([$a]);
+		$objects = $this->enumerator->enumerate([$a]);
 
-        $this->assertCount(1, $objects);
-        $this->assertSame($a, $objects[0]);
-    }
+		$this->assertCount(1, $objects);
+		$this->assertSame($a, $objects[0]);
+	}
 
-    public function testEnumeratesArrayWithTwoReferencesToTheSameObject()
-    {
-        $a = new \stdClass;
+	public function testEnumeratesArrayWithTwoReferencesToTheSameObject()
+	{
+		$a = new \stdClass;
 
-        $objects = $this->enumerator->enumerate([$a, $a]);
+		$objects = $this->enumerator->enumerate([$a, $a]);
 
-        $this->assertCount(1, $objects);
-        $this->assertSame($a, $objects[0]);
-    }
+		$this->assertCount(1, $objects);
+		$this->assertSame($a, $objects[0]);
+	}
 
-    public function testEnumeratesArrayOfObjects()
-    {
-        $a = new \stdClass;
-        $b = new \stdClass;
+	public function testEnumeratesArrayOfObjects()
+	{
+		$a = new \stdClass;
+		$b = new \stdClass;
 
-        $objects = $this->enumerator->enumerate([$a, $b, null]);
+		$objects = $this->enumerator->enumerate([$a, $b, NULL]);
 
-        $this->assertCount(2, $objects);
-        $this->assertSame($a, $objects[0]);
-        $this->assertSame($b, $objects[1]);
-    }
+		$this->assertCount(2, $objects);
+		$this->assertSame($a, $objects[0]);
+		$this->assertSame($b, $objects[1]);
+	}
 
-    public function testEnumeratesObjectWithAggregatedObject()
-    {
-        $a = new \stdClass;
-        $b = new \stdClass;
+	public function testEnumeratesObjectWithAggregatedObject()
+	{
+		$a = new \stdClass;
+		$b = new \stdClass;
 
-        $a->b = $b;
-        $a->c = null;
+		$a->b = $b;
+		$a->c = NULL;
 
-        $objects = $this->enumerator->enumerate($a);
+		$objects = $this->enumerator->enumerate($a);
 
-        $this->assertCount(2, $objects);
-        $this->assertSame($a, $objects[0]);
-        $this->assertSame($b, $objects[1]);
-    }
+		$this->assertCount(2, $objects);
+		$this->assertSame($a, $objects[0]);
+		$this->assertSame($b, $objects[1]);
+	}
 
-    public function testEnumeratesObjectWithAggregatedObjectsInArray()
-    {
-        $a = new \stdClass;
-        $b = new \stdClass;
+	public function testEnumeratesObjectWithAggregatedObjectsInArray()
+	{
+		$a = new \stdClass;
+		$b = new \stdClass;
 
-        $a->b = [$b];
+		$a->b = [$b];
 
-        $objects = $this->enumerator->enumerate($a);
+		$objects = $this->enumerator->enumerate($a);
 
-        $this->assertCount(2, $objects);
-        $this->assertSame($a, $objects[0]);
-        $this->assertSame($b, $objects[1]);
-    }
+		$this->assertCount(2, $objects);
+		$this->assertSame($a, $objects[0]);
+		$this->assertSame($b, $objects[1]);
+	}
 
-    public function testEnumeratesObjectsWithCyclicReferences()
-    {
-        $a = new \stdClass;
-        $b = new \stdClass;
+	public function testEnumeratesObjectsWithCyclicReferences()
+	{
+		$a = new \stdClass;
+		$b = new \stdClass;
 
-        $a->b = $b;
-        $b->a = $a;
+		$a->b = $b;
+		$b->a = $a;
 
-        $objects = $this->enumerator->enumerate([$a, $b]);
+		$objects = $this->enumerator->enumerate([$a, $b]);
 
-        $this->assertCount(2, $objects);
-        $this->assertSame($a, $objects[0]);
-        $this->assertSame($b, $objects[1]);
-    }
+		$this->assertCount(2, $objects);
+		$this->assertSame($a, $objects[0]);
+		$this->assertSame($b, $objects[1]);
+	}
 
-    public function testEnumeratesClassThatThrowsException()
-    {
-        $thrower = new ExceptionThrower();
+	public function testEnumeratesClassThatThrowsException()
+	{
+		$thrower = new ExceptionThrower();
 
-        $objects = $this->enumerator->enumerate($thrower);
+		$objects = $this->enumerator->enumerate($thrower);
 
-        $this->assertSame($thrower, $objects[0]);
-    }
+		$this->assertSame($thrower, $objects[0]);
+	}
 
-    public function testExceptionIsRaisedForInvalidArgument()
-    {
-        $this->setExpectedException(InvalidArgumentException::class);
+	public function testExceptionIsRaisedForInvalidArgument()
+	{
+		$this->setExpectedException(InvalidArgumentException::class);
 
-        $this->enumerator->enumerate(null);
-    }
+		$this->enumerator->enumerate(NULL);
+	}
 
-    public function testExceptionIsRaisedForInvalidArgument2()
-    {
-        $this->setExpectedException(InvalidArgumentException::class);
+	public function testExceptionIsRaisedForInvalidArgument2()
+	{
+		$this->setExpectedException(InvalidArgumentException::class);
 
-        $this->enumerator->enumerate([], '');
-    }
+		$this->enumerator->enumerate([], '');
+	}
 }

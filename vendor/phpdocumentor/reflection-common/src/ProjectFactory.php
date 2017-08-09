@@ -8,6 +8,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
+
 namespace phpDocumentor\Reflection;
 
 /**
@@ -16,12 +17,13 @@ namespace phpDocumentor\Reflection;
  */
 interface ProjectFactory
 {
-    /**
-     * Creates a project from the set of files.
-     *
-     * @param string $name
-     * @param File[] $files
-     * @return Project
-     */
-    public function create($name, array $files);
+	/**
+	 * Creates a project from the set of files.
+	 *
+	 * @param string $name
+	 * @param File[] $files
+	 *
+	 * @return Project
+	 */
+	public function create($name, array $files);
 }

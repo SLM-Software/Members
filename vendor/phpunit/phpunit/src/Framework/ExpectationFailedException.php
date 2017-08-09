@@ -17,23 +17,23 @@
  */
 class PHPUnit_Framework_ExpectationFailedException extends PHPUnit_Framework_AssertionFailedError
 {
-    /**
-     * @var SebastianBergmann\Comparator\ComparisonFailure
-     */
-    protected $comparisonFailure;
+	/**
+	 * @var SebastianBergmann\Comparator\ComparisonFailure
+	 */
+	protected $comparisonFailure;
 
-    public function __construct($message, SebastianBergmann\Comparator\ComparisonFailure $comparisonFailure = null, Exception $previous = null)
-    {
-        $this->comparisonFailure = $comparisonFailure;
+	public function __construct($message, SebastianBergmann\Comparator\ComparisonFailure $comparisonFailure = NULL, Exception $previous = NULL)
+	{
+		$this->comparisonFailure = $comparisonFailure;
 
-        parent::__construct($message, 0, $previous);
-    }
+		parent::__construct($message, 0, $previous);
+	}
 
-    /**
-     * @return SebastianBergmann\Comparator\ComparisonFailure
-     */
-    public function getComparisonFailure()
-    {
-        return $this->comparisonFailure;
-    }
+	/**
+	 * @return SebastianBergmann\Comparator\ComparisonFailure
+	 */
+	public function getComparisonFailure()
+	{
+		return $this->comparisonFailure;
+	}
 }

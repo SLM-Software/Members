@@ -14,5 +14,5 @@ namespace phpDocumentor\Reflection;
 
 interface Type
 {
-    public function __toString();
+	public function __toString();
 }

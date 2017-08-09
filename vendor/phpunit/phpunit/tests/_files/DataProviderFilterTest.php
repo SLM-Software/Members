@@ -1,39 +1,40 @@
 <?php
+
 class DataProviderFilterTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @dataProvider truthProvider
-     */
-    public function testTrue($truth)
-    {
-        $this->assertTrue($truth);
-    }
+	/**
+	 * @dataProvider truthProvider
+	 */
+	public function testTrue($truth)
+	{
+		$this->assertTrue($truth);
+	}
 
-    public static function truthProvider()
-    {
-        return [
-           [true],
-           [true],
-           [true],
-           [true]
-        ];
-    }
+	public static function truthProvider()
+	{
+		return [
+			[TRUE],
+			[TRUE],
+			[TRUE],
+			[TRUE]
+		];
+	}
 
-    /**
-     * @dataProvider falseProvider
-     */
-    public function testFalse($false)
-    {
-        $this->assertFalse($false);
-    }
+	/**
+	 * @dataProvider falseProvider
+	 */
+	public function testFalse($false)
+	{
+		$this->assertFalse($false);
+	}
 
-    public static function falseProvider()
-    {
-        return [
-          'false test'       => [false],
-          'false test 2'     => [false],
-          'other false test' => [false],
-          'other false test2'=> [false]
-        ];
-    }
+	public static function falseProvider()
+	{
+		return [
+			'false test'        => [FALSE],
+			'false test 2'      => [FALSE],
+			'other false test'  => [FALSE],
+			'other false test2' => [FALSE]
+		];
+	}
 }

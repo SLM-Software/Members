@@ -6,6 +6,7 @@
  * @copyright Copyright (c) 2011-2017 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/3.x/LICENSE.md (MIT License)
  */
+
 namespace Slim;
 
 use Interop\Container\ContainerInterface;
@@ -31,149 +32,155 @@ use Slim\Exception\ContainerException as SlimContainerException;
  *  - notAllowedHandler: a callable with the signature: function($request, $response, $allowedHttpMethods)
  *  - callableResolver: an instance of \Slim\Interfaces\CallableResolverInterface
  *
- * @property-read array settings
- * @property-read \Slim\Interfaces\Http\EnvironmentInterface environment
- * @property-read \Psr\Http\Message\ServerRequestInterface request
- * @property-read \Psr\Http\Message\ResponseInterface response
- * @property-read \Slim\Interfaces\RouterInterface router
+ * @property-read array                                        settings
+ * @property-read \Slim\Interfaces\Http\EnvironmentInterface   environment
+ * @property-read \Psr\Http\Message\ServerRequestInterface     request
+ * @property-read \Psr\Http\Message\ResponseInterface          response
+ * @property-read \Slim\Interfaces\RouterInterface             router
  * @property-read \Slim\Interfaces\InvocationStrategyInterface foundHandler
- * @property-read callable errorHandler
- * @property-read callable notFoundHandler
- * @property-read callable notAllowedHandler
- * @property-read \Slim\Interfaces\CallableResolverInterface callableResolver
+ * @property-read callable                                     errorHandler
+ * @property-read callable                                     notFoundHandler
+ * @property-read callable                                     notAllowedHandler
+ * @property-read \Slim\Interfaces\CallableResolverInterface   callableResolver
  */
 class Container extends PimpleContainer implements ContainerInterface
 {
-    /**
-     * Default settings
-     *
-     * @var array
-     */
-    private $defaultSettings = [
-        'httpVersion' => '1.1',
-        'responseChunkSize' => 4096,
-        'outputBuffering' => 'append',
-        'determineRouteBeforeAppMiddleware' => false,
-        'displayErrorDetails' => false,
-        'addContentLengthHeader' => true,
-        'routerCacheFile' => false,
-    ];
+	/**
+	 * Default settings
+	 *
+	 * @var array
+	 */
+	private $defaultSettings = [
+		'httpVersion'                       => '1.1',
+		'responseChunkSize'                 => 4096,
+		'outputBuffering'                   => 'append',
+		'determineRouteBeforeAppMiddleware' => FALSE,
+		'displayErrorDetails'               => FALSE,
+		'addContentLengthHeader'            => TRUE,
+		'routerCacheFile'                   => FALSE,
+	];
 
-    /**
-     * Create new container
-     *
-     * @param array $values The parameters or objects.
-     */
-    public function __construct(array $values = [])
-    {
-        parent::__construct($values);
+	/**
+	 * Create new container
+	 *
+	 * @param array $values The parameters or objects.
+	 */
+	public function __construct(array $values = [])
+	{
+		parent::__construct($values);
 
-        $userSettings = isset($values['settings']) ? $values['settings'] : [];
-        $this->registerDefaultServices($userSettings);
-    }
+		$userSettings = isset($values['settings']) ? $values['settings'] : [];
+		$this->registerDefaultServices($userSettings);
+	}
 
-    /**
-     * This function registers the default services that Slim needs to work.
-     *
-     * All services are shared - that is, they are registered such that the
-     * same instance is returned on subsequent calls.
-     *
-     * @param array $userSettings Associative array of application settings
-     *
-     * @return void
-     */
-    private function registerDefaultServices($userSettings)
-    {
-        $defaultSettings = $this->defaultSettings;
+	/**
+	 * This function registers the default services that Slim needs to work.
+	 *
+	 * All services are shared - that is, they are registered such that the
+	 * same instance is returned on subsequent calls.
+	 *
+	 * @param array $userSettings Associative array of application settings
+	 *
+	 * @return void
+	 */
+	private function registerDefaultServices($userSettings)
+	{
+		$defaultSettings = $this->defaultSettings;
 
-        /**
-         * This service MUST return an array or an
-         * instance of \ArrayAccess.
-         *
-         * @return array|\ArrayAccess
-         */
-        $this['settings'] = function () use ($userSettings, $defaultSettings) {
-            return new Collection(array_merge($defaultSettings, $userSettings));
-        };
+		/**
+		 * This service MUST return an array or an
+		 * instance of \ArrayAccess.
+		 *
+		 * @return array|\ArrayAccess
+		 */
+		$this['settings'] = function () use ($userSettings, $defaultSettings)
+		{
+			return new Collection(array_merge($defaultSettings, $userSettings));
+		};
 
-        $defaultProvider = new DefaultServicesProvider();
-        $defaultProvider->register($this);
-    }
+		$defaultProvider = new DefaultServicesProvider();
+		$defaultProvider->register($this);
+	}
 
-    /********************************************************************************
-     * Methods to satisfy Interop\Container\ContainerInterface
-     *******************************************************************************/
+	/********************************************************************************
+	 * Methods to satisfy Interop\Container\ContainerInterface
+	 *******************************************************************************/
 
-    /**
-     * Finds an entry of the container by its identifier and returns it.
-     *
-     * @param string $id Identifier of the entry to look for.
-     *
-     * @throws ContainerValueNotFoundException  No entry was found for this identifier.
-     * @throws ContainerException               Error while retrieving the entry.
-     *
-     * @return mixed Entry.
-     */
-    public function get($id)
-    {
-        if (!$this->offsetExists($id)) {
-            throw new ContainerValueNotFoundException(sprintf('Identifier "%s" is not defined.', $id));
-        }
-        try {
-            return $this->offsetGet($id);
-        } catch (\InvalidArgumentException $exception) {
-            if ($this->exceptionThrownByContainer($exception)) {
-                throw new SlimContainerException(
-                    sprintf('Container error while retrieving "%s"', $id),
-                    null,
-                    $exception
-                );
-            } else {
-                throw $exception;
-            }
-        }
-    }
+	/**
+	 * Finds an entry of the container by its identifier and returns it.
+	 *
+	 * @param string $id Identifier of the entry to look for.
+	 *
+	 * @throws ContainerValueNotFoundException  No entry was found for this identifier.
+	 * @throws ContainerException               Error while retrieving the entry.
+	 *
+	 * @return mixed Entry.
+	 */
+	public function get($id)
+	{
+		if (!$this->offsetExists($id))
+		{
+			throw new ContainerValueNotFoundException(sprintf('Identifier "%s" is not defined.', $id));
+		}
+		try
+		{
+			return $this->offsetGet($id);
+		} catch (\InvalidArgumentException $exception)
+		{
+			if ($this->exceptionThrownByContainer($exception))
+			{
+				throw new SlimContainerException(
+					sprintf('Container error while retrieving "%s"', $id),
+					NULL,
+					$exception
+				);
+			} else
+			{
+				throw $exception;
+			}
+		}
+	}
 
-    /**
-     * Tests whether an exception needs to be recast for compliance with Container-Interop.  This will be if the
-     * exception was thrown by Pimple.
-     *
-     * @param \InvalidArgumentException $exception
-     *
-     * @return bool
-     */
-    private function exceptionThrownByContainer(\InvalidArgumentException $exception)
-    {
-        $trace = $exception->getTrace()[0];
+	/**
+	 * Tests whether an exception needs to be recast for compliance with Container-Interop.  This will be if the
+	 * exception was thrown by Pimple.
+	 *
+	 * @param \InvalidArgumentException $exception
+	 *
+	 * @return bool
+	 */
+	private function exceptionThrownByContainer(\InvalidArgumentException $exception)
+	{
+		$trace = $exception->getTrace()[0];
 
-        return $trace['class'] === PimpleContainer::class && $trace['function'] === 'offsetGet';
-    }
+		return $trace['class'] === PimpleContainer::class && $trace['function'] === 'offsetGet';
+	}
 
-    /**
-     * Returns true if the container can return an entry for the given identifier.
-     * Returns false otherwise.
-     *
-     * @param string $id Identifier of the entry to look for.
-     *
-     * @return boolean
-     */
-    public function has($id)
-    {
-        return $this->offsetExists($id);
-    }
+	/**
+	 * Returns true if the container can return an entry for the given identifier.
+	 * Returns false otherwise.
+	 *
+	 * @param string $id Identifier of the entry to look for.
+	 *
+	 * @return boolean
+	 */
+	public function has($id)
+	{
+		return $this->offsetExists($id);
+	}
 
 
-    /********************************************************************************
-     * Magic methods for convenience
-     *******************************************************************************/
+	/********************************************************************************
+	 * Magic methods for convenience
+	 *******************************************************************************/
 
-    public function __get($name)
-    {
-        return $this->get($name);
-    }
+	public function __get($name)
+	{
+		return $this->get($name);
+	}
 
-    public function __isset($name)
-    {
-        return $this->has($name);
-    }
+	public function __isset($name)
+	{
+		return $this->has($name);
+	}
 }

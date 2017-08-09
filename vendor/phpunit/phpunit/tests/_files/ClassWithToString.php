@@ -14,8 +14,8 @@
  */
 class ClassWithToString
 {
-    public function __toString()
-    {
-        return 'string representation';
-    }
+	public function __toString()
+	{
+		return 'string representation';
+	}
 }

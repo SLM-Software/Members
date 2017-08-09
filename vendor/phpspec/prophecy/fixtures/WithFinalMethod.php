@@ -4,7 +4,7 @@ namespace Fixtures\Prophecy;
 
 class WithFinalMethod
 {
-    final public function finalImplementation()
-    {
-    }
+	final public function finalImplementation()
+	{
+	}
 }

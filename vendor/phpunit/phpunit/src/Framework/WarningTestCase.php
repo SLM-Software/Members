@@ -13,63 +13,63 @@
  */
 class PHPUnit_Framework_WarningTestCase extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @var string
-     */
-    protected $message = '';
+	/**
+	 * @var string
+	 */
+	protected $message = '';
 
-    /**
-     * @var bool
-     */
-    protected $backupGlobals = false;
+	/**
+	 * @var bool
+	 */
+	protected $backupGlobals = FALSE;
 
-    /**
-     * @var bool
-     */
-    protected $backupStaticAttributes = false;
+	/**
+	 * @var bool
+	 */
+	protected $backupStaticAttributes = FALSE;
 
-    /**
-     * @var bool
-     */
-    protected $runTestInSeparateProcess = false;
+	/**
+	 * @var bool
+	 */
+	protected $runTestInSeparateProcess = FALSE;
 
-    /**
-     * @var bool
-     */
-    protected $useErrorHandler = false;
+	/**
+	 * @var bool
+	 */
+	protected $useErrorHandler = FALSE;
 
-    /**
-     * @param string $message
-     */
-    public function __construct($message = '')
-    {
-        $this->message = $message;
-        parent::__construct('Warning');
-    }
+	/**
+	 * @param string $message
+	 */
+	public function __construct($message = '')
+	{
+		$this->message = $message;
+		parent::__construct('Warning');
+	}
 
-    /**
-     * @throws PHPUnit_Framework_Exception
-     */
-    protected function runTest()
-    {
-        throw new PHPUnit_Framework_Warning($this->message);
-    }
+	/**
+	 * @throws PHPUnit_Framework_Exception
+	 */
+	protected function runTest()
+	{
+		throw new PHPUnit_Framework_Warning($this->message);
+	}
 
-    /**
-     * @return string
-     */
-    public function getMessage()
-    {
-        return $this->message;
-    }
+	/**
+	 * @return string
+	 */
+	public function getMessage()
+	{
+		return $this->message;
+	}
 
-    /**
-     * Returns a string representation of the test case.
-     *
-     * @return string
-     */
-    public function toString()
-    {
-        return 'Warning';
-    }
+	/**
+	 * Returns a string representation of the test case.
+	 *
+	 * @return string
+	 */
+	public function toString()
+	{
+		return 'Warning';
+	}
 }

@@ -1,35 +1,36 @@
 <?php
+
 class ExceptionInSetUpTest extends PHPUnit_Framework_TestCase
 {
-    public $setUp                = false;
-    public $assertPreConditions  = false;
-    public $assertPostConditions = false;
-    public $tearDown             = false;
-    public $testSomething        = false;
+	public $setUp = FALSE;
+	public $assertPreConditions = FALSE;
+	public $assertPostConditions = FALSE;
+	public $tearDown = FALSE;
+	public $testSomething = FALSE;
 
-    protected function setUp()
-    {
-        $this->setUp = true;
-        throw new Exception;
-    }
+	protected function setUp()
+	{
+		$this->setUp = TRUE;
+		throw new Exception;
+	}
 
-    protected function assertPreConditions()
-    {
-        $this->assertPreConditions = true;
-    }
+	protected function assertPreConditions()
+	{
+		$this->assertPreConditions = TRUE;
+	}
 
-    public function testSomething()
-    {
-        $this->testSomething = true;
-    }
+	public function testSomething()
+	{
+		$this->testSomething = TRUE;
+	}
 
-    protected function assertPostConditions()
-    {
-        $this->assertPostConditions = true;
-    }
+	protected function assertPostConditions()
+	{
+		$this->assertPostConditions = TRUE;
+	}
 
-    protected function tearDown()
-    {
-        $this->tearDown = true;
-    }
+	protected function tearDown()
+	{
+		$this->tearDown = TRUE;
+	}
 }

@@ -12,104 +12,113 @@ use Slim\Http\Response;
 class PhpRendererTest extends PHPUnit_Framework_TestCase
 {
 
-    public function testRenderer() {
-        $renderer = new \Slim\Views\PhpRenderer("tests/");
+	public function testRenderer()
+	{
+		$renderer = new \Slim\Views\PhpRenderer("tests/");
 
-        $headers = new Headers();
-        $body = new Body(fopen('php://temp', 'r+'));
-        $response = new Response(200, $headers, $body);
+		$headers = new Headers();
+		$body = new Body(fopen('php://temp', 'r+'));
+		$response = new Response(200, $headers, $body);
 
-        $newResponse = $renderer->render($response, "testTemplate.php", array("hello" => "Hi"));
+		$newResponse = $renderer->render($response, "testTemplate.php", array("hello" => "Hi"));
 
-        $newResponse->getBody()->rewind();
+		$newResponse->getBody()->rewind();
 
-        $this->assertEquals("Hi", $newResponse->getBody()->getContents());
-    }
+		$this->assertEquals("Hi", $newResponse->getBody()->getContents());
+	}
 
-    public function testRenderConstructor() {
-        $renderer = new \Slim\Views\PhpRenderer("tests");
+	public function testRenderConstructor()
+	{
+		$renderer = new \Slim\Views\PhpRenderer("tests");
 
-        $headers = new Headers();
-        $body = new Body(fopen('php://temp', 'r+'));
-        $response = new Response(200, $headers, $body);
+		$headers = new Headers();
+		$body = new Body(fopen('php://temp', 'r+'));
+		$response = new Response(200, $headers, $body);
 
-        $newResponse = $renderer->render($response, "testTemplate.php", array("hello" => "Hi"));
+		$newResponse = $renderer->render($response, "testTemplate.php", array("hello" => "Hi"));
 
-        $newResponse->getBody()->rewind();
+		$newResponse->getBody()->rewind();
 
-        $this->assertEquals("Hi", $newResponse->getBody()->getContents());
-    }
+		$this->assertEquals("Hi", $newResponse->getBody()->getContents());
+	}
 
-    public function testAttributeMerging() {
+	public function testAttributeMerging()
+	{
 
-        $renderer = new \Slim\Views\PhpRenderer("tests/", [
-            "hello" => "Hello"
-        ]);
+		$renderer = new \Slim\Views\PhpRenderer("tests/", [
+			"hello" => "Hello"
+		]);
 
-        $headers = new Headers();
-        $body = new Body(fopen('php://temp', 'r+'));
-        $response = new Response(200, $headers, $body);
+		$headers = new Headers();
+		$body = new Body(fopen('php://temp', 'r+'));
+		$response = new Response(200, $headers, $body);
 
-        $newResponse = $renderer->render($response, "testTemplate.php", [
-            "hello" => "Hi"
-        ]);
-        $newResponse->getBody()->rewind();
-        $this->assertEquals("Hi", $newResponse->getBody()->getContents());
-    }
+		$newResponse = $renderer->render($response, "testTemplate.php", [
+			"hello" => "Hi"
+		]);
+		$newResponse->getBody()->rewind();
+		$this->assertEquals("Hi", $newResponse->getBody()->getContents());
+	}
 
-    public function testExceptionInTemplate() {
-        $renderer = new \Slim\Views\PhpRenderer("tests/");
+	public function testExceptionInTemplate()
+	{
+		$renderer = new \Slim\Views\PhpRenderer("tests/");
 
-        $headers = new Headers();
-        $body = new Body(fopen('php://temp', 'r+'));
-        $response = new Response(200, $headers, $body);
+		$headers = new Headers();
+		$body = new Body(fopen('php://temp', 'r+'));
+		$response = new Response(200, $headers, $body);
 
-        try {
-            $newResponse = $renderer->render($response, "testException.php");
-        } catch (Throwable $t) { // PHP 7+
-            // Simulates an error template
-            $newResponse = $renderer->render($response, "testTemplate.php", [
-                "hello" => "Hi"
-            ]);
-        } catch (Exception $e) { // PHP < 7
-            // Simulates an error template
-            $newResponse = $renderer->render($response, "testTemplate.php", [
-                "hello" => "Hi"
-            ]);
-        }
+		try
+		{
+			$newResponse = $renderer->render($response, "testException.php");
+		} catch (Throwable $t)
+		{ // PHP 7+
+			// Simulates an error template
+			$newResponse = $renderer->render($response, "testTemplate.php", [
+				"hello" => "Hi"
+			]);
+		} catch (Exception $e)
+		{ // PHP < 7
+			// Simulates an error template
+			$newResponse = $renderer->render($response, "testTemplate.php", [
+				"hello" => "Hi"
+			]);
+		}
 
-        $newResponse->getBody()->rewind();
+		$newResponse->getBody()->rewind();
 
-        $this->assertEquals("Hi", $newResponse->getBody()->getContents());
-    }
+		$this->assertEquals("Hi", $newResponse->getBody()->getContents());
+	}
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testExceptionForTemplateInData() {
+	/**
+	 * @expectedException InvalidArgumentException
+	 */
+	public function testExceptionForTemplateInData()
+	{
 
-        $renderer = new \Slim\Views\PhpRenderer("tests/");
+		$renderer = new \Slim\Views\PhpRenderer("tests/");
 
-        $headers = new Headers();
-        $body = new Body(fopen('php://temp', 'r+'));
-        $response = new Response(200, $headers, $body);
+		$headers = new Headers();
+		$body = new Body(fopen('php://temp', 'r+'));
+		$response = new Response(200, $headers, $body);
 
-        $renderer->render($response, "testTemplate.php", [
-            "template" => "Hi"
-        ]);
-    }
+		$renderer->render($response, "testTemplate.php", [
+			"template" => "Hi"
+		]);
+	}
 
-    /**
-     * @expectedException RuntimeException
-     */
-    public function testTemplateNotFound() {
+	/**
+	 * @expectedException RuntimeException
+	 */
+	public function testTemplateNotFound()
+	{
 
-        $renderer = new \Slim\Views\PhpRenderer("tests/");
+		$renderer = new \Slim\Views\PhpRenderer("tests/");
 
-        $headers = new Headers();
-        $body = new Body(fopen('php://temp', 'r+'));
-        $response = new Response(200, $headers, $body);
+		$headers = new Headers();
+		$body = new Body(fopen('php://temp', 'r+'));
+		$response = new Response(200, $headers, $body);
 
-        $renderer->render($response, "adfadftestTemplate.php", []);
-    }
+		$renderer->render($response, "adfadftestTemplate.php", []);
+	}
 }

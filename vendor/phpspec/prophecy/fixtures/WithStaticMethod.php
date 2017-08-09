@@ -4,7 +4,7 @@ namespace Fixtures\Prophecy;
 
 class WithStaticMethod
 {
-    public static function innerDetail()
-    {
-    }
+	public static function innerDetail()
+	{
+	}
 }

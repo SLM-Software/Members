@@ -6,6 +6,7 @@
  * @copyright Copyright (c) 2011-2017 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/3.x/LICENSE.md (MIT License)
  */
+
 namespace Slim\Handlers;
 
 use Psr\Http\Message\ServerRequestInterface;
@@ -21,75 +22,76 @@ use UnexpectedValueException;
  */
 class NotFound extends AbstractHandler
 {
-    /**
-     * Invoke not found handler
-     *
-     * @param  ServerRequestInterface $request  The most recent Request object
-     * @param  ResponseInterface      $response The most recent Response object
-     *
-     * @return ResponseInterface
-     * @throws UnexpectedValueException
-     */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
-    {
-        $contentType = $this->determineContentType($request);
-        switch ($contentType) {
-            case 'application/json':
-                $output = $this->renderJsonNotFoundOutput();
-                break;
+	/**
+	 * Invoke not found handler
+	 *
+	 * @param  ServerRequestInterface $request  The most recent Request object
+	 * @param  ResponseInterface      $response The most recent Response object
+	 *
+	 * @return ResponseInterface
+	 * @throws UnexpectedValueException
+	 */
+	public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
+	{
+		$contentType = $this->determineContentType($request);
+		switch ($contentType)
+		{
+			case 'application/json':
+				$output = $this->renderJsonNotFoundOutput();
+				break;
 
-            case 'text/xml':
-            case 'application/xml':
-                $output = $this->renderXmlNotFoundOutput();
-                break;
+			case 'text/xml':
+			case 'application/xml':
+				$output = $this->renderXmlNotFoundOutput();
+				break;
 
-            case 'text/html':
-                $output = $this->renderHtmlNotFoundOutput($request);
-                break;
+			case 'text/html':
+				$output = $this->renderHtmlNotFoundOutput($request);
+				break;
 
-            default:
-                throw new UnexpectedValueException('Cannot render unknown content type ' . $contentType);
-        }
+			default:
+				throw new UnexpectedValueException('Cannot render unknown content type ' . $contentType);
+		}
 
-        $body = new Body(fopen('php://temp', 'r+'));
-        $body->write($output);
+		$body = new Body(fopen('php://temp', 'r+'));
+		$body->write($output);
 
-        return $response->withStatus(404)
-                        ->withHeader('Content-Type', $contentType)
-                        ->withBody($body);
-    }
+		return $response->withStatus(404)
+			->withHeader('Content-Type', $contentType)
+			->withBody($body);
+	}
 
-    /**
-     * Return a response for application/json content not found
-     *
-     * @return ResponseInterface
-     */
-    protected function renderJsonNotFoundOutput()
-    {
-        return '{"message":"Not found"}';
-    }
+	/**
+	 * Return a response for application/json content not found
+	 *
+	 * @return ResponseInterface
+	 */
+	protected function renderJsonNotFoundOutput()
+	{
+		return '{"message":"Not found"}';
+	}
 
-    /**
-     * Return a response for xml content not found
-     *
-     * @return ResponseInterface
-     */
-    protected function renderXmlNotFoundOutput()
-    {
-        return '<root><message>Not found</message></root>';
-    }
+	/**
+	 * Return a response for xml content not found
+	 *
+	 * @return ResponseInterface
+	 */
+	protected function renderXmlNotFoundOutput()
+	{
+		return '<root><message>Not found</message></root>';
+	}
 
-    /**
-     * Return a response for text/html content not found
-     *
-     * @param  ServerRequestInterface $request  The most recent Request object
-     *
-     * @return ResponseInterface
-     */
-    protected function renderHtmlNotFoundOutput(ServerRequestInterface $request)
-    {
-        $homeUrl = (string)($request->getUri()->withPath('')->withQuery('')->withFragment(''));
-        return <<<END
+	/**
+	 * Return a response for text/html content not found
+	 *
+	 * @param  ServerRequestInterface $request The most recent Request object
+	 *
+	 * @return ResponseInterface
+	 */
+	protected function renderHtmlNotFoundOutput(ServerRequestInterface $request)
+	{
+		$homeUrl = (string)($request->getUri()->withPath('')->withQuery('')->withFragment(''));
+		return <<<END
 <html>
     <head>
         <title>Page Not Found</title>
@@ -122,5 +124,5 @@ class NotFound extends AbstractHandler
     </body>
 </html>
 END;
-    }
+	}
 }

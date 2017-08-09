@@ -17,28 +17,28 @@ use PHPUnit\Framework\TestCase;
  */
 class LineTest extends TestCase
 {
-    /**
-     * @var Line
-     */
-    private $line;
+	/**
+	 * @var Line
+	 */
+	private $line;
 
-    protected function setUp()
-    {
-        $this->line = new Line;
-    }
+	protected function setUp()
+	{
+		$this->line = new Line;
+	}
 
-    public function testCanBeCreatedWithoutArguments()
-    {
-        $this->assertInstanceOf('SebastianBergmann\Diff\Line', $this->line);
-    }
+	public function testCanBeCreatedWithoutArguments()
+	{
+		$this->assertInstanceOf('SebastianBergmann\Diff\Line', $this->line);
+	}
 
-    public function testTypeCanBeRetrieved()
-    {
-        $this->assertEquals(Line::UNCHANGED, $this->line->getType());
-    }
+	public function testTypeCanBeRetrieved()
+	{
+		$this->assertEquals(Line::UNCHANGED, $this->line->getType());
+	}
 
-    public function testContentCanBeRetrieved()
-    {
-        $this->assertEquals('', $this->line->getContent());
-    }
+	public function testContentCanBeRetrieved()
+	{
+		$this->assertEquals('', $this->line->getContent());
+	}
 }

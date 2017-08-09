@@ -4,5 +4,5 @@ namespace Fixtures\Prophecy;
 
 abstract class WithProtectedAbstractMethod
 {
-    abstract protected function innerDetail();
+	abstract protected function innerDetail();
 }

@@ -29,106 +29,113 @@ use Prophecy\Exception\Prediction\AggregateException;
  */
 class Prophet
 {
-    private $doubler;
-    private $revealer;
-    private $util;
+	private $doubler;
+	private $revealer;
+	private $util;
 
-    /**
-     * @var ObjectProphecy[]
-     */
-    private $prophecies = array();
+	/**
+	 * @var ObjectProphecy[]
+	 */
+	private $prophecies = array();
 
-    /**
-     * Initializes Prophet.
-     *
-     * @param null|Doubler           $doubler
-     * @param null|RevealerInterface $revealer
-     * @param null|StringUtil        $util
-     */
-    public function __construct(Doubler $doubler = null, RevealerInterface $revealer = null,
-                                StringUtil $util = null)
-    {
-        if (null === $doubler) {
-            $doubler = new Doubler;
-            $doubler->registerClassPatch(new ClassPatch\SplFileInfoPatch);
-            $doubler->registerClassPatch(new ClassPatch\TraversablePatch);
-            $doubler->registerClassPatch(new ClassPatch\DisableConstructorPatch);
-            $doubler->registerClassPatch(new ClassPatch\ProphecySubjectPatch);
-            $doubler->registerClassPatch(new ClassPatch\ReflectionClassNewInstancePatch);
-            $doubler->registerClassPatch(new ClassPatch\HhvmExceptionPatch());
-            $doubler->registerClassPatch(new ClassPatch\MagicCallPatch);
-            $doubler->registerClassPatch(new ClassPatch\KeywordPatch);
-        }
+	/**
+	 * Initializes Prophet.
+	 *
+	 * @param null|Doubler           $doubler
+	 * @param null|RevealerInterface $revealer
+	 * @param null|StringUtil        $util
+	 */
+	public function __construct(Doubler $doubler = NULL, RevealerInterface $revealer = NULL,
+	                            StringUtil $util = NULL)
+	{
+		if (NULL === $doubler)
+		{
+			$doubler = new Doubler;
+			$doubler->registerClassPatch(new ClassPatch\SplFileInfoPatch);
+			$doubler->registerClassPatch(new ClassPatch\TraversablePatch);
+			$doubler->registerClassPatch(new ClassPatch\DisableConstructorPatch);
+			$doubler->registerClassPatch(new ClassPatch\ProphecySubjectPatch);
+			$doubler->registerClassPatch(new ClassPatch\ReflectionClassNewInstancePatch);
+			$doubler->registerClassPatch(new ClassPatch\HhvmExceptionPatch());
+			$doubler->registerClassPatch(new ClassPatch\MagicCallPatch);
+			$doubler->registerClassPatch(new ClassPatch\KeywordPatch);
+		}
 
-        $this->doubler  = $doubler;
-        $this->revealer = $revealer ?: new Revealer;
-        $this->util     = $util ?: new StringUtil;
-    }
+		$this->doubler = $doubler;
+		$this->revealer = $revealer ?: new Revealer;
+		$this->util = $util ?: new StringUtil;
+	}
 
-    /**
-     * Creates new object prophecy.
-     *
-     * @param null|string $classOrInterface Class or interface name
-     *
-     * @return ObjectProphecy
-     */
-    public function prophesize($classOrInterface = null)
-    {
-        $this->prophecies[] = $prophecy = new ObjectProphecy(
-            new LazyDouble($this->doubler),
-            new CallCenter($this->util),
-            $this->revealer
-        );
+	/**
+	 * Creates new object prophecy.
+	 *
+	 * @param null|string $classOrInterface Class or interface name
+	 *
+	 * @return ObjectProphecy
+	 */
+	public function prophesize($classOrInterface = NULL)
+	{
+		$this->prophecies[] = $prophecy = new ObjectProphecy(
+			new LazyDouble($this->doubler),
+			new CallCenter($this->util),
+			$this->revealer
+		);
 
-        if ($classOrInterface && class_exists($classOrInterface)) {
-            return $prophecy->willExtend($classOrInterface);
-        }
+		if ($classOrInterface && class_exists($classOrInterface))
+		{
+			return $prophecy->willExtend($classOrInterface);
+		}
 
-        if ($classOrInterface && interface_exists($classOrInterface)) {
-            return $prophecy->willImplement($classOrInterface);
-        }
+		if ($classOrInterface && interface_exists($classOrInterface))
+		{
+			return $prophecy->willImplement($classOrInterface);
+		}
 
-        return $prophecy;
-    }
+		return $prophecy;
+	}
 
-    /**
-     * Returns all created object prophecies.
-     *
-     * @return ObjectProphecy[]
-     */
-    public function getProphecies()
-    {
-        return $this->prophecies;
-    }
+	/**
+	 * Returns all created object prophecies.
+	 *
+	 * @return ObjectProphecy[]
+	 */
+	public function getProphecies()
+	{
+		return $this->prophecies;
+	}
 
-    /**
-     * Returns Doubler instance assigned to this Prophet.
-     *
-     * @return Doubler
-     */
-    public function getDoubler()
-    {
-        return $this->doubler;
-    }
+	/**
+	 * Returns Doubler instance assigned to this Prophet.
+	 *
+	 * @return Doubler
+	 */
+	public function getDoubler()
+	{
+		return $this->doubler;
+	}
 
-    /**
-     * Checks all predictions defined by prophecies of this Prophet.
-     *
-     * @throws Exception\Prediction\AggregateException If any prediction fails
-     */
-    public function checkPredictions()
-    {
-        $exception = new AggregateException("Some predictions failed:\n");
-        foreach ($this->prophecies as $prophecy) {
-            try {
-                $prophecy->checkProphecyMethodsPredictions();
-            } catch (PredictionException $e) {
-                $exception->append($e);
-            }
-        }
+	/**
+	 * Checks all predictions defined by prophecies of this Prophet.
+	 *
+	 * @throws Exception\Prediction\AggregateException If any prediction fails
+	 */
+	public function checkPredictions()
+	{
+		$exception = new AggregateException("Some predictions failed:\n");
+		foreach ($this->prophecies as $prophecy)
+		{
+			try
+			{
+				$prophecy->checkProphecyMethodsPredictions();
+			} catch (PredictionException $e)
+			{
+				$exception->append($e);
+			}
+		}
 
-        if (count($exception->getExceptions())) {
-            throw $exception;
-        }
-    }
+		if (count($exception->getExceptions()))
+		{
+			throw $exception;
+		}
+	}
 }

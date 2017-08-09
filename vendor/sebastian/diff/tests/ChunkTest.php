@@ -17,52 +17,52 @@ use PHPUnit\Framework\TestCase;
  */
 class ChunkTest extends TestCase
 {
-    /**
-     * @var Chunk
-     */
-    private $chunk;
+	/**
+	 * @var Chunk
+	 */
+	private $chunk;
 
-    protected function setUp()
-    {
-        $this->chunk = new Chunk;
-    }
+	protected function setUp()
+	{
+		$this->chunk = new Chunk;
+	}
 
-    public function testCanBeCreatedWithoutArguments()
-    {
-        $this->assertInstanceOf('SebastianBergmann\Diff\Chunk', $this->chunk);
-    }
+	public function testCanBeCreatedWithoutArguments()
+	{
+		$this->assertInstanceOf('SebastianBergmann\Diff\Chunk', $this->chunk);
+	}
 
-    public function testStartCanBeRetrieved()
-    {
-        $this->assertEquals(0, $this->chunk->getStart());
-    }
+	public function testStartCanBeRetrieved()
+	{
+		$this->assertEquals(0, $this->chunk->getStart());
+	}
 
-    public function testStartRangeCanBeRetrieved()
-    {
-        $this->assertEquals(1, $this->chunk->getStartRange());
-    }
+	public function testStartRangeCanBeRetrieved()
+	{
+		$this->assertEquals(1, $this->chunk->getStartRange());
+	}
 
-    public function testEndCanBeRetrieved()
-    {
-        $this->assertEquals(0, $this->chunk->getEnd());
-    }
+	public function testEndCanBeRetrieved()
+	{
+		$this->assertEquals(0, $this->chunk->getEnd());
+	}
 
-    public function testEndRangeCanBeRetrieved()
-    {
-        $this->assertEquals(1, $this->chunk->getEndRange());
-    }
+	public function testEndRangeCanBeRetrieved()
+	{
+		$this->assertEquals(1, $this->chunk->getEndRange());
+	}
 
-    public function testLinesCanBeRetrieved()
-    {
-        $this->assertEquals(array(), $this->chunk->getLines());
-    }
+	public function testLinesCanBeRetrieved()
+	{
+		$this->assertEquals(array(), $this->chunk->getLines());
+	}
 
-    public function testLinesCanBeSet()
-    {
-        $this->assertEquals(array(), $this->chunk->getLines());
+	public function testLinesCanBeSet()
+	{
+		$this->assertEquals(array(), $this->chunk->getLines());
 
-        $testValue = array('line0', 'line1');
-        $this->chunk->setLines($testValue);
-        $this->assertEquals($testValue, $this->chunk->getLines());
-    }
+		$testValue = array('line0', 'line1');
+		$this->chunk->setLines($testValue);
+		$this->assertEquals($testValue, $this->chunk->getLines());
+	}
 }
