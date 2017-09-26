@@ -24,19 +24,9 @@ $container['logger'] = function ($c)
 $container['db'] = function ($c)
 {
 	$settings = $c->get('settings')['db'];
-	$pdo = new PDO('pgsql:host=localhost;dbname=slmdb;port=5432', 'slmadmin', 'Yidiao01');
+	$pdo = new PDO($settings['dns'], $settings['username'], $settings['password']);
 	$pdo->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
 	$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	return $pdo;
 };
-
-//unset($app->getContainer()['errorHandler']);
-//unset($app->getContainer()['phpErrorHandler']);
-/*$c['errorHandler'] = function ($c) {
-	return function ($request, $response, $exception) use ($c) {
-		return $c['response']->withStatus(500)
-			->withHeader('Content-Type', 'text/html')
-			->write('Something went wrong!');
-	};
-};*/

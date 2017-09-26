@@ -15,5 +15,12 @@ return [
 			'path'  => __DIR__ . '/../logs/app.log',
 			'level' => \Monolog\Logger::DEBUG,
 		],
+
+		// Database settings
+		'db' => [
+			'dns' => 'pgsql:host=localhost;dbname=slmdb;port=5432',
+			'username' => 'slmadmin',
+			'password' => 'Yidiao01',
+		],
 	],
 ];
