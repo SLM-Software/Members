@@ -1,1 +1,4 @@
-# Created by .ignore support plugin (hsz.mobi)
+*.iml
+logs/
+vendor/
+/.idea/workspace.xml
