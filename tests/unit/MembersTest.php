@@ -35,20 +35,19 @@ class MembersTest extends \Codeception\Test\Unit
 		$this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 		$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
-
-
-
+	
 	protected function _after()
 	{
 	}
 
 	// tests
 	public function testGetVersion()
-		{
-			$myMembers = new \API\Members($this->logger, $this->pdo);
-			$this->apiResults = $myMembers->getVersion();
-			codecept_debug($this->apiResults);
-			$this->assertTrue($this->apiResults['retPack']['version'] == 2017);
-			$this->assertTrue($this->apiResults['retPack']['build'] == 1);
-			$this->logger->debug('test has been run');
-		}}
+	{
+		$myMembers = new \API\Members($this->logger, $this->pdo);
+		$this->apiResults = $myMembers->getVersion();
+		codecept_debug($this->apiResults);
+		$this->assertTrue($this->apiResults['retPack']['version'] == 2017);
+		$this->assertTrue($this->apiResults['retPack']['build'] == 1);
+		$this->logger->debug('test has been run');
+	}
+}
