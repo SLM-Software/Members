@@ -1,7 +1,7 @@
 <?php
 //Routes
 
-$app->get('/createmember', function ($request, $response, $args)
+$app->get('/slm/api/members/createmember', function ($request, $response, $args)
 {
 	$this->logger->info("/createmember '/' route");
 
@@ -9,10 +9,10 @@ $app->get('/createmember', function ($request, $response, $args)
 	$myMember = new CreateMember($this->logger, $this->db);
 
 	// Returning $body
-	return $response->withJson($myMember->createmember($request));
+	return $response->withJson($myMember->createMember($request));
 });
 
-$app->get('/readall', function ($request, $response, $args)
+$app->get('/slm/api/members/readall', function ($request, $response, $args)
 {
 	$this->logger->info("/readall '/' route");
 
@@ -34,21 +34,10 @@ $app->get('/readall', function ($request, $response, $args)
 	return $response->withBody($body);
 });
 
-$app->get('/version', function ($request, $response, $args)
+$app->get('/slm/api/members/version', function ($request, $response, $args)
 {
 	$this->logger->info("version '/' route");
+	$myMembers = new \API\Members($this->logger);
 
-	$body = $response->getBody();
-	$body->write(file_get_contents('http://localhost/slm_api/slminfo.slm/version'));
-
-	return $response->withBody($body);
-});
-
-$app->get('/[{name}]', function ($request, $response, $args)
-{
-	// Sample log message
-	$this->logger->info("catch-all '/' route");
-
-	// Render index view
-	return $this->renderer->render($response, 'index.phtml', $args);
+	return $response->withJson($myMembers->getVersion());
 });
