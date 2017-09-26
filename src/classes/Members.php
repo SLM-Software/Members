@@ -8,7 +8,6 @@
  */
 namespace API;
 
-use Slim;
 /**
  * This is the Members parent class which contains non-complex methods.
  *
