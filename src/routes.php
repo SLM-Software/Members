@@ -1,12 +1,14 @@
 <?php
 //Routes
 
+//var_dump($_SERVER);
+
 $app->get('/slm/api/members/createmember', function ($request, $response, $args)
 {
 	$this->logger->info("/createmember '/' route");
 
 	// Creating Class instance
-	$myMember = new CreateMember($this->logger, $this->db);
+	$myMember = new \API\CreateMembers($this->logger, $this->db);
 
 	// Returning $body
 	return $response->withJson($myMember->createMember($request));
