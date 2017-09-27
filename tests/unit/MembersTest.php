@@ -35,7 +35,7 @@ class MembersTest extends \Codeception\Test\Unit
 		$this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 		$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
-	
+
 	protected function _after()
 	{
 	}
