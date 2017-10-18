@@ -180,7 +180,6 @@ class CreateMembers extends Members
 		$resultString = $this->setPrimaryEmail($request->getQueryParam('pemail'));
 		if ($resultString['errCode'] == 0)
 		{
-
 			$resultString = $this->updateMemberColumn('activemember', 'true');
 		}
 
@@ -212,7 +211,6 @@ class CreateMembers extends Members
 		$resultString = $this->setPrimaryEmail($request->getQueryParam('pemail'));
 		if ($resultString['errCode'] == 0)
 		{
-
 			$resultString = $this->updateMemberColumn('confirmed', 'true');
 		}
 
@@ -244,8 +242,46 @@ class CreateMembers extends Members
 		$resultString = $this->setPrimaryEmail($request->getQueryParam('pemail'));
 		if ($resultString['errCode'] == 0)
 		{
-
 			$resultString = $this->readMemberColumn('activemember');
+		}
+
+		return $resultString;
+	}
+
+	/**
+	 * This will return if the email supplied is a member. True is a member, false is not in the database.
+	 *
+	 * @api
+	 *
+	 * @param Slim\Http\Client $request
+	 *
+	 *          The query elements in the URI are as follow:
+	 *          Required elements:
+	 *              pemail    = primary email [varchar(100)]
+	 *
+	 * @return array  Keys: errCode, statusText, codeLoc, custMsg, retPack
+	 *
+	 */
+	public function isMember($request)
+	{
+		$this->myLogger->debug(__METHOD__);
+
+		// Getting the Query Paramters
+		$this->myLogger->debug("getUri / " . $request->getUri());
+
+		$this->myLogger->info("getQueryParam / pemail:" . $request->getQueryParam('pemail'));
+		$resultString = $this->setPrimaryEmail($request->getQueryParam('pemail'));
+		if ($resultString['errCode'] == 0)
+		{
+			$resultString = $this->readMemberColumn('primaryemail');
+			if ($resultString['retPack']->primaryemail == $this->myPrimaryEmail)
+			{
+				$this->myLogger->debug('call to isMember found requested row.');
+				$resultString['retPack'] = (object) array('exists' => TRUE);
+			} else {
+				$resultString['retPack'] = (object) array('exists' => FALSE);
+				$this->myLogger->debug('call to isMember DID NOT FIND requested row.');
+			}
 		}
 
 		return $resultString;
@@ -276,7 +312,6 @@ class CreateMembers extends Members
 		$resultString = $this->setPrimaryEmail($request->getQueryParam('pemail'));
 		if ($resultString['errCode'] == 0)
 		{
-
 			$resultString = $this->readMemberColumn('confirmed');
 		}
 
