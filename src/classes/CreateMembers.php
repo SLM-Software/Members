@@ -169,7 +169,7 @@ class CreateMembers extends Members
 	 * @return array  Keys: errCode, statusText, codeLoc, custMsg, retPack
 	 *
 	 */
-	public function activeMember($request)
+	public function activateMember($request)
 	{
 		$this->myLogger->debug(__METHOD__);
 
@@ -178,10 +178,42 @@ class CreateMembers extends Members
 
 		$this->myLogger->info("getQueryParam / pemail:" . $request->getQueryParam('pemail'));
 		$resultString = $this->setPrimaryEmail($request->getQueryParam('pemail'));
-		if ($resultString['errCode'] > 0)
+		if ($resultString['errCode'] == 0)
 		{
 
 			$resultString = $this->updateMember('activemember', 'true');
+		}
+
+		return $resultString;
+	}
+
+	/**
+	 * This will return the active status of the member. True is active, false is not.
+	 *
+	 * @api
+	 *
+	 * @param Slim\Http\Client $request
+	 *
+	 *          The query elements in the URI are as follow:
+	 *          Required elements:
+	 *              pemail    = primary email [varchar(100)]
+	 *
+	 * @return array  Keys: errCode, statusText, codeLoc, custMsg, retPack
+	 *
+	 */
+	public function isMemberActive($request)
+	{
+		$this->myLogger->debug(__METHOD__);
+
+		// Getting the Query Paramters
+		$this->myLogger->debug("getUri / " . $request->getUri());
+
+		$this->myLogger->info("getQueryParam / pemail:" . $request->getQueryParam('pemail'));
+		$resultString = $this->setPrimaryEmail($request->getQueryParam('pemail'));
+		if ($resultString['errCode'] == 0)
+		{
+
+			$resultString = $this->readMember('activemember');
 		}
 
 		return $resultString;
@@ -217,15 +249,41 @@ class CreateMembers extends Members
 	 *
 	 * @return array  Keys: errCode, statusText, codeLoc, custMsg, retPack
 	 */
-	protected function updateMember(string $colName, string $colValue, string $pEmail)
+	protected function updateMember(string $colName, string $colValue)
 	{
 		$this->myLogger->debug(__METHOD__);
 
-		$mySTMT = $this->myDB->prepare('UPDATE slm.members SET :colName = :colValue WHERE primaryemail = :pemail');
+		$mySTMT = $this->myDB->prepare('UPDATE slm.members SET ' . $colName . ' = ' . $colValue . ' WHERE primaryemail = \'' . $this->myPrimaryEmail . '\'');
 		try
 		{
-			$mySTMT->execute(array(':colName' => $colName, ':colValue' => $colValue, ':pemail' => $pEmail ));
+			$mySTMT->execute();
 			$resultString = array('errCode' => 0, 'statusText' => 'Success', 'codeLoc' => __METHOD__, 'custMsg' => '', 'retPack' => '');
+		} catch (\PDOException $e)
+		{
+			$resultString = array('errCode' => 900, 'statusText' => $e->getMessage(), 'codeLoc' => __METHOD__, 'custMsg' => '', 'retPack' => '');
+		}
+
+		return $resultString;
+	}
+
+	/**
+	 * readColumn reads a column on the members table for a given row using primary email address as the key.
+	 *
+	 * @param $colName
+	 * @param $colValue
+	 *
+	 * @return array  Keys: errCode, statusText, codeLoc, custMsg, retPack
+	 */
+	protected function readMember(string $colName)
+	{
+		$this->myLogger->debug(__METHOD__);
+
+		$mySTMT = $this->myDB->prepare('SELECT ' . $colName . ' FROM slm.members WHERE primaryemail = \'' . $this->myPrimaryEmail . '\'');
+		try
+		{
+			$mySTMT->execute();
+			$resultObj = $mySTMT->fetchObject();
+			$resultString = array('errCode' => 0, 'statusText' => 'Success', 'codeLoc' => __METHOD__, 'custMsg' => '', 'retPack' => $resultObj);
 		} catch (\PDOException $e)
 		{
 			$resultString = array('errCode' => 900, 'statusText' => $e->getMessage(), 'codeLoc' => __METHOD__, 'custMsg' => '', 'retPack' => '');
@@ -265,8 +323,7 @@ class CreateMembers extends Members
 		{
 			$this->myLogger->debug(__METHOD__ . '/ valid primary email');
 			$this->myPrimaryEmail = trim($pemail);
-			$resultString = array('errCode' => 0, 'statusText' => 'Success', 'codeLoc' => __METHOD__, 'custMsg' => '',
-			                      'retPack' => '');
+			$resultString = array('errCode' => 0, 'statusText' => 'Success', 'codeLoc' => __METHOD__, 'custMsg' => '', 'retPack' => '');
 		} else
 		{
 			$this->myLogger->warning(__METHOD__ . '/ Invalid priamary email XXXXXXXXXXXX: ' . trim($pemail));

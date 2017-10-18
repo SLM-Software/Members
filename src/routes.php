@@ -1,7 +1,30 @@
 <?php
 //Routes
 
+// For Testing only
 //var_dump($_SERVER);
+
+$app->get('/slm/api/members/activatemember', function ($request, $response, $args)
+{
+	$this->logger->info("/activatemember '/' route");
+
+	// Creating Class instance
+	$myMember = new \API\CreateMembers($this->logger, $this->db);
+
+	// Returning $body
+	return $response->withJson($myMember->activateMember($request));
+});
+
+$app->get('/slm/api/members/ismemberactive', function ($request, $response, $args)
+{
+	$this->logger->info("/ismemberactive '/' route");
+
+	// Creating Class instance
+	$myMember = new \API\CreateMembers($this->logger, $this->db);
+
+	// Returning $body
+	return $response->withJson($myMember->isMemberActive($request));
+});
 
 $app->get('/slm/api/members/createmember', function ($request, $response, $args)
 {
