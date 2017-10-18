@@ -220,13 +220,12 @@ class CreateMembers extends Members
 	/**
 	 * This will delete the member from the database
 	 *
-	 * @api
+	 * THIS IS NOT A REST API. FOR INTERNAL USE ONLY
+	 * THIS IS NOT A REST API. FOR INTERNAL USE ONLY
+	 * THIS IS NOT A REST API. FOR INTERNAL USE ONLY
+	 * THIS IS NOT A REST API. FOR INTERNAL USE ONLY
 	 *
-	 * @param Slim\Http\Client $request
-	 *
-	 *          The query elements in the URI are as follow:
-	 *          Required elements:
-	 *              pemail    = primary email [varchar(100)]
+	 * @param string primary email [varchar(100)]
 	 *
 	 * @return array  Keys: errCode, statusText, codeLoc, custMsg, retPack
 	 *

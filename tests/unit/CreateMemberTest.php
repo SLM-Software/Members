@@ -163,6 +163,8 @@ class CreateMembersTest extends \Codeception\Test\Unit
 
 	public function testDeleteMember()
 	{
+		// This is not a REST API - It is for internal use only.
+		//
 		$myMember = new \API\CreateMembers($this->logger, $this->pdo);
 		$myMember->deleteMember('syacko@spotlightmart.com');
 	}
