@@ -181,7 +181,7 @@ class CreateMembers extends Members
 		if ($resultString['errCode'] == 0)
 		{
 
-			$resultString = $this->updateMember('activemember', 'true');
+			$resultString = $this->updateMemberColumn('activemember', 'true');
 		}
 
 		return $resultString;
@@ -213,7 +213,7 @@ class CreateMembers extends Members
 		if ($resultString['errCode'] == 0)
 		{
 
-			$resultString = $this->readMember('activemember');
+			$resultString = $this->readMemberColumn('activemember');
 		}
 
 		return $resultString;
@@ -242,14 +242,14 @@ class CreateMembers extends Members
 	}
 
 	/**
-	 * updateColumn updates a column on the members table with a supplied value
+	 * updateMemberColumn updates a column on the members table with a supplied value
 	 *
 	 * @param $colName
 	 * @param $colValue
 	 *
 	 * @return array  Keys: errCode, statusText, codeLoc, custMsg, retPack
 	 */
-	protected function updateMember(string $colName, string $colValue)
+	protected function updateMemberColumn(string $colName, string $colValue)
 	{
 		$this->myLogger->debug(__METHOD__);
 
@@ -267,14 +267,14 @@ class CreateMembers extends Members
 	}
 
 	/**
-	 * readColumn reads a column on the members table for a given row using primary email address as the key.
+	 * readMemberColumn reads a column on the members table for a given row using primary email address as the key.
 	 *
 	 * @param $colName
 	 * @param $colValue
 	 *
 	 * @return array  Keys: errCode, statusText, codeLoc, custMsg, retPack
 	 */
-	protected function readMember(string $colName)
+	protected function readMemberColumn(string $colName)
 	{
 		$this->myLogger->debug(__METHOD__);
 
