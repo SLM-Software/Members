@@ -73,6 +73,68 @@ class CreateMembers extends Members
 	 */
 
 	/**
+	 * This will set the activemember boolean to true
+	 *
+	 * @api
+	 *
+	 * @param Slim\Http\Client $request
+	 *
+	 *          The query elements in the URI are as follow:
+	 *          Required elements:
+	 *              pemail    = primary email [varchar(100)]
+	 *
+	 * @return array  Keys: errCode, statusText, codeLoc, custMsg, retPack
+	 *
+	 */
+	public function activateMember($request)
+	{
+		$this->myLogger->debug(__METHOD__);
+
+		// Getting the Query Paramters
+		$this->myLogger->debug("getUri / " . $request->getUri());
+
+		$this->myLogger->info("getQueryParam / pemail:" . $request->getQueryParam('pemail'));
+		$resultString = $this->setPrimaryEmail($request->getQueryParam('pemail'));
+		if ($resultString['errCode'] == 0)
+		{
+			$resultString = $this->updateMemberColumn('activemember', 'true');
+		}
+
+		return $resultString;
+	}
+
+	/**
+	 * This will set the confirmed boolean to true
+	 *
+	 * @api
+	 *
+	 * @param Slim\Http\Client $request
+	 *
+	 *          The query elements in the URI are as follow:
+	 *          Required elements:
+	 *              pemail    = primary email [varchar(100)]
+	 *
+	 * @return array  Keys: errCode, statusText, codeLoc, custMsg, retPack
+	 *
+	 */
+	public function confirmMember($request)
+	{
+		$this->myLogger->debug(__METHOD__);
+
+		// Getting the Query Paramters
+		$this->myLogger->debug("getUri / " . $request->getUri());
+
+		$this->myLogger->info("getQueryParam / pemail:" . $request->getQueryParam('pemail'));
+		$resultString = $this->setPrimaryEmail($request->getQueryParam('pemail'));
+		if ($resultString['errCode'] == 0)
+		{
+			$resultString = $this->updateMemberColumn('confirmed', 'true');
+		}
+
+		return $resultString;
+	}
+
+	/**
 	 * This will create an instance of a customer in the database
 	 *
 	 * This takes the information supplied and creates a row in the database for that member
@@ -156,7 +218,7 @@ class CreateMembers extends Members
 	}
 
 	/**
-	 * This will set the activemember boolean to true
+	 * This will delete the member from the database
 	 *
 	 * @api
 	 *
@@ -169,80 +231,24 @@ class CreateMembers extends Members
 	 * @return array  Keys: errCode, statusText, codeLoc, custMsg, retPack
 	 *
 	 */
-	public function activateMember($request)
+	public function deleteMember(string $myPrimaryEmail)
 	{
 		$this->myLogger->debug(__METHOD__);
 
-		// Getting the Query Paramters
-		$this->myLogger->debug("getUri / " . $request->getUri());
-
-		$this->myLogger->info("getQueryParam / pemail:" . $request->getQueryParam('pemail'));
-		$resultString = $this->setPrimaryEmail($request->getQueryParam('pemail'));
+		$resultString = $this->setPrimaryEmail($myPrimaryEmail);
 		if ($resultString['errCode'] == 0)
 		{
-			$resultString = $this->updateMemberColumn('activemember', 'true');
-		}
-
-		return $resultString;
-	}
-
-	/**
-	 * This will set the confirmed boolean to true
-	 *
-	 * @api
-	 *
-	 * @param Slim\Http\Client $request
-	 *
-	 *          The query elements in the URI are as follow:
-	 *          Required elements:
-	 *              pemail    = primary email [varchar(100)]
-	 *
-	 * @return array  Keys: errCode, statusText, codeLoc, custMsg, retPack
-	 *
-	 */
-	public function confirmMember($request)
-	{
-		$this->myLogger->debug(__METHOD__);
-
-		// Getting the Query Paramters
-		$this->myLogger->debug("getUri / " . $request->getUri());
-
-		$this->myLogger->info("getQueryParam / pemail:" . $request->getQueryParam('pemail'));
-		$resultString = $this->setPrimaryEmail($request->getQueryParam('pemail'));
-		if ($resultString['errCode'] == 0)
-		{
-			$resultString = $this->updateMemberColumn('confirmed', 'true');
-		}
-
-		return $resultString;
-	}
-
-	/**
-	 * This will return the active status of the member. True is active, false is not.
-	 *
-	 * @api
-	 *
-	 * @param Slim\Http\Client $request
-	 *
-	 *          The query elements in the URI are as follow:
-	 *          Required elements:
-	 *              pemail    = primary email [varchar(100)]
-	 *
-	 * @return array  Keys: errCode, statusText, codeLoc, custMsg, retPack
-	 *
-	 */
-	public function isMemberActive($request)
-	{
-		$this->myLogger->debug(__METHOD__);
-
-		// Getting the Query Paramters
-		$this->myLogger->debug("getUri / " . $request->getUri());
-
-		$this->myLogger->info("getQueryParam / pemail:" . $request->getQueryParam('pemail'));
-		$resultString = $this->setPrimaryEmail($request->getQueryParam('pemail'));
-		if ($resultString['errCode'] == 0)
-		{
-			$resultString = $this->readMemberColumn('activemember');
+//			$mySTMT = $this->myDB->prepare('DELETE FROM slm.members WHERE primaryemail = \'' . $this->myPrimaryEmail . '\'');
+			$mySTMT = $this->myDB->prepare('DELETE FROM slm.members WHERE primaryemail = :primaryemail');
+			try
+			{
+				$mySTMT->bindParam(':primaryemail', $this->myPrimaryEmail);
+				$mySTMT->execute();
+				$resultString = array('errCode' => 0, 'statusText' => 'Success', 'codeLoc' => __METHOD__, 'custMsg' => '', 'retPack' => '');
+			} catch (\PDOException $e)
+			{
+				$resultString = array('errCode' => 900, 'statusText' => $e->getMessage(), 'codeLoc' => __METHOD__, 'custMsg' => '', 'retPack' => '');
+			}
 		}
 
 		return $resultString;
@@ -282,6 +288,37 @@ class CreateMembers extends Members
 				$resultString['retPack'] = (object) array('exists' => FALSE);
 				$this->myLogger->debug('call to isMember DID NOT FIND requested row.');
 			}
+		}
+
+		return $resultString;
+	}
+
+	/**
+	 * This will return the active status of the member. True is active, false is not.
+	 *
+	 * @api
+	 *
+	 * @param Slim\Http\Client $request
+	 *
+	 *          The query elements in the URI are as follow:
+	 *          Required elements:
+	 *              pemail    = primary email [varchar(100)]
+	 *
+	 * @return array  Keys: errCode, statusText, codeLoc, custMsg, retPack
+	 *
+	 */
+	public function isMemberActive($request)
+	{
+		$this->myLogger->debug(__METHOD__);
+
+		// Getting the Query Paramters
+		$this->myLogger->debug("getUri / " . $request->getUri());
+
+		$this->myLogger->info("getQueryParam / pemail:" . $request->getQueryParam('pemail'));
+		$resultString = $this->setPrimaryEmail($request->getQueryParam('pemail'));
+		if ($resultString['errCode'] == 0)
+		{
+			$resultString = $this->readMemberColumn('activemember');
 		}
 
 		return $resultString;
