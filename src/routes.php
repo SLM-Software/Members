@@ -15,15 +15,26 @@ $app->get('/slm/api/members/activatemember', function ($request, $response, $arg
 	return $response->withJson($myMember->activateMember($request));
 });
 
-$app->get('/slm/api/members/ismemberactive', function ($request, $response, $args)
+$app->get('/slm/api/members/confirmmember', function ($request, $response, $args)
 {
-	$this->logger->info("/ismemberactive '/' route");
+	$this->logger->info("/confirmmember '/' route");
 
 	// Creating Class instance
 	$myMember = new \API\CreateMembers($this->logger, $this->db);
 
 	// Returning $body
-	return $response->withJson($myMember->isMemberActive($request));
+	return $response->withJson($myMember->confirmMember($request));
+});
+
+$app->get('/slm/api/members/createmember', function ($request, $response, $args)
+{
+	$this->logger->info("/createmember '/' route");
+
+	// Creating Class instance
+	$myMember = new \API\CreateMembers($this->logger, $this->db);
+
+	// Returning $body
+	return $response->withJson($myMember->createMember($request));
 });
 
 $app->get('/slm/api/members/ismember', function ($request, $response, $args)
@@ -37,15 +48,15 @@ $app->get('/slm/api/members/ismember', function ($request, $response, $args)
 	return $response->withJson($myMember->isMember($request));
 });
 
-$app->get('/slm/api/members/confirmmember', function ($request, $response, $args)
+$app->get('/slm/api/members/ismemberactive', function ($request, $response, $args)
 {
-	$this->logger->info("/confirmmember '/' route");
+	$this->logger->info("/ismemberactive '/' route");
 
 	// Creating Class instance
 	$myMember = new \API\CreateMembers($this->logger, $this->db);
 
 	// Returning $body
-	return $response->withJson($myMember->confirmMember($request));
+	return $response->withJson($myMember->isMemberActive($request));
 });
 
 $app->get('/slm/api/members/ismemberconfirmed', function ($request, $response, $args)
@@ -57,17 +68,6 @@ $app->get('/slm/api/members/ismemberconfirmed', function ($request, $response, $
 
 	// Returning $body
 	return $response->withJson($myMember->isMemberConfirmed($request));
-});
-
-$app->get('/slm/api/members/createmember', function ($request, $response, $args)
-{
-	$this->logger->info("/createmember '/' route");
-
-	// Creating Class instance
-	$myMember = new \API\CreateMembers($this->logger, $this->db);
-
-	// Returning $body
-	return $response->withJson($myMember->createMember($request));
 });
 
 $app->get('/slm/api/members/readall', function ($request, $response, $args)
