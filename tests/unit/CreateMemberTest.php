@@ -37,7 +37,7 @@ class CreateMembersTest extends \Codeception\Test\Unit
 		$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 
-	protected function _after()
+	protected function _afterSuite()
 	{
 	}
 
@@ -159,5 +159,11 @@ class CreateMembersTest extends \Codeception\Test\Unit
 		codecept_debug($myArray);
 		$this->assertTrue($myArray['retPack']['exists'] == FALSE);
 		$this->logger->debug('test has been run');
+	}
+
+	public function testDeleteMember()
+	{
+		$myMember = new \API\CreateMembers($this->logger, $this->pdo);
+		$myMember->deleteMember('syacko@spotlightmart.com');
 	}
 }
