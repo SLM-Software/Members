@@ -26,6 +26,28 @@ $app->get('/slm/api/members/ismemberactive', function ($request, $response, $arg
 	return $response->withJson($myMember->isMemberActive($request));
 });
 
+$app->get('/slm/api/members/confirmmember', function ($request, $response, $args)
+{
+	$this->logger->info("/confirmmember '/' route");
+
+	// Creating Class instance
+	$myMember = new \API\CreateMembers($this->logger, $this->db);
+
+	// Returning $body
+	return $response->withJson($myMember->confirmMember($request));
+});
+
+$app->get('/slm/api/members/ismemberconfirmed', function ($request, $response, $args)
+{
+	$this->logger->info("/ismemberconfirmed '/' route");
+
+	// Creating Class instance
+	$myMember = new \API\CreateMembers($this->logger, $this->db);
+
+	// Returning $body
+	return $response->withJson($myMember->isMemberConfirmed($request));
+});
+
 $app->get('/slm/api/members/createmember', function ($request, $response, $args)
 {
 	$this->logger->info("/createmember '/' route");

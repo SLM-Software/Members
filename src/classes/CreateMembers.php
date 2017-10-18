@@ -188,6 +188,38 @@ class CreateMembers extends Members
 	}
 
 	/**
+	 * This will set the confirmed boolean to true
+	 *
+	 * @api
+	 *
+	 * @param Slim\Http\Client $request
+	 *
+	 *          The query elements in the URI are as follow:
+	 *          Required elements:
+	 *              pemail    = primary email [varchar(100)]
+	 *
+	 * @return array  Keys: errCode, statusText, codeLoc, custMsg, retPack
+	 *
+	 */
+	public function confirmMember($request)
+	{
+		$this->myLogger->debug(__METHOD__);
+
+		// Getting the Query Paramters
+		$this->myLogger->debug("getUri / " . $request->getUri());
+
+		$this->myLogger->info("getQueryParam / pemail:" . $request->getQueryParam('pemail'));
+		$resultString = $this->setPrimaryEmail($request->getQueryParam('pemail'));
+		if ($resultString['errCode'] == 0)
+		{
+
+			$resultString = $this->updateMemberColumn('confirmed', 'true');
+		}
+
+		return $resultString;
+	}
+
+	/**
 	 * This will return the active status of the member. True is active, false is not.
 	 *
 	 * @api
@@ -214,6 +246,38 @@ class CreateMembers extends Members
 		{
 
 			$resultString = $this->readMemberColumn('activemember');
+		}
+
+		return $resultString;
+	}
+
+	/**
+	 * This will return the confirmed status of the member. True is active, false is not.
+	 *
+	 * @api
+	 *
+	 * @param Slim\Http\Client $request
+	 *
+	 *          The query elements in the URI are as follow:
+	 *          Required elements:
+	 *              pemail    = primary email [varchar(100)]
+	 *
+	 * @return array  Keys: errCode, statusText, codeLoc, custMsg, retPack
+	 *
+	 */
+	public function isMemberConfirmed($request)
+	{
+		$this->myLogger->debug(__METHOD__);
+
+		// Getting the Query Paramters
+		$this->myLogger->debug("getUri / " . $request->getUri());
+
+		$this->myLogger->info("getQueryParam / pemail:" . $request->getQueryParam('pemail'));
+		$resultString = $this->setPrimaryEmail($request->getQueryParam('pemail'));
+		if ($resultString['errCode'] == 0)
+		{
+
+			$resultString = $this->readMemberColumn('confirmed');
 		}
 
 		return $resultString;

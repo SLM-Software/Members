@@ -121,4 +121,24 @@ class CreateMembersTest extends \Codeception\Test\Unit
 		$this->assertTrue($myObj->retPack->activemember == TRUE);
 		$this->logger->debug('test has been run');
 	}
+
+	public function testConfirmMember_Request()
+	{
+		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost:8080/slm/api/', 'timeout' => 2.0]);
+		$res = $client->request('GET', 'members/confirmmember?pemail=syacko@spotlightmart.com');
+		$myObj = json_decode($res->getBody());
+		codecept_debug($myObj);
+		$this->assertTrue($myObj->statusText == 'Success');
+		$this->logger->debug('test has been run');
+	}
+	public function testIsMemberConfirmed_Request()
+	{
+		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost:8080/slm/api/', 'timeout' => 2.0]);
+		$res = $client->request('GET', 'members/ismemberconfirmed?pemail=syacko@spotlightmart.com');
+		$myObj = json_decode($res->getBody());
+		codecept_debug($myObj);
+		$this->assertTrue($myObj->statusText == 'Success');
+		$this->assertTrue($myObj->retPack->confirmed == TRUE);
+		$this->logger->debug('test has been run');
+	}
 }
