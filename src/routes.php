@@ -95,7 +95,7 @@ $app->get('/slm/api/members/readall', function ($request, $response, $args)
 $app->get('/slm/api/members/version', function ($request, $response, $args)
 {
 	$this->logger->info("version '/' route");
-	$myMembers = new \API\Members($this->logger);
+	$myMembers = new \API\Members($this->logger, $this->db);
 
 	return $response->withJson($myMembers->getVersion());
 });
