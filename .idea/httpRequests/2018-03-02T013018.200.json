@@ -1,0 +1,10 @@
+{
+  "errCode": 0,
+  "statusText": "Success",
+  "codeLoc": "API\\Members::getVersion",
+  "custMsg": "",
+  "retPack": {
+    "version": "2018",
+    "build": "1"
+  }
+}

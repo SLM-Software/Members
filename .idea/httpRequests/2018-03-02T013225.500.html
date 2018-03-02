@@ -1,0 +1,58 @@
+<html>
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+    <title>Slim Application Error</title>
+    <style>body {
+        margin: 0;
+        padding: 30px;
+        font: 12px/1.5 Helvetica, Arial, Verdana, sans-serif;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 48px;
+        font-weight: normal;
+        line-height: 48px;
+    }
+
+    strong {
+        display: inline-block;
+        width: 65px;
+    }</style>
+</head>
+<body><h1>Slim Application Error</h1>
+<p>The application could not run because of the following error:</p>
+<h2>Details</h2>
+<div><strong>Type:</strong> GuzzleHttp\Exception\RequestException</div>
+<div><strong>Message:</strong> cURL error 60: SSL certificate problem: self signed certificate (see http://curl.haxx.se/libcurl/c/libcurl-errors.html)</div>
+<div><strong>File:</strong> /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/guzzlehttp/guzzle/src/Handler/CurlFactory.php</div>
+<div><strong>Line:</strong> 187</div>
+<h2>Trace</h2>
+<pre>#0 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/guzzlehttp/guzzle/src/Handler/CurlFactory.php(150): GuzzleHttp\Handler\CurlFactory::createRejection(Object(GuzzleHttp\Handler\EasyHandle), Array)
+#1 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/guzzlehttp/guzzle/src/Handler/CurlFactory.php(103): GuzzleHttp\Handler\CurlFactory::finishError(Object(GuzzleHttp\Handler\CurlHandler), Object(GuzzleHttp\Handler\EasyHandle), Object(GuzzleHttp\Handler\CurlFactory))
+#2 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/guzzlehttp/guzzle/src/Handler/CurlHandler.php(43): GuzzleHttp\Handler\CurlFactory::finish(Object(GuzzleHttp\Handler\CurlHandler), Object(GuzzleHttp\Handler\EasyHandle), Object(GuzzleHttp\Handler\CurlFactory))
+#3 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/guzzlehttp/guzzle/src/Handler/Proxy.php(28): GuzzleHttp\Handler\CurlHandler-&gt;__invoke(Object(GuzzleHttp\Psr7\Request), Array)
+#4 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/guzzlehttp/guzzle/src/Handler/Proxy.php(51): GuzzleHttp\Handler\Proxy::GuzzleHttp\Handler\{closure}(Object(GuzzleHttp\Psr7\Request), Array)
+#5 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/guzzlehttp/guzzle/src/PrepareBodyMiddleware.php(37): GuzzleHttp\Handler\Proxy::GuzzleHttp\Handler\{closure}(Object(GuzzleHttp\Psr7\Request), Array)
+#6 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/guzzlehttp/guzzle/src/Middleware.php(30): GuzzleHttp\PrepareBodyMiddleware-&gt;__invoke(Object(GuzzleHttp\Psr7\Request), Array)
+#7 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/guzzlehttp/guzzle/src/RedirectMiddleware.php(70): GuzzleHttp\Middleware::GuzzleHttp\{closure}(Object(GuzzleHttp\Psr7\Request), Array)
+#8 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/guzzlehttp/guzzle/src/Middleware.php(59): GuzzleHttp\RedirectMiddleware-&gt;__invoke(Object(GuzzleHttp\Psr7\Request), Array)
+#9 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/guzzlehttp/guzzle/src/HandlerStack.php(67): GuzzleHttp\Middleware::GuzzleHttp\{closure}(Object(GuzzleHttp\Psr7\Request), Array)
+#10 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/guzzlehttp/guzzle/src/Client.php(277): GuzzleHttp\HandlerStack-&gt;__invoke(Object(GuzzleHttp\Psr7\Request), Array)
+#11 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/guzzlehttp/guzzle/src/Client.php(125): GuzzleHttp\Client-&gt;transfer(Object(GuzzleHttp\Psr7\Request), Array)
+#12 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/guzzlehttp/guzzle/src/Client.php(131): GuzzleHttp\Client-&gt;requestAsync('GET', Object(GuzzleHttp\Psr7\Uri), Array)
+#13 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/src/classes/Members.php(59): GuzzleHttp\Client-&gt;request('GET', '/edeninfo/versi...')
+#14 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/src/routes.php(101): API\Members-&gt;getVersion()
+#15 [internal function]: Closure-&gt;{closure}(Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#16 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/slim/slim/Slim/Handlers/Strategies/RequestResponse.php(41): call_user_func(Object(Closure), Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#17 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/slim/slim/Slim/Route.php(356): Slim\Handlers\Strategies\RequestResponse-&gt;__invoke(Object(Closure), Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#18 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/slim/slim/Slim/MiddlewareAwareTrait.php(131): Slim\Route-&gt;__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#19 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/slim/slim/Slim/Route.php(324): Slim\Route-&gt;callMiddlewareStack(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#20 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/slim/slim/Slim/App.php(513): Slim\Route-&gt;run(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#21 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/slim/slim/Slim/MiddlewareAwareTrait.php(131): Slim\App-&gt;__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#22 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/slim/slim/Slim/App.php(391): Slim\App-&gt;callMiddlewareStack(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#23 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/vendor/slim/slim/Slim/App.php(307): Slim\App-&gt;process(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#24 /opt/lappstack/v-7.1.14-0/apache2/htdocs/eden/api/members/public/index.php(32): Slim\App-&gt;run()
+#25 {main}</pre>
+</body>
+</html>

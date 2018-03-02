@@ -1,3 +1,27 @@
+GET https://ubuntu.yackofamily.com/members/version?pemail=syacko@spotlightmart.com&pphone=6504830648&fname=Scott&lname=Yacko&pword=tesetaccount
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-03-02T013225.500.html
+
+###
+
+GET https://ubuntu.yackofamily.com/members/version?pemail=syacko@spotlightmart.com&pphone=6504830648&fname=Scott&lname=Yacko&pword=tesetaccount
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-03-02T013018.200.json
+
+###
+
+GET https://ubuntu.yackofamily.com/members/version?pemail=syacko@spotlightmart.com&pphone=6504830648&fname=Scott&lname=Yacko&pword=tesetaccount
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-03-02T012800.200.json
+
+###
+
 GET http://ubuntu.yackofamily.com/members/version?pemail=syacko@spotlightmart.com&pphone=6504830648&fname=Scott&lname=Yacko&pword=tesetaccount
 Accept: */*
 Cache-Control: no-cache
