@@ -30,3 +30,14 @@ $container['db'] = function ($c)
 	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	return $pdo;
 };
+
+// Curl Calls
+$container['curl'] = function ($c)
+{
+	$settings = $c->get('settings')['curl'];
+	$curl = new object();
+	$curl->host = $settings['host'];
+	$curl->port = $settings['port'];
+	$curl->path = $settings['path'];
+	return $curl;
+};

@@ -32,17 +32,31 @@ class Members
 	protected $myDB;
 
 	/**
+	 * @var Curl $curlSettings This has curl settings.
+	 */
+	protected $myCurlSettings;
+
+	/**
 	 * return the version of the API being called.
 	 *
 	 * @api
+	 *
+	 * @example https://{Domain}/slm/api/members/version This will return the version and the build.
 	 *
 	 * @return array Keys: errCode, statusText, codeLoc, custMsg, retPack
 	 */
 	public function getVersion()
 	{
-		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost:8080/slm/api/', 'timeout' => 2.0]);
-		$res = $client->request('GET', 'slminfo/version');
-		$retValue = substr($res->getBody(), 0);
+		if ($this->myCurlSettings['port'] == '8443')
+		{
+			$url = 'https://' . $this->myCurlSettings['host'] . ':' . $this->myCurlSettings['port'];
+		} else {
+			$url = 'http://' . $this->myCurlSettings['host'] . ':' . $this->myCurlSettings['port'];
+		}
+		$this->myLogger->debug('\$url=' . $url);
+		$client = new \GuzzleHttp\Client(['base_uri' => $url, 'timeout' => 2.0]);
+		$res = $client->request('GET', '/edeninfo/version', ['verify' => false]);
+ 		$retValue = substr($res->getBody(), 0);
 		$myObj = json_decode($retValue);
 		$resultString = array('errCode' => 0, 'statusText' => 'Success', 'codeLoc' => __METHOD__, 'custMsg' => '', 'retPack' => (array)$myObj->retPack);
 		return $resultString;
@@ -53,11 +67,12 @@ class Members
 	 *
 	 * @param $logger
 	 */
-	public function __construct($logger, $db)
+	public function __construct($logger, $db, $curlSettings)
 	{
 		$this->myLogger = $logger;
 		$this->myLogger->debug(__METHOD__);
 
 		$this->myDB = $db;
+		$this->myCurlSettings = $curlSettings;
 	}
 }

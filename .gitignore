@@ -7,3 +7,4 @@ vendor/
 /tests/_support/_generated/UnitTesterActions.php
 /tests/_support/_generated/FunctionalTesterActions.php
 vendor
+*.env

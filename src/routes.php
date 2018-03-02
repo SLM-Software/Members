@@ -4,7 +4,7 @@
 // For Testing only
 //var_dump($_SERVER);
 
-$app->get('/slm/api/members/activatemember', function ($request, $response, $args)
+$app->get('/members/activatemember', function ($request, $response, $args)
 {
 	$this->logger->info("/activatemember '/' route");
 
@@ -15,7 +15,7 @@ $app->get('/slm/api/members/activatemember', function ($request, $response, $arg
 	return $response->withJson($myMember->activateMember($request));
 });
 
-$app->get('/slm/api/members/confirmmember', function ($request, $response, $args)
+$app->get('/members/confirmmember', function ($request, $response, $args)
 {
 	$this->logger->info("/confirmmember '/' route");
 
@@ -26,7 +26,7 @@ $app->get('/slm/api/members/confirmmember', function ($request, $response, $args
 	return $response->withJson($myMember->confirmMember($request));
 });
 
-$app->get('/slm/api/members/createmember', function ($request, $response, $args)
+$app->get('/members/createmember', function ($request, $response, $args)
 {
 	$this->logger->info("/createmember '/' route");
 
@@ -37,7 +37,7 @@ $app->get('/slm/api/members/createmember', function ($request, $response, $args)
 	return $response->withJson($myMember->createMember($request));
 });
 
-$app->get('/slm/api/members/ismember', function ($request, $response, $args)
+$app->get('/members/ismember', function ($request, $response, $args)
 {
 	$this->logger->info("/ismember '/' route");
 
@@ -48,7 +48,7 @@ $app->get('/slm/api/members/ismember', function ($request, $response, $args)
 	return $response->withJson($myMember->isMember($request));
 });
 
-$app->get('/slm/api/members/ismemberactive', function ($request, $response, $args)
+$app->get('/members/ismemberactive', function ($request, $response, $args)
 {
 	$this->logger->info("/ismemberactive '/' route");
 
@@ -59,7 +59,7 @@ $app->get('/slm/api/members/ismemberactive', function ($request, $response, $arg
 	return $response->withJson($myMember->isMemberActive($request));
 });
 
-$app->get('/slm/api/members/ismemberconfirmed', function ($request, $response, $args)
+$app->get('/members/ismemberconfirmed', function ($request, $response, $args)
 {
 	$this->logger->info("/ismemberconfirmed '/' route");
 
@@ -70,7 +70,7 @@ $app->get('/slm/api/members/ismemberconfirmed', function ($request, $response, $
 	return $response->withJson($myMember->isMemberConfirmed($request));
 });
 
-$app->get('/slm/api/members/readall', function ($request, $response, $args)
+$app->get('/members/readall', function ($request, $response, $args)
 {
 	$this->logger->info("/readall '/' route");
 
@@ -92,10 +92,11 @@ $app->get('/slm/api/members/readall', function ($request, $response, $args)
 	return $response->withBody($body);
 });
 
-$app->get('/slm/api/members/version', function ($request, $response, $args)
+$app->get('/members/version', function ($request, $response, $args)
 {
 	$this->logger->info("version '/' route");
-	$myMembers = new \API\Members($this->logger, $this->db);
+	$curlSettings = $this->get('settings')['curl'];
+	$myMembers = new \API\Members($this->logger, $this->db, $curlSettings);
 
 	return $response->withJson($myMembers->getVersion());
 });
