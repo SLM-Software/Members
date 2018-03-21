@@ -1,10 +1,59 @@
+# Created by .ignore support plugin (hsz.mobi)
+#
+# SLM .gitignore file for API's
+#
+
+# IntelliJ project files
+# IDEA Ignores #
+################
 *.iml
+*.ipr
+*.iws
+.idea/
+out/
+local.properties
+
+# Generic Android ignores #
+###########################
+bin/
+target
+gen/
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+*.7z
+*.dmg
+*.gz
+*.iso
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+log/
+*.log
+*.sql
+*.sqlite
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+ehthumbs.db
+Icon?
+Thumbs.db
+
 vendor/
-/.idea/workspace.xml
-/logs/
-/tests/_output/failed
-/logs/app.log
-/tests/_support/_generated/UnitTesterActions.php
-/tests/_support/_generated/FunctionalTesterActions.php
-vendor
-*.env
+httpRequests
+.idea
+/.idea
