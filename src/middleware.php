@@ -31,10 +31,10 @@ class Middleware
 
 		if ($_SERVER[SERVER_NAME] == 'localhost')
 		{
-			$audiences = "https://$_SERVER[SERVER_NAME]/edeninfo";
+			$audiences = "https://$_SERVER[SERVER_NAME]/members";
 		} else
 		{
-			$audiences = "https://$_SERVER[HTTP_HOST]/edeninfo";
+			$audiences = "https://$_SERVER[HTTP_HOST]/members";
 		}
 		$this->container->logger->debug("\$audiences=$audiences");
 
