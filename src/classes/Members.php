@@ -34,12 +34,12 @@ class Members
 	/**
 	 * @var  $myVersionSettings This has version value.
 	 */
-	protected $myVersionSettings;
+	protected $myVersionSetting;
 
 	/**
 	 * @var  $myBuildSettings This has build number.
 	 */
-	protected $myBuildSettings;
+	protected $myBuildSetting;
 
 	/**
 	 * return the version of the API being called.
@@ -70,7 +70,7 @@ class Members
 		$this->myLogger->debug(__METHOD__);
 
 		$this->myDB = $db;
-		$this->myVersionSettings = $versionSetting;
-		$this->myBuildSettings = $buildSetting;
+		$this->myVersionSetting = $versionSetting;
+		$this->myBuildSetting = $buildSetting;
 	}
 }
