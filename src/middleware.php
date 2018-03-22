@@ -3,7 +3,6 @@
 // e.g: $app->add(new \Slim\Csrf\Guard);
 
 use Auth0\SDK\JWTVerifier;
-//use Auth0\SDK\Helpers\Cache\FileSystemCacheHandler;
 use Auth0\SDK\Exception\CoreException;
 use Auth0\SDK\Exception\InvalidTokenException;
 
