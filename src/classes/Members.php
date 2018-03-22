@@ -47,12 +47,7 @@ class Members
 	 */
 	public function getVersion()
 	{
-		if ($this->myCurlSettings['port'] == '443')
-		{
-			$url = 'https://' . $this->myCurlSettings['host'] . ':' . $this->myCurlSettings['port'];
-		} else {
-			$url = 'http://' . $this->myCurlSettings['host'] . ':' . $this->myCurlSettings['port'];
-		}
+		$url = 'https://' . $this->myCurlSettings['host'] . ':' . $this->myCurlSettings['port'];
 		$this->myLogger->debug('\$url=' . $url);
 		$client = new \GuzzleHttp\Client(['base_uri' => $url, 'timeout' => 2.0]);
 		$res = $client->request('GET', '/edeninfo/version', ['verify' => false]);
