@@ -25,7 +25,7 @@ return [
 		// Monolog settings
 		'logger'                 => [
 			'name'  => 'members',
-			'path'  => __DIR__ . $_ENV['LOG_PATH'] . $_ENV['LOG_FILENAME'],
+			'path'  => __DIR__ . $_ENV['LOG_PATH'] . 'members.log',
 			'level' => $_ENV['LOG_LEVEL'],
 		],
 
