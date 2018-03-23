@@ -63,6 +63,10 @@ class Members
 	 * Members constructor.
 	 *
 	 * @param $logger
+	 * @param $db
+	 * @param $versionSetting
+	 * @param $buildSetting
+	 *
 	 */
 	public function __construct($logger, $db, $versionSetting, $buildSetting)
 	{

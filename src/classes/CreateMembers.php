@@ -566,7 +566,7 @@ class CreateMembers extends Members
 	 */
 	public function __construct($logger, $db)
 	{
-		parent::__construct($logger, $db);
+		parent::__construct($logger, $db, '', '');
 		$this->myLogger->debug(__METHOD__);
 	}
 }

@@ -46,7 +46,7 @@ class MembersTest extends \Codeception\Test\Unit
 		$myMembers = new \API\Members($this->logger, $this->pdo);
 		$this->apiResults = $myMembers->getVersion();
 		codecept_debug($this->apiResults);
-		$this->assertTrue($this->apiResults['retPack']['version'] == 2017);
+		$this->assertTrue($this->apiResults['retPack']['version'] == 2018);
 		$this->assertTrue($this->apiResults['retPack']['build'] == 1);
 		$this->logger->debug('test has been run');
 	}
