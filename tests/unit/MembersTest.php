@@ -7,6 +7,11 @@ class MembersTest extends \Codeception\Test\Unit
 	 */
 	protected $tester;
 
+	/**
+	 * @var \apiResults
+	 */
+	protected $apiResults;
+
 	protected function _before()
 	{
 		require __DIR__ . '/../../vendor/autoload.php';
@@ -41,13 +46,29 @@ class MembersTest extends \Codeception\Test\Unit
 	}
 
 	// tests
-	public function testGetVersion()
+	public function testMembersTest()
 	{
-		$myMembers = new \API\Members($this->logger, $this->pdo);
+		codecept_debug('Starting testMembersTest - Executing getVersion:');
+		$myMembers = new \API\Members($this->logger, $this->pdo, $this->settings['settings']['VERSION'], $this->settings['settings']['BUILD']);
 		$this->apiResults = $myMembers->getVersion();
-		codecept_debug($this->apiResults);
-		$this->assertTrue($this->apiResults['retPack']['version'] == 2018);
-		$this->assertTrue($this->apiResults['retPack']['build'] == 1);
-		$this->logger->debug('test has been run');
+		$assertResult['TestVersion'] = $this->assertTrue($this->apiResults['retPack']['version'] == $this->settings['settings']['VERSION']);
+		$assertResult['TestBuild'] = $this->assertTrue($this->apiResults['retPack']['build'] == $this->settings['settings']['BUILD']);
+		$this->displayAssertions($assertResult);
+		$assertResult = NULL;
+	}
+
+	protected function displayAssertions($assertResult)
+	{
+		foreach ($assertResult as $key => $value)
+		{
+			if ($value == 0)
+			{
+				$resultDisplay = 'Passed';
+			} else
+			{
+				$resultDisplay = 'Failed';
+			}
+			codecept_debug('-> Assertion[' . $key . '] ' . $resultDisplay);
+		}
 	}
 }
