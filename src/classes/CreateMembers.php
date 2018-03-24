@@ -20,6 +20,10 @@ use Slim;
 class CreateMembers extends Members
 {
 	/**
+	 * @var string $mySettings These are the setting for curl.
+	 */
+	protected $mySettings;
+	/**
 	 * @var string $myDeviceId This is a unique number create by the mobile app on the device (Required)
 	 */
 	protected $myDeviceId;
@@ -39,10 +43,6 @@ class CreateMembers extends Members
 	 * @var string $myLastName This is the persons last name (Required)
 	 */
 	protected $myLastName;
-	/**
-	 * @var string $myPassword This is the password the member uses to log in (Required)
-	 */
-	protected $myPassword;
 	/**
 	 * @var boolean $myConfirmed This is set when the primary email account has been confirmed
 	 */
@@ -149,7 +149,6 @@ class CreateMembers extends Members
 	 *              pphone    = primary phone [bigint]
 	 *              fname     = first name [varchar(25)]
 	 *              lname     = last name [varchar(30)]
-	 *              pword     = password (Must be hashed by caller) [varchar(100)]
 	 *
 	 *          Option elements:
 	 *              ppmethod  = primary payment method [json]
@@ -202,13 +201,6 @@ class CreateMembers extends Members
 			return $resultString;
 		}
 
-		$this->myLogger->info("getQueryParam / pword:" . $request->getQueryParam('pword'));
-		$resultString = $this->setPassword($request->getQueryParam('pword'));
-		if ($resultString['errCode'] > 0)
-		{
-			return $resultString;
-		}
-
 		if ($resultString['errCode'] == 0)
 		{
 			$resultString = $this->saveMember();
@@ -237,8 +229,8 @@ class CreateMembers extends Members
 		$resultString = $this->setPrimaryEmail($myPrimaryEmail);
 		if ($resultString['errCode'] == 0)
 		{
-//			$mySTMT = $this->myDB->prepare('DELETE FROM slm.members WHERE primaryemail = \'' . $this->myPrimaryEmail . '\'');
-			$mySTMT = $this->myDB->prepare('DELETE FROM slm.members WHERE primaryemail = :primaryemail');
+//			$mySTMT = $this->myDB->prepare('DELETE FROM eden.members WHERE primaryemail = \'' . $this->myPrimaryEmail . '\'');
+			$mySTMT = $this->myDB->prepare('DELETE FROM eden.members WHERE primaryemail = :primaryemail');
 			try
 			{
 				$mySTMT->bindParam(':primaryemail', $this->myPrimaryEmail);
@@ -363,11 +355,12 @@ class CreateMembers extends Members
 	{
 		$this->myLogger->debug(__METHOD__);
 
-		$mySTMT = $this->myDB->prepare('INSERT INTO slm.members (deviceid, primaryemail, primaryphone, firstname, lastname, password) VALUES (:did, :pemail, :pphone, :fname, :lname, :pword)');
+		$mySTMT = $this->myDB->prepare('INSERT INTO eden.members (deviceid, primaryemail, primaryphone, firstname, lastname) VALUES (:did, :pemail, :pphone, :fname, :lname)');
 		try
 		{
-			$mySTMT->execute(array(':did' => $this->setDeviceId(), ':pemail' => $this->myPrimaryEmail, ':pphone' => $this->myPrimaryPhone, ':fname' => $this->myFirstName, ':lname' => $this->myLastName, ':pword' => $this->myPassword));
-			$resultString = array('errCode' => 0, 'statusText' => 'Success', 'codeLoc' => __METHOD__, 'custMsg' => '', 'retPack' => '');
+			$myDeviceId = $this->setDeviceId();
+			$mySTMT->execute(array(':did' => $myDeviceId, ':pemail' => $this->myPrimaryEmail, ':pphone' => $this->myPrimaryPhone, ':fname' => $this->myFirstName, ':lname' => $this->myLastName));
+			$resultString = array('errCode' => 0, 'statusText' => 'Success', 'codeLoc' => __METHOD__, 'custMsg' => '', 'retPack' => $myDeviceId);
 		} catch (\PDOException $e)
 		{
 			$resultString = array('errCode' => 900, 'statusText' => $e->getMessage(), 'codeLoc' => __METHOD__, 'custMsg' => '', 'retPack' => '');
@@ -388,7 +381,7 @@ class CreateMembers extends Members
 	{
 		$this->myLogger->debug(__METHOD__);
 
-		$mySTMT = $this->myDB->prepare('UPDATE slm.members SET ' . $colName . ' = ' . $colValue . ' WHERE primaryemail = \'' . $this->myPrimaryEmail . '\'');
+		$mySTMT = $this->myDB->prepare('UPDATE eden.members SET ' . $colName . ' = ' . $colValue . ' WHERE primaryemail = \'' . $this->myPrimaryEmail . '\'');
 		try
 		{
 			$mySTMT->execute();
@@ -413,7 +406,7 @@ class CreateMembers extends Members
 	{
 		$this->myLogger->debug(__METHOD__);
 
-		$mySTMT = $this->myDB->prepare('SELECT ' . $colName . ' FROM slm.members WHERE primaryemail = \'' . $this->myPrimaryEmail . '\'');
+		$mySTMT = $this->myDB->prepare('SELECT ' . $colName . ' FROM eden.members WHERE primaryemail = \'' . $this->myPrimaryEmail . '\'');
 		try
 		{
 			$mySTMT->execute();
@@ -438,8 +431,8 @@ class CreateMembers extends Members
 	{
 		$this->myLogger->debug(__METHOD__);
 
-		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost:8080/slm/api/', 'timeout' => 2.0]);
-		$res = $client->request('GET', 'slminternal/getdeviceid');
+		$client = new \GuzzleHttp\Client(['base_uri' => 'https://' . $this->mySettings['host'] . ':' . $this->mySettings['port'], 'timeout' => 2.0]);
+		$res = $client->request('GET', 'edeninternal/getdeviceid', ['verify' => false]);
 		$myObj = json_decode($res->getBody());
 		return $myObj->retPack;
 	}
@@ -538,35 +531,16 @@ class CreateMembers extends Members
 	}
 
 	/**
-	 * This will save the password without any validation.
-	 *
-	 * @param $pword
-	 *
-	 * @return array Keys: errCode, statusText, codeLoc, custMsg, retPack
-	 */
-	protected function setPassword($pword)
-	{
-		$this->myLogger->debug(__METHOD__);
-		if (strlen(trim($pword)) > 0)
-		{
-			$this->myPassword = $pword;
-			$resultString = array('errCode' => 0, 'statusText' => 'Success', 'codeLoc' => __METHOD__, 'custMsg' => '', 'retPack' => '');
-		} else
-		{
-			$resultString = array('errCode' => 900, 'statusText' => 'Missing password', 'codeLoc' => __METHOD__, 'custMsg' => '', 'retPack' => '');
-		}
-		return $resultString;
-	}
-
-	/**
 	 * CreateMember constructor.
 	 *
 	 * @param $logger
 	 * @param $db
 	 */
-	public function __construct($logger, $db)
+	public function __construct($logger, $db, $settings)
 	{
 		parent::__construct($logger, $db, '', '');
 		$this->myLogger->debug(__METHOD__);
+
+		$this->mySettings = $settings;
 	}
 }

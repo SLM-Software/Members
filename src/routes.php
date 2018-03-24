@@ -10,7 +10,7 @@ $app->group('', function(){
 		$this->logger->info("/activatemember '/' route");
 
 		// Creating Class instance
-		$myMember = new \API\CreateMembers($this->logger, $this->db);
+		$myMember = new \API\CreateMembers($this->logger, $this->db, $this->get('settings')['curl']);
 
 		// Returning $body
 		return $response->withJson($myMember->activateMember($request));
@@ -20,7 +20,7 @@ $app->group('', function(){
 		$this->logger->info("/confirmmember '/' route");
 
 		// Creating Class instance
-		$myMember = new \API\CreateMembers($this->logger, $this->db);
+		$myMember = new \API\CreateMembers($this->logger, $this->db, $this->get('settings')['curl']);
 
 		// Returning $body
 		return $response->withJson($myMember->confirmMember($request));
@@ -30,7 +30,7 @@ $app->group('', function(){
 		$this->logger->info("/createmember '/' route");
 
 		// Creating Class instance
-		$myMember = new \API\CreateMembers($this->logger, $this->db);
+		$myMember = new \API\CreateMembers($this->logger, $this->db, $this->get('settings')['curl']);
 
 		// Returning $body
 		return $response->withJson($myMember->createMember($request));
@@ -40,7 +40,7 @@ $app->group('', function(){
 		$this->logger->info("/ismember '/' route");
 
 		// Creating Class instance
-		$myMember = new \API\CreateMembers($this->logger, $this->db);
+		$myMember = new \API\CreateMembers($this->logger, $this->db, $this->get('settings')['curl']);
 
 		// Returning $body
 		return $response->withJson($myMember->isMember($request));
@@ -50,7 +50,7 @@ $app->group('', function(){
 		$this->logger->info("/ismemberactive '/' route");
 
 		// Creating Class instance
-		$myMember = new \API\CreateMembers($this->logger, $this->db);
+		$myMember = new \API\CreateMembers($this->logger, $this->db, $this->get('settings')['curl']);
 
 		// Returning $body
 		return $response->withJson($myMember->isMemberActive($request));
@@ -60,7 +60,7 @@ $app->group('', function(){
 		$this->logger->info("/ismemberconfirmed '/' route");
 
 		// Creating Class instance
-		$myMember = new \API\CreateMembers($this->logger, $this->db);
+		$myMember = new \API\CreateMembers($this->logger, $this->db, $this->get('settings')['curl']);
 
 		// Returning $body
 		return $response->withJson($myMember->isMemberConfirmed($request));

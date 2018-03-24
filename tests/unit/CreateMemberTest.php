@@ -1,12 +1,16 @@
 <?php
 
-
-class CreateMembersTest extends \Codeception\Test\Unit
+class CreateMemberTest extends \Codeception\Test\Unit
 {
 	/**
 	 * @var \UnitTester
 	 */
 	protected $tester;
+
+	/**
+	 * @var \apiResults
+	 */
+	protected $apiResults;
 
 	protected function _before()
 	{
@@ -37,135 +41,34 @@ class CreateMembersTest extends \Codeception\Test\Unit
 		$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 
-	protected function _afterSuite()
+	protected function _after()
 	{
 	}
 
 	// tests
-	public function testCreateMemberWithNoValues_Request()
+	public function testCreateMemberTest()
 	{
-		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost:8080/slm/api/', 'timeout' => 2.0]);
-		$res = $client->request('GET', 'members/createmember');
-		$myObj = json_decode($res->getBody());
-		codecept_debug($myObj);
-		$this->assertTrue($myObj->statusText == 'Invalid primary email');
-		$this->logger->debug('test has been run');
+		codecept_debug('Starting testCreateMemberTest - Executing getVersion:');
+		$myMembers = new \API\Members($this->logger, $this->pdo, $this->settings['settings']['VERSION'], $this->settings['settings']['BUILD']);
+		$this->apiResults = $myMembers->getVersion();
+		$assertResult['TestVersion'] = $this->assertTrue($this->apiResults['retPack']['version'] == $this->settings['settings']['VERSION']);
+		$assertResult['TestBuild'] = $this->assertTrue($this->apiResults['retPack']['build'] == $this->settings['settings']['BUILD']);
+		$this->displayAssertions($assertResult);
+		$assertResult = NULL;
 	}
 
-	public function testCreateMemberWithPemail_Request()
+	protected function displayAssertions($assertResult)
 	{
-		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost:8080/slm/api/', 'timeout' => 2.0]);
-		$res = $client->request('GET', 'members/createmember?pemail=syacko@spotlightmart.com&');
-		$myObj = json_decode($res->getBody());
-		codecept_debug($myObj);
-		$this->assertTrue($myObj->statusText == 'Invalid primary phone');
-		$this->logger->debug('test has been run');
-	}
-
-	public function testCreateMemberWithPemailAndPphone_Request()
-	{
-		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost:8080/slm/api/', 'timeout' => 2.0]);
-		$res = $client->request('GET', 'members/createmember?pemail=syacko@spotlightmart.com&pphone=6504830648&');
-		$myObj = json_decode($res->getBody());
-		codecept_debug($myObj);
-		$this->assertTrue($myObj->statusText == 'Invalid first name');
-		$this->logger->debug('test has been run');
-	}
-
-	public function testCreateMemberWithPemailPphoneAndFname_Request()
-	{
-		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost:8080/slm/api/', 'timeout' => 2.0]);
-		$res = $client->request('GET', 'members/createmember?pemail=syacko@spotlightmart.com&pphone=6504830648&fname=Scott&');
-		$myObj = json_decode($res->getBody());
-		codecept_debug($myObj);
-		$this->assertTrue($myObj->statusText == 'Invalid last name');
-		$this->logger->debug('test has been run');
-	}
-
-	public function testCreateMemberWithPemailPphoneFnameAndLname_Request()
-	{
-		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost:8080/slm/api/', 'timeout' => 2.0]);
-		$res = $client->request('GET', 'members/createmember?pemail=syacko@spotlightmart.com&pphone=6504830648&fname=Scott&lname=Yacko&');
-		$myObj = json_decode($res->getBody());
-		codecept_debug($myObj);
-		$this->assertTrue($myObj->statusText == 'Missing password');
-		$this->logger->debug('test has been run');
-	}
-
-	public function testCreateMember_Request()
-	{
-		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost:8080/slm/api/', 'timeout' => 2.0]);
-		$res = $client->request('GET', 'members/createmember?pemail=syacko@spotlightmart.com&pphone=6504830648&fname=Scott&lname=Yacko&pword=testaccount&');
-		$myObj = json_decode($res->getBody());
-		codecept_debug($myObj);
-		$this->assertTrue($myObj->statusText == 'Success');
-		$this->logger->debug('test has been run');
-	}
-
-	public function testActivateMember_Request()
-	{
-		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost:8080/slm/api/', 'timeout' => 2.0]);
-		$res = $client->request('GET', 'members/activatemember?pemail=syacko@spotlightmart.com');
-		$myObj = json_decode($res->getBody());
-		codecept_debug($myObj);
-		$this->assertTrue($myObj->statusText == 'Success');
-		$this->logger->debug('test has been run');
-	}
-	public function testIsMemberActive_Request()
-	{
-		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost:8080/slm/api/', 'timeout' => 2.0]);
-		$res = $client->request('GET', 'members/ismemberactive?pemail=syacko@spotlightmart.com');
-		$myObj = json_decode($res->getBody());
-		codecept_debug($myObj);
-		$this->assertTrue($myObj->retPack->activemember == TRUE);
-		$this->logger->debug('test has been run');
-	}
-
-	public function testConfirmMember_Request()
-	{
-		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost:8080/slm/api/', 'timeout' => 2.0]);
-		$res = $client->request('GET', 'members/confirmmember?pemail=syacko@spotlightmart.com');
-		$myObj = json_decode($res->getBody());
-		codecept_debug($myObj);
-		$this->assertTrue($myObj->statusText == 'Success');
-		$this->logger->debug('test has been run');
-	}
-
-	public function testIsMemberConfirmed_Request()
-	{
-		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost:8080/slm/api/', 'timeout' => 2.0]);
-		$res = $client->request('GET', 'members/ismemberconfirmed?pemail=syacko@spotlightmart.com');
-		$myObj = json_decode($res->getBody());
-		codecept_debug($myObj);
-		$this->assertTrue($myObj->retPack->confirmed == TRUE);
-		$this->logger->debug('test has been run');
-	}
-
-	public function testIsMember_Request()
-	{
-		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost:8080/slm/api/', 'timeout' => 2.0]);
-		$res = $client->request('GET', 'members/ismember?pemail=syacko@spotlightmart.com');
-		$myObj = json_decode($res->getBody());
-		codecept_debug($myObj);
-		$this->assertTrue($myObj->retPack->exists == TRUE);
-		$this->logger->debug('test has been run');
-	}
-
-	public function testIsMemberNegative_Request()
-	{
-		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost:8080/slm/api/', 'timeout' => 2.0]);
-		$res = $client->request('GET', 'members/ismember?pemail=NOTFOUND@spotlightmart.com');
-		$myArray = json_decode($res->getBody());
-		codecept_debug($myArray);
-		$this->assertTrue($myArray['retPack']['exists'] == FALSE);
-		$this->logger->debug('test has been run');
-	}
-
-	public function testDeleteMember()
-	{
-		// This is not a REST API - It is for internal use only.
-		//
-		$myMember = new \API\CreateMembers($this->logger, $this->pdo);
-		$myMember->deleteMember('syacko@spotlightmart.com');
+		foreach ($assertResult as $key => $value)
+		{
+			if ($value == 0)
+			{
+				$resultDisplay = 'Passed';
+			} else
+			{
+				$resultDisplay = 'Failed';
+			}
+			codecept_debug('-> Assertion[' . $key . '] ' . $resultDisplay);
+		}
 	}
 }
