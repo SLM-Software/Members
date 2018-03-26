@@ -55,8 +55,8 @@ class CreateMembersRESTTest extends \Codeception\Test\Unit
 	// tests
 	public function testCreateMembersRESTTest()
 	{
-		$dotEnv = new \Dotenv\Dotenv(__DIR__ . '/../../../../../../', 'eden.env');
-		$dotEnv->load();
+//		$dotEnv = new \Dotenv\Dotenv(__DIR__ . '/../../../../../../', 'eden.env');
+//		$dotEnv->load();
 
 		$headers = [
 			'Authorization' => $this->token,
