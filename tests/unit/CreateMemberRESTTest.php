@@ -48,7 +48,7 @@ class CreateMembersRESTTest extends \Codeception\Test\Unit
 		}
 	}
 
-	protected function _afterSuite()
+	protected function _after()
 	{
 	}
 
@@ -64,8 +64,19 @@ class CreateMembersRESTTest extends \Codeception\Test\Unit
 			'Cache-Control' => 'no-cache',
 		];
 
-		codecept_debug('Starting testCreateMembersRESTTest - Executing members/createmember (No Email):');
 		$this->client = new \GuzzleHttp\Client(['base_uri' => 'https://' . $_ENV['CURL_HOST'] . ':' . $_ENV['CURL_PORT'], 'timeout' => 2.0]);
+
+//      IS MEMBER (FALSE)
+		codecept_debug('Starting testCreateMembersRESTTest - Executing members/ismember (Not member):');
+		$res = $this->client->request('GET', 'members/ismember?pemail=testmember@3denlounge.com', ['verify' => false, 'headers' => $headers]);
+		$this->apiResults = json_decode($res->getBody());
+		$assertResult['errCode'] = $this->assertTrue($this->apiResults->errCode == 0);
+		$assertResult['retPack'] = $this->assertTrue($this->apiResults->retPack->exists == FALSE);
+		$this->displayAssertions($assertResult);
+		$assertResult = NULL;
+
+//		CREATE MEMBER TESTS
+		codecept_debug('->> Executing members/createmember (No Email):');
 		$res = $this->client->request('GET', 'members/createmember', ['verify' => false, 'headers' => $headers]);
 		$this->apiResults = json_decode($res->getBody());
 		$assertResult['errCode'] = $this->assertTrue($this->apiResults->errCode == 900);
@@ -74,7 +85,7 @@ class CreateMembersRESTTest extends \Codeception\Test\Unit
 		$assertResult = NULL;
 
 		codecept_debug('->> Executing members/createmember (Only Email - No phone):');
-		$res = $this->client->request('GET', 'members/createmember?pemail=syacko@spotlightmart.com&', ['verify' => false, 'headers' => $headers]);
+		$res = $this->client->request('GET', 'members/createmember?pemail=testmember@3denlounge.com&', ['verify' => false, 'headers' => $headers]);
 		$this->apiResults = json_decode($res->getBody());
 		$assertResult['errCode'] = $this->assertTrue($this->apiResults->errCode == 900);
 		$assertResult['statusText'] = $this->assertTrue($this->apiResults->statusText == 'Invalid primary phone');
@@ -82,7 +93,7 @@ class CreateMembersRESTTest extends \Codeception\Test\Unit
 		$assertResult = NULL;
 
 		codecept_debug('->> Executing members/createmember (Email, phone - No First Name):');
-		$res = $this->client->request('GET', 'members/createmember?pemail=syacko@spotlightmart.com&pphone=6504830648&', ['verify' => false, 'headers' => $headers]);
+		$res = $this->client->request('GET', 'members/createmember?pemail=testmember@3denlounge.com&pphone=6504830648&', ['verify' => false, 'headers' => $headers]);
 		$this->apiResults = json_decode($res->getBody());
 		$assertResult['errCode'] = $this->assertTrue($this->apiResults->errCode == 900);
 		$assertResult['statusText'] = $this->assertTrue($this->apiResults->statusText == 'Invalid first name');
@@ -90,7 +101,7 @@ class CreateMembersRESTTest extends \Codeception\Test\Unit
 		$assertResult = NULL;
 
 		codecept_debug('->> Executing members/createmember (Email, phone, First Name - No Last Name):');
-		$res = $this->client->request('GET', 'members/createmember?pemail=syacko@spotlightmart.com&pphone=6504830648&fname=Scott&', ['verify' => false, 'headers' => $headers]);
+		$res = $this->client->request('GET', 'members/createmember?pemail=testmember@3denlounge.com&pphone=6504830648&fname=Scott&', ['verify' => false, 'headers' => $headers]);
 		$this->apiResults = json_decode($res->getBody());
 		$assertResult['errCode'] = $this->assertTrue($this->apiResults->errCode == 900);
 		$assertResult['statusText'] = $this->assertTrue($this->apiResults->statusText == 'Invalid last name');
@@ -98,66 +109,100 @@ class CreateMembersRESTTest extends \Codeception\Test\Unit
 		$assertResult = NULL;
 
 		codecept_debug('->> Executing members/createmember (Success):');
-		$res = $this->client->request('GET', 'members/createmember?pemail=syacko@spotlightmart.com&pphone=6504830648&fname=Scott&lname=Yacko&', ['verify' => false, 'headers' => $headers]);
+		$res = $this->client->request('GET', 'members/createmember?pemail=testmember@3denlounge.com&pphone=6504830648&fname=Scott&lname=Yacko&', ['verify' => false, 'headers' => $headers]);
 		$this->apiResults = json_decode($res->getBody());
 		$assertResult['errCode'] = $this->assertTrue($this->apiResults->errCode == 0);
 		$assertResult['statusText'] = $this->assertTrue($this->apiResults->statusText == 'Success');
 		$this->displayAssertions($assertResult);
 		$assertResult = NULL;
 
+		codecept_debug('->> Executing members/createmember (Duplicate):');
+		$res = $this->client->request('GET', 'members/createmember?pemail=testmember@3denlounge.com&pphone=6504830648&fname=Scott&lname=Yacko&', ['verify' => false, 'headers' => $headers]);
+		$this->apiResults = json_decode($res->getBody());
+		$assertResult['errCode'] = $this->assertTrue($this->apiResults->errCode == 23505);
+		$assertResult['statusText'] = $this->assertTrue(strpos($this->apiResults->statusText, '[23505]: Unique violation: 7 ERROR') > 0);
+		$this->displayAssertions($assertResult);
+		$assertResult = NULL;
+//		END OF CREATE MEMBER
+
+//		IS MEMBER (TRUE)
+		codecept_debug('->> Executing members/ismember:');
+		$res = $this->client->request('GET', 'members/ismember?pemail=testmember@3denlounge.com', ['verify' => false, 'headers' => $headers]);
+		$this->apiResults = json_decode($res->getBody());
+		$assertResult['errCode'] = $this->assertTrue($this->apiResults->errCode == 0);
+		$assertResult['statusText'] = $this->assertTrue($this->apiResults->retPack->exists == TRUE);
+		$this->displayAssertions($assertResult);
+		$assertResult = NULL;
+//		END OF ISMEMBER
+
+//		ACTIVATE/DEACTIVATE MEMBER
 		codecept_debug('->> Executing members/activatemember:');
-		$res = $this->client->request('GET', 'members/activatemember?pemail=syacko@spotlightmart.com', ['verify' => false, 'headers' => $headers]);
+		$res = $this->client->request('GET', 'members/activatemember?pemail=testmember@3denlounge.com', ['verify' => false, 'headers' => $headers]);
 		$this->apiResults = json_decode($res->getBody());
 		$assertResult['errCode'] = $this->assertTrue($this->apiResults->errCode == 0);
 		$assertResult['statusText'] = $this->assertTrue($this->apiResults->statusText == 'Success');
 		$this->displayAssertions($assertResult);
 		$assertResult = NULL;
 
-		codecept_debug('->> Executing members/ismemberactive:');
-		$res = $this->client->request('GET', 'members/ismemberactive?pemail=syacko@spotlightmart.com', ['verify' => false, 'headers' => $headers]);
+		codecept_debug('->> Executing members/ismemberactive (True):');
+		$res = $this->client->request('GET', 'members/ismemberactive?pemail=testmember@3denlounge.com', ['verify' => false, 'headers' => $headers]);
 		$this->apiResults = json_decode($res->getBody());
 		$assertResult['errCode'] = $this->assertTrue($this->apiResults->errCode == 0);
 		$assertResult['statusText'] = $this->assertTrue($this->apiResults->retPack->activemember == TRUE);
 		$this->displayAssertions($assertResult);
 		$assertResult = NULL;
 
-		codecept_debug('->> Executing members/confirmmember:');
-		$res = $this->client->request('GET', 'members/confirmmember?pemail=syacko@spotlightmart.com', ['verify' => false, 'headers' => $headers]);
+		codecept_debug('->> Executing members/deactivatemember:');
+		$res = $this->client->request('GET', 'members/activatemember?pemail=testmember@3denlounge.com', ['verify' => false, 'headers' => $headers]);
 		$this->apiResults = json_decode($res->getBody());
 		$assertResult['errCode'] = $this->assertTrue($this->apiResults->errCode == 0);
 		$assertResult['statusText'] = $this->assertTrue($this->apiResults->statusText == 'Success');
 		$this->displayAssertions($assertResult);
 		$assertResult = NULL;
 
-		codecept_debug('->> Executing members/ismemberconfirmed:');
-		$res = $this->client->request('GET', 'members/ismemberconfirmed?pemail=syacko@spotlightmart.com', ['verify' => false, 'headers' => $headers]);
+		codecept_debug('->> Executing members/ismemberactive (False):');
+		$res = $this->client->request('GET', 'members/ismemberactive?pemail=testmember@3denlounge.com', ['verify' => false, 'headers' => $headers]);
 		$this->apiResults = json_decode($res->getBody());
 		$assertResult['errCode'] = $this->assertTrue($this->apiResults->errCode == 0);
-		$assertResult['statusText'] = $this->assertTrue($this->apiResults->retPack->confirmed == TRUE);
+		$assertResult['statusText'] = $this->assertTrue($this->apiResults->statusText == 'Success');
+		$this->displayAssertions($assertResult);
+		$assertResult = NULL;
+//		END OF ACTIVATE MEMBER
+
+//		CONFIRM MEMBER
+		codecept_debug('->> Executing members/ismemberconfirmed (False):');
+		$res = $this->client->request('GET', 'members/ismemberconfirmed?pemail=testmember@3denlounge.com', ['verify' => false, 'headers' => $headers]);
+		$this->apiResults = json_decode($res->getBody());
+		$assertResult['errCode'] = $this->assertTrue($this->apiResults->errCode == 0);
+		$assertResult['retPack'] = $this->assertTrue($this->apiResults->retPack->confirmed == FALSE);
 		$this->displayAssertions($assertResult);
 		$assertResult = NULL;
 
-		codecept_debug('->> Executing members/ismember:');
-		$res = $this->client->request('GET', 'members/ismember?pemail=syacko@spotlightmart.com', ['verify' => false, 'headers' => $headers]);
+		codecept_debug('->> Executing members/confirmmember:');
+		$res = $this->client->request('GET', 'members/confirmmember?pemail=testmember@3denlounge.com', ['verify' => false, 'headers' => $headers]);
 		$this->apiResults = json_decode($res->getBody());
-		codecept_debug($this->apiResults);
 		$assertResult['errCode'] = $this->assertTrue($this->apiResults->errCode == 0);
-		$assertResult['statusText'] = $this->assertTrue($this->apiResults->retPack->exists == TRUE);
+		$assertResult['statusText'] = $this->assertTrue($this->apiResults->statusText == 'Success');
 		$this->displayAssertions($assertResult);
 		$assertResult = NULL;
 
-		codecept_debug('->> Executing members/ismember (Not Found):');
-		$res = $this->client->request('GET', 'members/ismember?pemail=NOTFOUND@spotlightmart.com', ['verify' => false, 'headers' => $headers]);
+		codecept_debug('->> Executing members/ismemberconfirmed (True):');
+		$res = $this->client->request('GET', 'members/ismemberconfirmed?pemail=testmember@3denlounge.com', ['verify' => false, 'headers' => $headers]);
 		$this->apiResults = json_decode($res->getBody());
 		$assertResult['errCode'] = $this->assertTrue($this->apiResults->errCode == 0);
-		$assertResult['retPack'] = $this->assertTrue($this->apiResults->retPack->exists == FALSE);
+		$assertResult['retPack'] = $this->assertTrue($this->apiResults->retPack->confirmed == TRUE);
 		$this->displayAssertions($assertResult);
 		$assertResult = NULL;
+//		END OF CONFIRM MEMBER
+
 
 //		// This is not a REST API - It is for internal use only.
 //		//
-//		$myMember = new \API\CreateMembers($this->logger, $this->pdo);
-//		$myMember->deleteMember('syacko@spotlightmart.com');
+		if (strtoupper($_ENV['APP_ENV']) == 'LOCAL')
+		{
+			$myMember = new \API\CreateMembers($this->logger, $this->pdo);
+			$myMember->deleteMember('testmember@3denlounge.com');
+		}
 	}
 	protected function displayAssertions($assertResult)
 	{

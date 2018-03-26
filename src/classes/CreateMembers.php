@@ -99,6 +99,39 @@ class CreateMembers extends Members
 		{
 			$resultString = $this->updateMemberColumn('activemember', 'true');
 		}
+		$resultString['codeLoc'] = __METHOD__;
+
+		return $resultString;
+	}
+
+	/**
+	 * This will set the activemember boolean to true
+	 *
+	 * @api
+	 *
+	 * @param Slim\Http\Client $request
+	 *
+	 *          The query elements in the URI are as follow:
+	 *          Required elements:
+	 *              pemail    = primary email [varchar(100)]
+	 *
+	 * @return array  Keys: errCode, statusText, codeLoc, custMsg, retPack
+	 *
+	 */
+	public function deactivateMember($request)
+	{
+		$this->myLogger->debug(__METHOD__);
+
+		// Getting the Query Paramters
+		$this->myLogger->debug("getUri / " . $request->getUri());
+
+		$this->myLogger->info("getQueryParam / pemail:" . $request->getQueryParam('pemail'));
+		$resultString = $this->setPrimaryEmail($request->getQueryParam('pemail'));
+		if ($resultString['errCode'] == 0)
+		{
+			$resultString = $this->updateMemberColumn('activemember', 'false');
+		}
+		$resultString['codeLoc'] = __METHOD__;
 
 		return $resultString;
 	}
@@ -130,6 +163,7 @@ class CreateMembers extends Members
 		{
 			$resultString = $this->updateMemberColumn('confirmed', 'true');
 		}
+		$resultString['codeLoc'] = __METHOD__;
 
 		return $resultString;
 	}
@@ -205,42 +239,7 @@ class CreateMembers extends Members
 		{
 			$resultString = $this->saveMember();
 		}
-
-		return $resultString;
-	}
-
-	/**
-	 * This will delete the member from the database
-	 *
-	 * THIS IS NOT A REST API. FOR INTERNAL USE ONLY
-	 * THIS IS NOT A REST API. FOR INTERNAL USE ONLY
-	 * THIS IS NOT A REST API. FOR INTERNAL USE ONLY
-	 * THIS IS NOT A REST API. FOR INTERNAL USE ONLY
-	 *
-	 * @param string primary email [varchar(100)]
-	 *
-	 * @return array  Keys: errCode, statusText, codeLoc, custMsg, retPack
-	 *
-	 */
-	public function deleteMember(string $myPrimaryEmail)
-	{
-		$this->myLogger->debug(__METHOD__);
-
-		$resultString = $this->setPrimaryEmail($myPrimaryEmail);
-		if ($resultString['errCode'] == 0)
-		{
-//			$mySTMT = $this->myDB->prepare('DELETE FROM eden.members WHERE primaryemail = \'' . $this->myPrimaryEmail . '\'');
-			$mySTMT = $this->myDB->prepare('DELETE FROM eden.members WHERE primaryemail = :primaryemail');
-			try
-			{
-				$mySTMT->bindParam(':primaryemail', $this->myPrimaryEmail);
-				$mySTMT->execute();
-				$resultString = array('errCode' => 0, 'statusText' => 'Success', 'codeLoc' => __METHOD__, 'custMsg' => '', 'retPack' => '');
-			} catch (\PDOException $e)
-			{
-				$resultString = array('errCode' => 900, 'statusText' => $e->getMessage(), 'codeLoc' => __METHOD__, 'custMsg' => '', 'retPack' => '');
-			}
-		}
+		$resultString['codeLoc'] = __METHOD__;
 
 		return $resultString;
 	}
@@ -280,6 +279,7 @@ class CreateMembers extends Members
 				$this->myLogger->debug('call to isMember DID NOT FIND requested row.');
 			}
 		}
+		$resultString['codeLoc'] = __METHOD__;
 
 		return $resultString;
 	}
@@ -311,6 +311,7 @@ class CreateMembers extends Members
 		{
 			$resultString = $this->readMemberColumn('activemember');
 		}
+		$resultString['codeLoc'] = __METHOD__;
 
 		return $resultString;
 	}
@@ -342,6 +343,7 @@ class CreateMembers extends Members
 		{
 			$resultString = $this->readMemberColumn('confirmed');
 		}
+		$resultString['codeLoc'] = __METHOD__;
 
 		return $resultString;
 	}
@@ -363,7 +365,7 @@ class CreateMembers extends Members
 			$resultString = array('errCode' => 0, 'statusText' => 'Success', 'codeLoc' => __METHOD__, 'custMsg' => '', 'retPack' => $myDeviceId);
 		} catch (\PDOException $e)
 		{
-			$resultString = array('errCode' => 900, 'statusText' => $e->getMessage(), 'codeLoc' => __METHOD__, 'custMsg' => '', 'retPack' => '');
+			$resultString = array('errCode' => $e->errorInfo[0], 'statusText' => $e->getMessage(), 'codeLoc' => __METHOD__, 'custMsg' => '', 'retPack' => '');
 		}
 
 		return $resultString;

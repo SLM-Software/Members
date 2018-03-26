@@ -35,6 +35,16 @@ $app->group('', function(){
 		// Returning $body
 		return $response->withJson($myMember->createMember($request));
 	});
+	$this->get('/members/deactivatemember', function ($request, $response, $args)
+	{
+		$this->logger->info("/deactivatemember '/' route");
+
+		// Creating Class instance
+		$myMember = new \API\CreateMembers($this->logger, $this->db, $this->get('settings')['curl']);
+
+		// Returning $body
+		return $response->withJson($myMember->deactivateMember($request));
+	});
 	$this->get('/members/ismember', function ($request, $response, $args)
 	{
 		$this->logger->info("/ismember '/' route");
