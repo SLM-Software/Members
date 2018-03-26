@@ -194,16 +194,8 @@ class CreateMembersRESTTest extends \Codeception\Test\Unit
 		$this->displayAssertions($assertResult);
 		$assertResult = NULL;
 //		END OF CONFIRM MEMBER
-
-
-//		// This is not a REST API - It is for internal use only.
-//		//
-		if (strtoupper($_ENV['APP_ENV']) == 'LOCAL')
-		{
-			$myMember = new \API\CreateMembers($this->logger, $this->pdo);
-			$myMember->deleteMember('testmember@3denlounge.com');
-		}
 	}
+
 	protected function displayAssertions($assertResult)
 	{
 		foreach ($assertResult as $key => $value)
